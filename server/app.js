@@ -4,7 +4,7 @@ let path = require('path');
 let cors = require('cors');
 let cookieParser = require('cookie-parser');
 const upload = require('multer')();
-let videoRouter = require('./router');
+let router = require('./router');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 let app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.array('file', 2));
 app.use(cookieParser());
-app.use('/videos', videoRouter);
+app.use('/videos', router);
 
 app.use(function (error, req, res, next) {
     console.log(error, req);
