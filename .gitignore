@@ -17,8 +17,10 @@ ehthumbs.db
 Thumbs.db
 
 # dependencies
+*/node_modules
 /node_modules
 /node_modules/
+node_modules/
 /.pnp
 .pnp.js
 # testing
