@@ -3,8 +3,8 @@ let express = require('express');
 let path = require('path');
 let cors = require('cors');
 let cookieParser = require('cookie-parser');
-let warehouseRouter = require('./warehouseRouter');
-let inventoryRouter = require('./inventoryRouter');
+let warehouseRouter = require('./routes/warehouses');
+let inventoryRouter = require('./routes/inventory');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 let app = express();
