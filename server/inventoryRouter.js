@@ -1,18 +1,28 @@
 const path = require("path");
-const INVENTORIES_FILE_PATH = './Data/inventories.json';
-const inventories = require(INVENTORIES_FILE_PATH);
+const INVENTORY_FILE_PATH = './Data/inventory.json';
+const inventory = require(INVENTORY_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
+
+
 /* 
-* GET inventory
+* GET inventory list
+*/
+router.get('/', (req, res) => {
+    console.info(inventory);
+    res.send(inventory);
+});
+
+/*
+* GET inventory item
 */
 router.get('/:id', (req, res) => {
-    res.send(inventories.filter(item => item.id = req.params.id));
+    res.send(inventory.filter(item => item.id = req.params.id));
 });
 
 /**
- * POST new inventory item
+ * POST add new inventory item
  */
 router.post('/', (req, res) => {
     let data = {
@@ -25,9 +35,9 @@ router.post('/', (req, res) => {
         quantity: req.body.quantity
     };
 
-    inventories.push(data);
+    inventory.push(data);
     try {
-        fs.writeFile(INVENTORIES_FILE_PATH, JSON.stringify(inventories), () => {
+        fs.writeFile(INVENTORY_FILE_PATH, JSON.stringify(inventory), () => {
             res.status(200).send(data);
         });
     }
