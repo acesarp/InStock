@@ -1,0 +1,154 @@
+//ERROR DOENSTN EXIST!! :invalid
+
+@mixin large__sizes {
+  border-radius: 20px;
+  height: 38px;
+  padding: 0 16px 0 16px;
+  text-decoration: none;
+}
+@mixin small_sizes {
+  border-radius: 20px;
+  height: 36px;
+  width: 90vw;
+  text-decoration: none;
+}
+
+@mixin large__primaryButton {
+  background-color: $Primaryindigo;
+  color: $Primarywhite;
+  @include large__sizes;
+  &:hover {
+    background-color: $Primaryblack;
+  }
+}
+@mixin small__primaryButton {
+  background-color: $Primaryindigo;
+  color: $Primarywhite;
+  @include small_sizes;
+}
+
+@mixin large__secondaryButton {
+  background-color: $Primarywhite;
+  color: $Secondaryslate;
+  @include large__sizes;
+  &:hover {
+    border: 1px solid $Primaryindigo;
+    color: $Primaryindigo;
+  }
+}
+@mixin small__secondaryButton {
+  background-color: $Primarywhite;
+  color: $Secondaryslate;
+  @include small_sizes;
+}
+
+@mixin large__deleteButton {
+  background-color: $Supportred;
+  color: $Primarywhite;
+  @include large__sizes;
+  &:hover {
+    background-color: $Primaryblack;
+  }
+}
+@mixin small__deleteButton {
+  background-color: $Supportred;
+  color: $Primarywhite;
+  @include small_sizes;
+}
+@mixin large__textLink {
+  color: $Primaryindigo;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: $Primaryindigo;
+  }
+}
+@mixin small__textLink {
+  color: $Primaryindigo;
+}
+
+@mixin large__formfield--search {
+  border: 1px solid $Secondaryslate;
+  @include large__sizes;
+
+  &:active {
+    border: 1px solid $Primaryindigo;
+  }
+}
+
+@mixin small__formfield--search {
+  border: 1px solid $Secondaryslate;
+  @include small_sizes;
+  &:active {
+    border: 1px solid $Primaryindigo;
+  }
+}
+
+@mixin small__formfield {
+  @include small__formfield--search;
+  :invalid {
+    border: 1px solid $Supportred;
+  }
+}
+@mixin large__formfield {
+  @include large__formfield--search;
+  :invalid {
+    border: 1px solid $Supportred;
+  }
+}
+@mixin errormessage {
+  background-image: url("alert.svg");
+  color: $Supportred;
+}
+@mixin selection {
+  input[type="radio"] {
+    background-color: $Primarywhite;
+    cursor: pointer;
+    margin: 4px 16px 0 0;
+    &:checked {
+      background: $Primaryindigo;
+    }
+  }
+}
+@mixin small__table {
+  width: 90vw;
+  border-top: 1px solid $Secondaryslate;
+  border-bottom: 1px solid $Secondaryslate;
+  &:hover {
+    background-color: $Primaryindigo;
+  }
+}
+
+@mixin large__ttable {
+  @include small__Wtable {
+    &:hover {
+      background-color: $Primaryindigo;
+    }
+  }
+}
+@mixin small__tag {
+  height: 24px;
+  padding: 0 8px 0 8px;
+  opacity: 0.5;
+}
+@mixin large__tag {
+  height: 26px;
+  padding: 0 8px 0 8px;
+  opacity: 0.5;
+}
+@mixin small__outtag {
+  @include small_tag;
+  color: $Supportred;
+  background-color: $Supportred;
+}
+@mixin large__outtag {
+  @include large__tag;
+  color: $Supportred;
+}
+@mixin small__intag {
+  @include small_tag;
+  color: $Supportgreen;
+}
+@mixin large__intag {
+  @include large__tag;
+  color: $Supportgreen;
+}
