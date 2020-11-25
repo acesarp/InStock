@@ -4,6 +4,7 @@ const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
+const { emailChecker, checkValue, checkPhoneNumber } = require('./fieldChecker.js');
 
 /* 
 * GET warehouses list

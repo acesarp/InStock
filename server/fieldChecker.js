@@ -31,6 +31,7 @@ const checkValue = (value_) => {
         return value_;
 };
 
+
 /**
  * 
  * @param {String} phone_
@@ -49,3 +50,5 @@ const checkPhoneNumber = (phone_) => {
     else
         return phone_;
 };
+
+module.exports =  { emailChecker, checkValue, checkPhoneNumber }

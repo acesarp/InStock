@@ -4,15 +4,16 @@ import axios from 'axios';
 export default class InventoryList extends React.Component {
     url = 'http://localhost:5000';
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             list: []
         };
     }
     
     componentDidMount() {
-        axios.get(`${this.url}/inventory`)
+        const id = this.props.warehouseId ?? "";
+        axios.get(`${this.url}/inventory/:${id}`)
             .then(response => {
                 
                 this.setState({ list: response.data });
@@ -39,11 +40,17 @@ export default class InventoryList extends React.Component {
     render() {
         return (
             <div>
-                <h1>Inventory</h1>
                 <table>
                     <thead>
                         <tr>
-                        <th>INVENTORY ITEM</th>
+                            <th>
+                                INVENTORY ITEM
+                                <div>
+                                    <div><img src="" alt="" />up</div>
+                                    <div><img src="" alt=""/>down</div>
+                                </div>
+
+                            </th>
                         <th>CATEGORY</th>
                         <th>STATUS</th>
                         <th>QTY</th>
@@ -55,7 +62,7 @@ export default class InventoryList extends React.Component {
                         {this.state.list && this.state.list.map(item => {
                             return (
                             <tr key={item.id} id={item.id}>
-                                    <td>{item.itemName}</td>
+                                    <td>{item.itemName}/</td>
                                     <td>{item.category}</td>
                                     <td>{item.status}</td>
                                     <td>{item.quantity}</td>

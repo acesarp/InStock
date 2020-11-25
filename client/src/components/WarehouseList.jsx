@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-
+import { Link } from 'react-router-dom';
+import WarehouseDetails from './WarehouseDetails';
 export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     
@@ -54,7 +55,7 @@ export default class WarehouseList extends React.Component {
                         {this.state.list && this.state.list.map(item => {
                             return (
                             <tr key={item.id} id={item.id}>
-                                    <td>{item.name}</td>
+                                    <td><Link to="/wareHouseDetails" component={(item) => <WarehouseDetails warehouseId={ item.id } />} />{item.name}</td>
                                     <td>{item.address}</td>
                                     <td>{item.contact.name}</td>
                                     <td><div>{item.contact.phone}</div>
