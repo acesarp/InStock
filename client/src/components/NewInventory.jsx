@@ -4,18 +4,34 @@ import axios from 'axios';
 export default class NewInventory extends React.Component {
     url = 'http://localhost:5000';
 
-    submitHandler = (e) => {
-        e.preventDefault();
-        console.log(e.target);
-        let formData = new FormData(e.target);
+    constructor() {
+        super();
+        this.state = {
+            itemName: "Test value item name",
+            description: "Test value description"
+        };
+    }
+
+    submitHandler = (event) => {
+        event.preventDefault();
+        console.log(event.target);
+        let formData = new FormData(event.target);
         axios.post(`${this.url}/inventory`, {
                 data: formData
                 })
             .then(response => {
                 console.info(response);
-                e.target.reset();
+                event.target.reset();
             })
             .catch(error => console.error(error));
+    }
+
+    changeHandler = (event) => {
+        const currentState = this.state;
+        this.setState({
+            ...currentState,
+            [event.target.name]: event.target.value
+        });
     }
 
     render() {
@@ -27,11 +43,21 @@ export default class NewInventory extends React.Component {
                     <div>
                         <div>
                             <label htmlFor="">Item Name</label>
-                            <input type="text" name="itemName" required value="Test value item name" />
+                            <input
+                                type="text"
+                                name="itemName"
+                                value={this.state.itemName}
+                                required
+                                onChange={this.changeHandler} />
                         </div>
                         <div>
                         <label>Description</label>
-                        <textarea name="description" placeholder="Please enter a brief description..." required value="Test value description"></textarea>            
+                            <textarea
+                                name="description"
+                                placeholder="Please enter a brief description..."
+                                required
+                                value={ this.state.description}
+                                onChange={this.changeHandler} ></textarea>            
                         </div>
                         <div>
                         <label>Category</label>
@@ -43,21 +69,34 @@ export default class NewInventory extends React.Component {
 
             <div>
                     <div>
-                        <input type="radio" name="status" id="in-stock" value="In stock" />
+                            <input
+                                type="radio"
+                                name="status"
+                                id="in-stock"
+                                value="In stock"
+                                onChange={this.changeHandler} />
                         <label htmlFor="in-stock">In stock</label>
                     </div>
                     <div>               
-                        <input type="radio" name="status" id="out-of-stock" value="Out of stock"/>
+                            <input
+                                type="radio"
+                                name="status"
+                                id="out-of-stock"
+                                value="Out of stock"
+                                onChange={this.changeHandler} />
                         <label htmlFor="out-of-stock">Out of stock</label>
                     </div>
                     <div>
                         <label>Quantity</label>
-                        <input type="number" value="0"/>
+                            <input
+                                type="number"
+                                value={this.state.uantity}
+                                onChange={this.changeHandler} />
                     </div>
                     
                     <div>
                     <label>Warehouse Name</label>
-                            <select>
+                            <select value={this.state.wareHouseName}>
                                 {this.props.wareHouseNames && this.props.wareHouseNames.forEach(element => {
                                     console.log("element ", element); 
                                     <option value={element}>{element}</option>
