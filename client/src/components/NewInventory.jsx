@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-
+import InventoryModel from '../models/InventoryModel';
 export default class NewInventory extends React.Component {
     url = 'http://localhost:5000';
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             itemName: "Test value item name",
             description: "Test value description"
@@ -15,9 +15,21 @@ export default class NewInventory extends React.Component {
     submitHandler = (event) => {
         event.preventDefault();
         console.log(event.target);
-        let formData = new FormData(event.target);
+        let data = new FormData(event.target);
+        
+        const model = new InventoryModel(
+            this.props.id,
+            this.props.warehouseId,
+            this.props.warehouseName,
+            data.get("itemName").toString(),
+            data.get("description").toString(),
+            data.get("category").toString(),
+            data.get("status").toString(),
+            Number.parseInt(data.get("quantity").toString())
+        );
+
         axios.post(`${this.url}/inventory`, {
-                data: formData
+            data: model.stringify()
                 })
             .then(response => {
                 console.info(response);
@@ -56,7 +68,7 @@ export default class NewInventory extends React.Component {
                                 name="description"
                                 placeholder="Please enter a brief description..."
                                 required
-                                value={ this.state.description}
+                                value={ this.state.description }
                                 onChange={this.changeHandler} ></textarea>            
                         </div>
                         <div>
@@ -83,7 +95,8 @@ export default class NewInventory extends React.Component {
                                 name="status"
                                 id="out-of-stock"
                                 value="Out of stock"
-                                onChange={this.changeHandler} />
+                                onChange={this.changeHandler}
+                                required />
                         <label htmlFor="out-of-stock">Out of stock</label>
                     </div>
                     <div>
@@ -91,12 +104,16 @@ export default class NewInventory extends React.Component {
                             <input
                                 type="number"
                                 value={this.state.uantity}
-                                onChange={this.changeHandler} />
+                                onChange={this.changeHandler}
+                                required
+                                />
                     </div>
                     
                     <div>
                     <label>Warehouse Name</label>
-                            <select value={this.state.wareHouseName}>
+                            <select
+                                value={this.state.wareHouseName}
+                                required >
                                 {this.props.wareHouseNames && this.props.wareHouseNames.forEach(element => {
                                     console.log("element ", element); 
                                     <option value={element}>{element}</option>
