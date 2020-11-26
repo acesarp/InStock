@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import WarehouseDetails from './WarehouseDetails';
 import { v4 as uuid } from 'uuid';
+import SubHeader from './SubHeader';
 export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     
@@ -41,6 +42,7 @@ export default class WarehouseList extends React.Component {
     render() {
         return (
             <div>
+                <SubHeader title={"Warehouses"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit-24px.svg`} alt="" /> }/>
                 <h1>Warehouses</h1>
                 <table>
                     <thead>

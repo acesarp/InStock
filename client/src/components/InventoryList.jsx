@@ -1,14 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import SubHeader from './SubHeader';
 
 export default class InventoryList extends React.Component {
     url = 'http://localhost:5000';
-    iconFolder = `${process.env.PUBLIC_URL}/icons/`;
+    iconFolder = `${process.env.PUBLIC_URL}/Icons`;
+    fullList = [];
+            state = {
+            list: [],
+            sortToggle: false
+        };
+
     constructor(props) {
         super(props);
         this.state = {
-            list: []
+            list: [],
+            sortToggle: false
         };
     }
     
@@ -16,20 +24,35 @@ export default class InventoryList extends React.Component {
         const id = this.props.warehouseId ?? "";
         axios.get(`${this.url}/inventory/:${id}`)
             .then(response => {
-                
+                this.fullList = response.data;
                 this.setState({ list: response.data });
+            })
+            .catch(error => console.error(error));
+    }
+
+    addHandler = (event) => {
+        event.preventDefeult();
+        const formData = new FormData(event.target);
+
+        axios.post(`${this.url}/inventory`, {
+
+            })
+            .then(response => {
+                this.setState(response.data);
             })
             .catch(error => console.error(error));
     }
 
     editHandler = () => {
         axios.put(`${this.url}/inventory`, {
+                //STUB To Do
                 })
             .then(response => {
                 this.setState(response.data);
             })
             .catch(error => console.error(error));
     }
+
     deleteHandler = () => {
         axios.delete(`${this.url}/inventory/:id`)
             .then(response => {
@@ -44,34 +67,59 @@ export default class InventoryList extends React.Component {
      * @param {string} key
      *  
      */
-    sortHandler = (event, key) => {
-        console.debug("click! ", key);
-        let currentState = this.state.list;
-        let sortedList = currentState.sort((a, b) => Compare(a, b, key));
-        this.setState({ list: sortedList });
-
-        function Compare(a, b, key) {
-            if (a[key] < b[key]) {
-                return -1;
-            }
-            if (a[key] > b[key]) {
-                return 1;
-            }
+    sortHandler = (event, key) => {        
+        let currentList = this.state.list;
+        let sortedList = currentList.sort((a, b) => this.compare(a, b, key));
+        const flipSort = this.state.sortToggle ? false : true;
+        
+        this.setState({ list: sortedList, sortToggle: flipSort });
+    }
+    /**
+     * 
+     * @param {string} a 
+     * @param {string} b 
+     * @param {string} key 
+     */
+    compare = (a, b, key) => {
+        if (a[key] < b[key])
+            return this.state.sortToggle ? -1 : 1;
+        else if (a[key] > b[key])
+            return this.state.sortToggle ? 1 : -1;
+        else
             return 0;
         }
-    
+
+    /**
+     * 
+     * @param {React.ChangeEvent<HTMLInputElement>} event 
+     */
+    searchHandler = (event) => {
+        console.debug("Searching... => ", event.target.value);
+        let currentState = this.fullList;
+        let filteredList = [];
+        currentState.forEach((element) => {
+            const keys = Object.keys(element);
+            for(const key of keys) {
+                if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
+                    filteredList.push(element);
+                    break;
+                }
+            }
+        });
+        this.setState({ list: filteredList });
     }
+
 
     render() {
         return (
-            <div>
+            <div className="InventoryList">
+                <SubHeader title={"Inventory"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit-24px.svg`} alt="" /> }/>
                 <table>
                     <thead>
                         <tr>
                             <th>
                                 INVENTORY ITEM
                                 <div onClick={(event) => this.sortHandler(event, "itemName") } ><img src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div>
-                                
                             </th>
                             <th>
                                 CATEGORY

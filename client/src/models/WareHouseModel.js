@@ -19,6 +19,21 @@ export default class WareHouseModel {
         this.contact = contact;
     
     };
-    
+
+    stringify() {
+        return JSON.stringify({
+            id: this.id,
+            name: this.name,
+            address: this.address,
+            city: this.city,
+            country: this.country,
+            contact: {
+                name: this.contact.name,
+                position: this.contact.position,
+                phone: this.contact.phone,
+                email: this.contact.email
+            }
+        });
+    }
 }
 

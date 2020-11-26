@@ -8,7 +8,7 @@ export default class InventoryModel {
      * @param {string} itemName
      * @param {string} category
      * @param {string} status
-     * @param {string} quantity
+     * @param {Number} quantity
      */
     constructor(id, warehouseID, warehouseName, itemName, description, category, status, quantity) {
 
@@ -21,5 +21,18 @@ export default class InventoryModel {
         this.status = status;
         this.quantity = quantity;
     };
+
+    stringify() {
+        return JSON.stringify({
+            id: this.id,
+            warehouseID: this.warehouseID,
+            warehouseName: this.warehouseName,
+            itemName: this.itemName,
+            description: this.description,
+            category: this.category,
+            status: this.status,
+            quantity: this.quantity
+        });
+    }
 }
 
