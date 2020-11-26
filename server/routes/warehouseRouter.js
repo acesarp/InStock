@@ -1,10 +1,10 @@
 const path = require("path");
-const WAREHOUSES_FILE_PATH = './Data/warehouses.json';
+const WAREHOUSES_FILE_PATH = '../Data/warehouses.json';
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
-const { emailChecker, checkValue, checkPhoneNumber } = require('./fieldChecker.js');
+const { emailChecker, checkValue, checkPhoneNumber } = require('../fieldChecker.js');
 
 /* 
 * GET warehouses list
@@ -28,6 +28,8 @@ router.get('/names', (req, res) => {
 * GET warehouse by id
 */
 router.get('/:id', (req, res) => {
+    console.info('get \'/:id\'');
+    console.info(warehouses.filter(item => item.id = req.params.id));
     res.send(warehouses.filter(item => item.id = req.params.id));
 });
 

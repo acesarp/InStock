@@ -1,10 +1,11 @@
 import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
 import NewInventory from './components/NewInventory';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import React from 'react';
+import WarehouseDetails from './components/WarehouseDetails';
 
 export default class App extends React.Component {
   state = { names: {}}
@@ -25,9 +26,10 @@ export default class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <BrowserRouter>
-            <InventoryList />
-            <WarehouseList />
-            <NewInventory warehouseNames={this.state.names} />
+            <Route path="/" component={ InventoryList } exact/>
+            <Route path="/wareHouseList" component={ WarehouseList } />
+            <Route path="/warehouseDetails" component={ WarehouseDetails } />
+            <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames = { this.state.names } /> } />
           </BrowserRouter>
 
         </header>

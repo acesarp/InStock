@@ -1,4 +1,4 @@
-export class WareHouseModel {
+export default class WareHouseModel {
 
     /**
      * 

@@ -1,4 +1,4 @@
-export class WareHouseModel {
+export default class WareHouseModel {
 
     /**
      * 
@@ -9,7 +9,7 @@ export class WareHouseModel {
      * @param {string} country 
      * @param {{ name:string, position:string, phone:string, email:string }} contact
      */
-    constructor(id, name, address, city, country, contact = { name: null, position: null, phone: null, email: null }) {
+    constructor(id, name, address, city, country, contact) {
         
         this.id = id;
         this.name = name
@@ -19,5 +19,6 @@ export class WareHouseModel {
         this.contact = contact;
     
     };
+    
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import WarehouseDetails from './WarehouseDetails';
+import { v4 as uuid } from 'uuid';
 export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     
@@ -54,8 +55,8 @@ export default class WarehouseList extends React.Component {
                     <tbody>
                         {this.state.list && this.state.list.map(item => {
                             return (
-                            <tr key={item.id} id={item.id}>
-                                    <td><Link to="/wareHouseDetails" component={(item) => <WarehouseDetails warehouseId={ item.id } />} />{item.name}</td>
+                            <tr key={uuid()} id={item.id}>
+                                    <td><Link to="/wareHouseDetails" component={() => <WarehouseDetails warehouseId={ item.id } />} />{item.name}</td>
                                     <td>{item.address}</td>
                                     <td>{item.contact.name}</td>
                                     <td><div>{item.contact.phone}</div>
@@ -63,8 +64,8 @@ export default class WarehouseList extends React.Component {
                                     </td>
                                     <td>{item.warhouseName}</td>
                                 <td>
-                                        <button onClick={this.editHandler}><img src={ `${process.env.dirname}/public/incons/delete-outline-24px.svg` } alt="Edit icon" /></button>
-                                    <button onClick={this.deleteHandler}><img src="" alt="Delete icon" /></button>
+                                        <button onClick={this.editHandler}><img src={ `${process.env.PUBLIC_URL}/incons/edit-24px.svg` } alt="Edit icon" /></button>
+                                    <button onClick={this.deleteHandler}><img src={ `${process.env.PUBLIC_URL}/incons/delete-outline-24px.svg` } alt="Delete icon" /></button>
                                 </td>
                                 </tr>
                             )
