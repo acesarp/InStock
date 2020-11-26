@@ -19,6 +19,7 @@ Thumbs.db
 # dependencies
 */node_modules
 client/node_modules
+client/.eslintcache
 server/node_modules
 node_modules
 
