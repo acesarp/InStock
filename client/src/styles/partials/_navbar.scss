@@ -86,8 +86,21 @@
 
     &--inventory {
       text-decoration: none;
-      color: $Primarywhite;
-      border-bottom: solid 3px$Primarywhite;
+
+      @mixin tabbtn {
+        @include small_sizes {
+          background-color: $PrimaryBlack;
+          color: $Primarcloud;
+          &:active {
+            background-color: black;
+            color: $Primarywhite;
+          }
+          &:hover {
+            text-decoration: line-through;
+            color: $Primarywhite;
+          }
+        }
+      }
 
       @media (min-width: $tablet) {
         width: 75px;
@@ -98,8 +111,8 @@
 
     &--warehouses {
       text-decoration: none;
-      color: $Primarycloud;
       width: 50%;
+      @include tabbtn;
 
       @media (min-width: $tablet) {
         width: 75px;
