@@ -16,7 +16,11 @@
 ehthumbs.db
 Thumbs.db
 
-/node_modules/
+client/node_modules
+server/node_modules
+/node_modules
+
+
 
 # dependencies
 /node_modules
