@@ -4,16 +4,15 @@
  * @param {String} email_ 
  */
 const emailChecker = (email_) => {
-    const regex = new RegExp("(^[\w\-]{1,}[\w\-\.^abc$]{3,}@[\w\-\.]{3,}\.\w{2,})$", "g");
+    const regex = new RegExp(/(^[\w\-]{1,}[\w\-\.^abc$]{3,}@[\w\-\.]{3,}\.\w{2,})$/, "g");
     try {
         checkValue(email_);
     }
     catch (err) {
-        throw err;
+        return err;
     }
-    email_.replace(/ /g, "");
     if (!regex.test(email_))
-        throw `Invalid`;
+        return error;
     else
         return email_;
 }
@@ -25,10 +24,11 @@ const emailChecker = (email_) => {
  * @throws error if value_ is null, undefined, length less than 2 
  */
 const checkValue = (value_) => {
-    if (value_ || value_.length < 2)
-        throw `Invalid`;
-    else
-        return value_;
+    if (!value_ || value_.length < 2) {
+        return error;
+    } else {
+      return value_;
+    }
 };
 
 
@@ -37,18 +37,18 @@ const checkValue = (value_) => {
  * @param {String} phone_
  */
 const checkPhoneNumber = (phone_) => {
-    const regex = new RegExp("^\d{0,1}[(]\d{3}[)]\d{3}[-]\d{4}$", "g");
+    const regex = new RegExp(/\d[(]\d{3}[)]\d{3}[-]\d{4}/,"g");
     try {
         checkValue(phone_);
     }
     catch (err) {
-        throw err;
+        return error;
     }
-    phone_.replace(/ /g, "");
-    if (!regex.test(phone_))
-        throw `Invalid`;
-    else
+    if (!regex.test(phone_)) {
+        return error;
+    } else {
         return phone_;
+    }
 };
 
 module.exports =  { emailChecker, checkValue, checkPhoneNumber }
