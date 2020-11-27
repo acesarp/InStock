@@ -1,5 +1,5 @@
 const path = require("path");
-const WAREHOUSES_FILE_PATH = '../Data/warehouses.json';
+const WAREHOUSES_FILE_PATH = path.join(__dirname, '../Data/warehouses.json');
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
@@ -28,62 +28,72 @@ router.get('/names', (req, res) => {
 * GET warehouse by id
 */
 router.get('/:id', (req, res) => {
-    console.info('get \'/:id\'');
-    console.info(warehouses.filter(item => item.id = req.params.id));
-    res.send(warehouses.filter(item => item.id = req.params.id));
+    res.send(warehouses.filter(item => item.id === req.params.id));
 });
 
 /**
  * POST add new warehouses item
  */
 router.post('/', (req, res) => {
-    let data = {
-        id: uuid(),
-        name: req.body.name,
-        address: req.body.address,
-        description: req.body.description,
-        city: req.body.city,
-        country: req.body.country,
-        contact: {
-            name: req.body.contact.name,
-            position: req.body.contact.position,
-            phone: req.body.contact.phone,
-            email: req.body.contact.email
-        }
-    };
-    warehouses.push(data);
+  if (!req.body.name || !req.body.address || !req.body.city || !req.body.country || !req.body.contact.name || !req.body.contact.position || !req.body.contact.phone || !req.body.contact.email) {
+    res.status(400).json({
+      error: 'POST body must contain all required properties',
+      requiredProperties: ['name', 'address', 'city', 'country', 'contact: name', 'contact: position', 'contact: phone', 'contact: email'],
+    });
+  } else {
     try {
+      console.log(checkPhoneNumber(req.body.contact.phone));
+      let data = {
+        id: uuid(),
+        name: checkValue(req.body.name),
+        address: checkValue(req.body.address),
+        city: checkValue(req.body.city),
+        country: checkValue(req.body.country),
+        contact: {
+            name: checkValue(req.body.contact.name),
+            position: checkValue(req.body.contact.position),
+            phone: checkPhoneNumber(req.body.contact.phone),
+            email: emailChecker(req.body.contact.email)
+        }
+      };
+      warehouses.push(data);
+      try {
         fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-            res.status(200).send(data);
-        });
+          res.status(200).send(data);
+      });
+      }
+        catch (error) {
+          res.sendStatus(500);
+      }
     }
-    catch (error) {
-        res.sendStatus(500);
+    catch(error) {
+      res.status(400).json({
+        error: 'Invalid property or properties. Please check body and re-send request.',
+      });
     }
+  }
 });
 
 
 /*
 * Edit warehouse
 */
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
     let found = false;
     let index = 0
-    for (; index < Object.keys(warehouses).length; ++index) {
+    for (; index < warehouses.length; ++index) {
         if (warehouses[index].id === req.body.id) {
             try {
                 found = true;
-                warehouses[index].id = checkValue(req.body.id);
                 warehouses[index].name = checkValue(req.body.name);
                 warehouses[index].address = checkValue(req.body.address);
-                warehouses[index].description = checkValue(req.body.description);
                 warehouses[index].city = checkValue(req.body.city);
                 warehouses[index].country = checkValue(req.body.country);
                 warehouses[index].contact = {
                     name: checkValue(req.body.contact.name),
                     position: checkValue(req.body.contact.position),
-                    phone: checkPhoneNumber(req.body.contact.phone),
-                    email: emailChecker(req.body.contact.email)
+                    phone: checkValue(req.body.contact.phone),
+                    email: checkValue(req.body.contact.email)
                 };
             }
             catch (err) {
@@ -110,7 +120,7 @@ router.put('/', (req, res) => {
 
 
 /*
-* GET warehouse by id
+* Delete warehouse by id
 */
 router.delete('/:id', (req, res) => {
     let deletedItem = {};
