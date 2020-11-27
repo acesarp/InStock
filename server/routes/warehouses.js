@@ -36,7 +36,6 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
   try {
-    console.log(checkPhoneNumber(req.body.contact.phone));
     let data = {
       id: uuid(),
       name: checkValue(req.body.name),
@@ -73,7 +72,7 @@ router.post('/', (req, res) => {
 */
 router.put('/', (req, res) => {
     let found = false;
-    let index = 0
+    let index = 0;
     for (; index < warehouses.length; ++index) {
         if (warehouses[index].id === req.body.id) {
             try {
