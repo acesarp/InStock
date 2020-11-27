@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 function SubHeader(props) {
+    
     const [state] = useState(props);
-
+    //console.log(props.warehouseList);
+    
     return (
         
         <div className="subHeader">
-            <h1>{ state.title }</h1>
-            { state.buttonHandler &&
-                <button className="btn" onClick={ state.buttonHandler }> { state.buttonLabel } jhh</button>
-            }
-            
-            { state.searchHandler &&
+            <h1>{props.title}</h1>
+
+            { props.searchHandler &&
                 <form id="listSearch">
-                    <input onChange={ state.searchHandler } name="search" placeholder="Search..." />
+                    <input onChange={ props.searchHandler } name="search" placeholder="Search..." />
                 </form>
             }
+            
+            { props.warehouseList &&
+                <Link className="" to={{ pathname: state.route}} >
+                    <div className="btn">
+                        { state.buttonLabel }
+                    </div>
+                </Link>
+            }
+
         </div>
     );
 }

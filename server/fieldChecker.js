@@ -11,6 +11,7 @@ const emailChecker = (email_) => {
     catch (err) {
         return err;
     }
+    email_ = email_.replace(/ /g, "");
     if (!regex.test(email_))
         return error;
     else
@@ -37,16 +38,20 @@ const checkValue = (value_) => {
  * @param {String} phone_
  */
 const checkPhoneNumber = (phone_) => {
-    const regex = new RegExp(/\d[(]\d{3}[)]\d{3}[-]\d{4}/,"g");
+    const regex = new RegExp(/^((\+\d){0,1}|\d{0,1})[(]\d{3}[)]\d{3}[-]\d{4}$/, "g");
     try {
         checkValue(phone_);
     }
     catch (err) {
+        console.error(err);
         return error;
     }
-    if (!regex.test(phone_)) {
+
+    phone_= phone_.replace(/ /g, '');
+
+    if (!regex.test(phone_))
         return error;
-    } else {
+    else
         return phone_;
     }
 };

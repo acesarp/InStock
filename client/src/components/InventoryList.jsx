@@ -30,19 +30,6 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    addHandler = (event) => {
-        event.preventDefeult();
-        const formData = new FormData(event.target);
-
-        axios.post(`${this.url}/inventory`, {
-
-            })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
-    }
-
     editHandler = () => {
         axios.put(`${this.url}/inventory`, {
                 //STUB To Do
@@ -94,13 +81,13 @@ export default class InventoryList extends React.Component {
      * @param {React.ChangeEvent<HTMLInputElement>} event 
      */
     searchHandler = (event) => {
-        console.debug("Searching... => ", event.target.value);
-        let currentState = this.fullList;
+        let currentState = [...this.fullList];
         let filteredList = [];
+        
         currentState.forEach((element) => {
             const keys = Object.keys(element);
             for(const key of keys) {
-                if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
+                if (element[key].toString().toLowerCase().includes(event.target.value.toLowerCase(), 0)) {
                     filteredList.push(element);
                     break;
                 }
@@ -113,7 +100,15 @@ export default class InventoryList extends React.Component {
     render() {
         return (
             <div className="InventoryList">
-                <SubHeader title={"Inventory"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit-24px.svg`} alt="" /> }/>
+                <SubHeader title={"Inventory"}
+                    searchHandler={this.searchHandler}
+                    warehouseList={this.fullList
+                        .map(item => {
+                            //console.log(item);
+                            return { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
+                        })}
+                    route="/newinventoryitem"
+                    buttonLabel={"+ Add New Item"} />
                 <table>
                     <thead>
                         <tr>
