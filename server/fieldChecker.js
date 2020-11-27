@@ -9,13 +9,14 @@ const emailChecker = (email_) => {
         checkValue(email_);
     }
     catch (err) {
-        throw err;
+        return err;
     }
     email_ = email_.replace(/ /g, "");
-    if (!regex.test(email_))
-        throw `Invalid`;
-    else
+    if (!regex.test(email_)) {
+        return error;
+    } else {
         return email_;
+    }
 }
 
 
@@ -25,12 +26,11 @@ const emailChecker = (email_) => {
  * @throws error if value_ is null, undefined, length less than 2 
  */
 const checkValue = (value_) => {
-
     if (!value_ || value_.length < 2) {
-        throw `Invalid`;
+        return error;
+    } else {
+      return value_;
     }
-    else
-        return value_;
 };
 
 
@@ -45,15 +45,17 @@ const checkPhoneNumber = (phone_) => {
     }
     catch (err) {
         console.error(err);
-        throw err;
+        return error;
     }
 
     phone_= phone_.replace(/ /g, '');
 
-    if (!regex.test(phone_))
-        throw `Invalid`;
-    else
+    if (!regex.test(phone_)) {
+        return error;
+    
+    } else {
         return phone_;
+    }
 };
 
 module.exports =  { emailChecker, checkValue, checkPhoneNumber }
