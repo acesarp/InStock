@@ -11,7 +11,7 @@ export default class NewInventory extends React.Component {
             formData: {
                 itemName: "Test value item name",
                 description: "Test value description",
-                category: ""
+                category: "",
                 stockStatus: false,
                 quantity: 0,  
             },
