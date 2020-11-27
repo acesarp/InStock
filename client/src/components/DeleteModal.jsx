@@ -13,12 +13,25 @@ export default class DeleteModal extends Component {
         return(
             <div className="delete-modal__wrapper">
                 <div className="delete-modal">
-                    <h1 className="delete-modal__title"> Deletetelevision inventory item?</h1>
+                    <h1 className="delete-modal__title"> Delete {this.props.item} inventory item?</h1>
                     <div className="nav" >
-                        <p className="delete-modal__paragraph">Please confirm that you'd like to delete {this.props.item} from the inventory list.</p>
-                        <p>You won't be able to undo this action.</p>
-                        <button className="delete-modal__button--cancel" onClick={ this.state.clickHandler } >Cancel</button>
-                        <button className="delete-modal__button--delete" onClick={ this.state.clickHandler } >Delete</button>
+                        { this.state.message ||
+                            <p className="delete-modal__paragraph">Please confirm that you'd like to delete {this.props.item} from the inventory list.<br />
+                            You won't be able to undo this action.</p>
+                        }
+                        
+                        <button
+                            className="delete-modal__button--cancel"
+                            onClick={this.state.clickModalHandler}
+                            value="cancel" >
+                            Cancel
+                        </button>
+                        <button
+                            className="delete-modal__button--delete"
+                            onClick={this.state.clickModalHandler}
+                            value="delete" >
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>

@@ -17,26 +17,11 @@
 }
 
 body {
-  margin: auto;
-  margin: 0 1rem;
-}
-
-@media only screen and (min-width: 768px) {
-  body {
-    margin: 0 2rem;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  body {
-    margin: 0 auto;
-  }
+  margin: 0;
 }
 
 a {
   border: 1px solid green;
-  -webkit-text-decoration-style: none;
-          text-decoration-style: none;
   text-decoration: none;
   -ms-flex-item-align: baseline;
       align-self: baseline;
@@ -132,6 +117,29 @@ button {
           flex-direction: row;
 }
 
+.delete-modal__wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: visible;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.subHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid yellow;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
 .nav {
   background-color: #13182c;
   margin-bottom: 0;
@@ -180,7 +188,7 @@ button {
   }
 }
 
-.nav__tabs {
+.nav-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -195,20 +203,14 @@ button {
   height: 60%;
 }
 
-@media only screen and (min-width: 768px) {
-  .nav__tabs {
-    width: 200px;
-  }
-}
-
-.nav__tabs--inventory {
+.nav__link--inventory {
   text-decoration: none;
   color: #ffffff;
   border-bottom: solid 3px #ffffff;
 }
 
 @media only screen and (min-width: 768px) {
-  .nav__tabs--inventory {
+  .nav__link--inventory {
     width: 75px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -217,40 +219,19 @@ button {
   }
 }
 
-.nav__tabs--inventory {
+.nav__link--inventory {
   text-decoration: none;
+  background-color: #13182c;
+  color: #bdc5d5;
 }
 
-@media only screen and (min-width: 768px) {
-  .nav__tabs--inventory {
-    width: 75px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin: 0px;
-  }
+.nav__link--inventory:active {
+  background-color: black;
+  color: #ffffff;
 }
 
-.nav__tabs--warehouses {
-  text-decoration: none;
-  width: 50%;
-}
-
-@media only screen and (min-width: 768px) {
-  .nav__tabs--warehouses {
-    width: 75px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin: 0px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .nav__tabs--warehouses {
-    -ms-flex-item-align: center;
-        -ms-grid-row-align: center;
-        align-self: center;
-  }
+.nav__link--inventory:hover {
+  text-decoration: line-through;
+  color: #ffffff;
 }
 /*# sourceMappingURL=main.css.map */

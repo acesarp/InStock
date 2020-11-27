@@ -112,7 +112,7 @@ router.put('/', (req, res) => {
 
 
 /*
-* GET warehouse by id
+* DELETE warehouse by id
 */
 router.delete('/:id', (req, res) => {
     let deletedItem = {};

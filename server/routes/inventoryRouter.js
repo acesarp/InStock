@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 /*
-* GET inventory item
+* GET inventory item by id
 */
 router.get('/:id', (req, res) => {
     res.send(inventory.filter(item => item.id = req.params.id));
@@ -39,6 +39,35 @@ router.post('/', (req, res) => {
     try {
         fs.writeFile(INVENTORY_FILE_PATH, JSON.stringify(inventory), () => {
             res.status(200).send(data);
+        });
+    }
+    catch (error) {
+        res.sendStatus(500);
+    }
+});
+
+/*
+* GET inventory by id
+*/
+router.delete('/:id', (req, res) => {
+    let deletedItem = {};
+    let found = false;
+    let index = 0;
+    for (; index < inventory.length; ++index) {
+        if (inventory[index].id === req.params.id) {
+            deletedItem = inventory[index];
+            delete inventory[index];
+        }
+        break;
+    }
+
+    if (!found) {
+        res.status(404).send({ error: "Warehouse not found" });
+        return;
+    }
+    try {
+        fs.writeFile(INVENTORY_FILE_PATH, JSON.stringify(inventory), () => {
+            res.send({ deleted: deletedItem });
         });
     }
     catch (error) {
