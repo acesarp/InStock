@@ -1,4 +1,4 @@
-//ERROR DOENSTN EXIST!! :invalid
+//ERROR DOESNT EXIST!! :invalid
 
 @mixin large__sizes {
   border-radius: 20px;
@@ -17,7 +17,7 @@
   background-color: $Primaryindigo;
   color: $Primarywhite;
   @include large__sizes;
-  &:hover {
+  &:active {
     background-color: $Primaryblack;
   }
 }
