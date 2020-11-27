@@ -1,12 +1,13 @@
-import React from "react";
+import React from 'react';
 import './App.css';
-import Nav from "./components/Nav/Nav";
-// import logo from './logo.svg';
-import './App.css';
+import Nav from './components/Nav/Nav';
 
-const App =() => {
-<div className="try1">
-  <Nav />
-</div>
+class App extends React.Component{
+  render(){
+    return(
+      <Nav />
+    );
+  }
 }
-export default App
+
+export default App;
