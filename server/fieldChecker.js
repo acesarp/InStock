@@ -12,10 +12,11 @@ const emailChecker = (email_) => {
         return err;
     }
     email_ = email_.replace(/ /g, "");
-    if (!regex.test(email_))
+    if (!regex.test(email_)) {
         return error;
-    else
+    } else {
         return email_;
+    }
 }
 
 
@@ -49,9 +50,10 @@ const checkPhoneNumber = (phone_) => {
 
     phone_= phone_.replace(/ /g, '');
 
-    if (!regex.test(phone_))
+    if (!regex.test(phone_)) {
         return error;
-    else
+    
+    } else {
         return phone_;
     }
 };
