@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
 import NewInventory from './components/NewInventory';
@@ -32,19 +31,6 @@ export default class App extends React.Component {
             <Route path="/warehouseDetails" component={ WarehouseDetails } />
             <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames = { this.state.names } /> } />
           </BrowserRouter>
-=======
-import React from 'react';
-import './App.css';
-import Nav from './components/Nav/Nav';
-
-class App extends React.Component{
-  render(){
-    return(
-      <Nav />
-    );
-  }
-}
->>>>>>> selenga
 
         </header>
       </div>
