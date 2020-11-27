@@ -35,42 +35,35 @@ router.get('/:id', (req, res) => {
  * POST add new warehouses item
  */
 router.post('/', (req, res) => {
-  if (!req.body.name || !req.body.address || !req.body.city || !req.body.country || !req.body.contact.name || !req.body.contact.position || !req.body.contact.phone || !req.body.contact.email) {
-    res.status(400).json({
-      error: 'POST body must contain all required properties',
-      requiredProperties: ['name', 'address', 'city', 'country', 'contact: name', 'contact: position', 'contact: phone', 'contact: email'],
-    });
-  } else {
+  try {
+    console.log(checkPhoneNumber(req.body.contact.phone));
+    let data = {
+      id: uuid(),
+      name: checkValue(req.body.name),
+      address: checkValue(req.body.address),
+      city: checkValue(req.body.city),
+      country: checkValue(req.body.country),
+      contact: {
+          name: checkValue(req.body.contact.name),
+          position: checkValue(req.body.contact.position),
+          phone: checkPhoneNumber(req.body.contact.phone),
+          email: emailChecker(req.body.contact.email)
+      }
+    };
+    warehouses.push(data);
     try {
-      console.log(checkPhoneNumber(req.body.contact.phone));
-      let data = {
-        id: uuid(),
-        name: checkValue(req.body.name),
-        address: checkValue(req.body.address),
-        city: checkValue(req.body.city),
-        country: checkValue(req.body.country),
-        contact: {
-            name: checkValue(req.body.contact.name),
-            position: checkValue(req.body.contact.position),
-            phone: checkPhoneNumber(req.body.contact.phone),
-            email: emailChecker(req.body.contact.email)
-        }
-      };
-      warehouses.push(data);
-      try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-          res.status(200).send(data);
-      });
-      }
-        catch (error) {
-          res.sendStatus(500);
-      }
-    }
-    catch(error) {
-      res.status(400).json({
-        error: 'Invalid property or properties. Please check body and re-send request.',
+      fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
+        res.status(200).send(data);
       });
     }
+    catch (error) {
+      res.sendStatus(500);
+    }
+  }
+  catch(error) {
+    res.status(400).json({
+      error: 'Invalid property or properties. Please check body and re-send request.',
+    });
   }
 });
 
@@ -78,13 +71,14 @@ router.post('/', (req, res) => {
 /*
 * Edit warehouse
 */
-router.put('/:id', (req, res) => {
+router.put('/', (req, res) => {
     let found = false;
     let index = 0
     for (; index < warehouses.length; ++index) {
         if (warehouses[index].id === req.body.id) {
             try {
                 found = true;
+                warehouses[index].id = checkValue(req.body.id);
                 warehouses[index].name = checkValue(req.body.name);
                 warehouses[index].address = checkValue(req.body.address);
                 warehouses[index].city = checkValue(req.body.city);
