@@ -72,29 +72,32 @@ router.post('/', (req, res) => {
 */
 router.put('/', (req, res) => {
     let found = false;
-    let index = 0;
+    let index = 0
+    const body = req.body;
+
     for (; index < warehouses.length; ++index) {
+
         if (warehouses[index].id === req.body.id) {
             try {
                 found = true;
-                warehouses[index].id = checkValue(req.body.id);
-                warehouses[index].name = checkValue(req.body.name);
-                warehouses[index].address = checkValue(req.body.address);
-                warehouses[index].city = checkValue(req.body.city);
-                warehouses[index].country = checkValue(req.body.country);
+                warehouses[index].id = checkValue(body.id);
+                warehouses[index].name = checkValue(body.name);
+                warehouses[index].address = checkValue(body.address);
+                warehouses[index].city = checkValue(body.city);
+                warehouses[index].country = checkValue(body.country);
                 warehouses[index].contact = {
-                    name: checkValue(req.body.contact.name),
-                    position: checkValue(req.body.contact.position),
-                    phone: checkValue(req.body.contact.phone),
-                    email: checkValue(req.body.contact.email)
+                    name: checkValue(body.contact.name),
+                    position: checkValue(body.contact.position),
+                    phone: checkPhoneNumber(body.contact.phone),
+                    email: emailChecker(body.contact.email)
                 };
+                break;
             }
             catch (err) {
                 res.status(404).send({ error: "Invalid request" });
                 return;
             }
         };
-        break;
     }
     
     if (!found) {
@@ -119,7 +122,7 @@ router.delete('/:id', (req, res) => {
     let deletedItem = {};
     let found = false;
     let index = 0;
-    for (; index < Object.keys(warehouses).length; ++index) {
+    for (; index < warehouses.length; ++index) {
         if (warehouses[index].id === req.params.id) {
             deletedItem = warehouses[index];
             delete warehouses[index];
