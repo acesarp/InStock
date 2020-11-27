@@ -1,6 +1,7 @@
 import React from 'react';
 import InventoryList from './InventoryList';
 import axios from 'axios';
+import '../styles/main.css';
 
 export default class WarehouseDetails extends React.Component {
 
