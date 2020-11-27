@@ -11,7 +11,7 @@ export default class NewInventory extends React.Component {
             formData: {
                 itemName: "Test value item name",
                 description: "Test value description",
-                category: ""
+                category: "",
                 stockStatus: false,
                 quantity: 0,  
             },
@@ -127,8 +127,9 @@ export default class NewInventory extends React.Component {
                                 id="warehouseNames-id"
                                 name="warehouseNames"
                                 value={this.state.wareHouseName}
+                                onChange={this.changeHandler}
                                 required >
-                                <option value="" > Warehouse TEST </option>
+                                <option value="Warehouse TEST" > Warehouse TEST </option>
                                 {this.state.warehouseNames && this.state.warehouseNames.forEach(name => 
                                     <option key={ name } value={name} > {name}</option>
                                 

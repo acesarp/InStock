@@ -4,8 +4,9 @@ import { v4 as uuid } from 'uuid';
 import SubHeader from './SubHeader';
 
 export default class InventoryList extends React.Component {
+
     url = 'http://localhost:5000';
-    iconFolder = `${process.env.PUBLIC_URL}/Icons`;
+    iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
             state = {
             list: [],
@@ -63,14 +64,14 @@ export default class InventoryList extends React.Component {
     }
     /**
      * 
-     * @param {string} a 
-     * @param {string} b 
+     * @param {string} valueA
+     * @param {string} valueB 
      * @param {string} key 
      */
-    compare = (a, b, key) => {
-        if (a[key] < b[key])
+    compare = (valueA, valueB, key) => {
+        if (valueA[key] < valueB[key])
             return this.state.sortToggle ? -1 : 1;
-        else if (a[key] > b[key])
+        else if (valueA[key] > valueB[key])
             return this.state.sortToggle ? 1 : -1;
         else
             return 0;
@@ -114,23 +115,23 @@ export default class InventoryList extends React.Component {
                         <tr>
                             <th>
                                 INVENTORY ITEM
-                                <div onClick={(event) => this.sortHandler(event, "itemName") } ><img src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div>
+                                <div onClick={(event) => this.sortHandler(event, "itemName") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
                             <th>
                                 CATEGORY
-                                    <div><img onClick={(event) => this.sortHandler(event, "category") } src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div>
+                                    <div><img onClick={(event) => this.sortHandler(event, "category") } src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
                             <th>
                                 STATUS
-                                <div><img onClick={(event) => this.sortHandler(event, "status") } src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div> 
+                                <div><img onClick={(event) => this.sortHandler(event, "status") } src={ `${this.iconFolder}/sort.svg` } alt="" /></div> 
                             </th>
                             <th>
                                 QTY
-                                <div><img onClick={(event) => this.sortHandler(event, "quantity") } src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div>
+                                <div><img onClick={(event) => this.sortHandler(event, "quantity") } src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
                             <th>
                                 WAREHOUSE
-                                <div><img onClick={(event) => this.sortHandler(event, "warehouseName") } src={ `${this.iconFolder}/sort-24px.svg` } alt="" /></div>     
+                                <div><img onClick={(event) => this.sortHandler(event, "warehouseName") } src={ `${this.iconFolder}/sort.svg` } alt="" /></div>     
                             </th>
                             <th>
                                 ACTIONS
@@ -147,8 +148,8 @@ export default class InventoryList extends React.Component {
                                     <td>{item.quantity}</td>
                                     <td>{item.warehouseName}</td>
                                 <td>
-                                        <button onClick={this.editHandler}><img src={`${this.iconFolder}/edit-24px.svg`} alt="Edit icon" /></button>
-                                    <button onClick={this.deleteHandler}><img src={`${this.iconFolder}/delete_outline-24px.svg`} alt="Delete icon" /></button>
+                                    <button onClick={this.editHandler}><img src={`${this.iconFolder}/edit.svg`} alt="Edit icon" /></button>
+                                    <button onClick={this.deleteHandler}><img src={`${this.iconFolder}/delete.svg`} alt="Delete icon" /></button>
                                 </td>
                                 </tr>
                             )

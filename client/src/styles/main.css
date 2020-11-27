@@ -1,11 +1,11 @@
 @font-face {
-  src: url(../../fonts/TitilliumWeb-Regular.ttf);
+  src: url("./fonts/TitilliumWeb-Regular.woff") format("woff");
   font-family: "Titillium";
   font-weight: 400;
 }
 
 @font-face {
-  src: url(../../fonts/TitilliumWeb-Bold.ttf);
+  src: url("./fonts/TitilliumWeb-Bold.woff") format("woff");
   font-family: "Titillium";
   font-weight: 600;
 }
