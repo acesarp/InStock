@@ -16,14 +16,22 @@
 ehthumbs.db
 Thumbs.db
 
+<<<<<<< HEAD
 client/node_modules
 server/node_modules
 /node_modules
 
 
 
+=======
+>>>>>>> c1e24d88659cd3db01308589865413b9fc4c109e
 # dependencies
-/node_modules
+*/node_modules
+client/node_modules
+client/.eslintcache
+server/node_modules
+node_modules
+
 /.pnp
 .pnp.js
 # testing
