@@ -29,8 +29,8 @@ router.get('/names', (req, res) => {
 */
 router.get('/:id', (req, res) => {
     console.info('get \'/:id\'');
-    console.info(warehouses.filter(item => item.id = req.params.id));
-    res.send(warehouses.filter(item => item.id = req.params.id));
+    console.info(warehouses.filter(item => item.id === req.params.id));
+    res.send(warehouses.filter(item => item.id === req.params.id));
 });
 
 /**
@@ -39,16 +39,16 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     let data = {
         id: uuid(),
-        name: req.body.name,
-        address: req.body.address,
-        description: req.body.description,
-        city: req.body.city,
-        country: req.body.country,
+        name: checkValue(req.body.name),
+        address: checkValue(req.body.address),
+        description: checkValue(req.body.description),
+        city: checkValue(req.body.city),
+        country: checkValue(req.body.country),
         contact: {
-            name: req.body.contact.name,
-            position: req.body.contact.position,
-            phone: req.body.contact.phone,
-            email: req.body.contact.email
+            name: checkValue(req.body.contact.name),
+            position: checkValue(req.body.contact.position),
+            phone: checkValue(req.body.contact.phone),
+            email: checkValue(req.body.contact.email)
         }
     };
     warehouses.push(data);
@@ -69,29 +69,31 @@ router.post('/', (req, res) => {
 router.put('/', (req, res) => {
     let found = false;
     let index = 0
-    for (; index < Object.keys(warehouses).length; ++index) {
+    const body = req.body;
+
+    for (; index < warehouses.length; ++index) {
+
         if (warehouses[index].id === req.body.id) {
             try {
                 found = true;
-                warehouses[index].id = checkValue(req.body.id);
-                warehouses[index].name = checkValue(req.body.name);
-                warehouses[index].address = checkValue(req.body.address);
-                warehouses[index].description = checkValue(req.body.description);
-                warehouses[index].city = checkValue(req.body.city);
-                warehouses[index].country = checkValue(req.body.country);
+                warehouses[index].id = checkValue(body.id);
+                warehouses[index].name = checkValue(body.name);
+                warehouses[index].address = checkValue(body.address);
+                warehouses[index].city = checkValue(body.city);
+                warehouses[index].country = checkValue(body.country);
                 warehouses[index].contact = {
-                    name: checkValue(req.body.contact.name),
-                    position: checkValue(req.body.contact.position),
-                    phone: checkPhoneNumber(req.body.contact.phone),
-                    email: emailChecker(req.body.contact.email)
+                    name: checkValue(body.contact.name),
+                    position: checkValue(body.contact.position),
+                    phone: checkPhoneNumber(body.contact.phone),
+                    email: emailChecker(body.contact.email)
                 };
+                break;
             }
             catch (err) {
                 res.status(404).send({ error: "Invalid request" });
                 return;
             }
         };
-        break;
     }
     
     if (!found) {
@@ -116,7 +118,7 @@ router.delete('/:id', (req, res) => {
     let deletedItem = {};
     let found = false;
     let index = 0;
-    for (; index < Object.keys(warehouses).length; ++index) {
+    for (; index < warehouses.length; ++index) {
         if (warehouses[index].id === req.params.id) {
             deletedItem = warehouses[index];
             delete warehouses[index];

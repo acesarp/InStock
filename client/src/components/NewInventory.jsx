@@ -1,26 +1,36 @@
 import React from 'react';
 import axios from 'axios';
 import InventoryModel from '../models/InventoryModel';
+import { v4 as uuid } from 'uuid';
 export default class NewInventory extends React.Component {
     url = 'http://localhost:5000';
 
     constructor(props) {
         super(props);
         this.state = {
-            itemName: "Test value item name",
-            description: "Test value description"
+            formData: {
+                itemName: "Test value item name",
+                description: "Test value description",
+                category: ""
+                stockStatus: false,
+                quantity: 0,  
+            },
+
+            warehouseNames: props.warehouseNames
         };
+        console.log("warehouseList ", this.state.warehouseNames);
     }
 
     submitHandler = (event) => {
         event.preventDefault();
         console.log(event.target);
         let data = new FormData(event.target);
-        
+
         const model = new InventoryModel(
-            this.props.id,
-            this.props.warehouseId,
-            this.props.warehouseName,
+
+            uuid(),
+            this.props.warehouseList.warehouseId,
+            this.props.warehouseList.warehouseName,
             data.get("itemName").toString(),
             data.get("description").toString(),
             data.get("category").toString(),
@@ -39,6 +49,7 @@ export default class NewInventory extends React.Component {
     }
 
     changeHandler = (event) => {
+        console.log([event.target.name], event.target.value);
         const currentState = this.state;
         this.setState({
             ...currentState,
@@ -54,7 +65,7 @@ export default class NewInventory extends React.Component {
                 <form name="inventoryItem" onSubmit={ this.submitHandler }>
                     <div>
                         <div>
-                            <label htmlFor="">Item Name</label>
+                            <label htmlFor="itemName">Item Name</label>
                             <input
                                 type="text"
                                 name="itemName"
@@ -63,7 +74,7 @@ export default class NewInventory extends React.Component {
                                 onChange={this.changeHandler} />
                         </div>
                         <div>
-                        <label>Description</label>
+                        <label htmlFor="description">Description</label>
                             <textarea
                                 name="description"
                                 placeholder="Please enter a brief description..."
@@ -72,9 +83,9 @@ export default class NewInventory extends React.Component {
                                 onChange={this.changeHandler} ></textarea>            
                         </div>
                         <div>
-                        <label>Category</label>
+                        <label htmlFor="category">Category</label>
                         <select name="category">
-                            <option value="">f</option>
+                            <option value=""></option>
                         </select>
                         </div>
                     </div>
@@ -100,24 +111,28 @@ export default class NewInventory extends React.Component {
                         <label htmlFor="out-of-stock">Out of stock</label>
                     </div>
                     <div>
-                        <label>Quantity</label>
+                        <label htmlFor="quantity">Quantity</label>
                             <input
+                                name="quantity"
                                 type="number"
-                                value={this.state.uantity}
+                                value={this.state.quantity}
                                 onChange={this.changeHandler}
                                 required
                                 />
                     </div>
                     
                     <div>
-                    <label>Warehouse Name</label>
+                    <label htmlFor="warehouseNames">Warehouse Name</label>
                             <select
+                                id="warehouseNames-id"
+                                name="warehouseNames"
                                 value={this.state.wareHouseName}
                                 required >
-                                {this.props.wareHouseNames && this.props.wareHouseNames.forEach(element => {
-                                    console.log("element ", element); 
-                                    <option value={element}>{element}</option>
-                                })}
+                                <option value="" > Warehouse TEST </option>
+                                {this.state.warehouseNames && this.state.warehouseNames.forEach(name => 
+                                    <option key={ name } value={name} > {name}</option>
+                                
+                                )}
                         </select>
                     </div>
             </div>

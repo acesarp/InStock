@@ -8,7 +8,7 @@ import React from 'react';
 import WarehouseDetails from './components/WarehouseDetails';
 
 export default class App extends React.Component {
-  state = { names: {}}
+  state = { names: [] }
   
   componentDidMount() {
     const url = 'http://localhost:5000';
