@@ -1,5 +1,6 @@
 import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
+import NavBar from './components/NavBar'
 import NewInventory from './components/NewInventory';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './styles/main.css';
@@ -23,16 +24,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
           <BrowserRouter>
+            <NavBar />
             <Route path="/" component={InventoryList} exact />
             <Route path="/wareHouseList" component={WarehouseList} />
             <Route path="/warehouseDetails" component={WarehouseDetails} />
             <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames={this.state.names} />} />
           </BrowserRouter>
-
-        </header>
       </div>
     );
   }
