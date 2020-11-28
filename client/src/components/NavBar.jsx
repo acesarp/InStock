@@ -59,7 +59,7 @@ import { Link } from 'react-router-dom';
         <img className="nav__logo" src={logo} alt="logo" />
         <nav className="nav__wrapper">
             <ul className="nav__menu">
-            <li className={`nav__list-locations nav__list-locations--${wClass}`}>
+            <li className={`nav__list-warehouses nav__list-warehouses--${wClass}`}>
                 <Link className={`nav__list-link--${wClass}`} to="/warehouses">Warehouses</Link>
             </li>
             <li className={`nav__list-inventory nav__list-inventory--${iClass}`}>
