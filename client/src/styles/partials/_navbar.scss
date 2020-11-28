@@ -1,0 +1,135 @@
+@import "../../styles/partials/CTA";
+@import "../../styles/partials/breakpoints";
+.nav {
+  margin: 0%;
+  padding: 0%;
+  background-color: $Primaryblack;
+  &__bar {
+    width: 100%;
+    background-color: $Primaryblack;
+    margin-bottom: 0px;
+    display: flex;
+    align-content: center;
+    margin: 0%;
+    justify-content: right;
+    flex-wrap: wrap;
+    height: 80px;
+    width: 100%;
+    flex-direction: row;
+    @include tablet {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+  }
+  &__tabs {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+
+    @include tablet {
+      width: 200px;
+    }
+
+    a {
+      text-decoration: none;
+      align-self: baseline;
+      width: 50%;
+      text-align: center;
+      @include tablet {
+        display: flex;
+        justify-content: flex-end;
+        align-self: flex-end;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+      color: $Primarywhite;
+      border-bottom: solid 3px $Primarywhite;
+
+      @include tablet {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    align-self: baseline;
+    width: 50%;
+    text-align: center;
+    @include tablet {
+      display: flex;
+      justify-content: flex-end;
+      align-self: flex-end;
+    }
+  }
+
+  &--inventory {
+    text-decoration: none;
+    @include tab_button;
+  }
+
+  @include tablet {
+    width: 75px;
+    display: flex;
+    margin: 0px;
+  }
+
+  &--warehouses {
+    text-decoration: none;
+    width: 50%;
+    @include tab_button;
+    @include tablet {
+      width: 75px;
+      display: flex;
+      margin: 0px;
+    }
+    @include desktop {
+      align-self: center;
+    }
+  }
+}
+
+.logo {
+  &__img {
+    display: flex;
+
+    @include desktop {
+      padding-left: 108px;
+    }
+  }
+  &__link {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 40%;
+    width: 100%;
+
+    &a {
+      @include tablet {
+        align-self: flex-start;
+        display: flex;
+      }
+    }
+
+    @include tablet {
+      align-items: flex-end;
+      justify-content: flex-end;
+      width: 20%;
+    }
+
+    @include desktop {
+      justify-content: end;
+      align-content: flex-start;
+    }
+  }
+}

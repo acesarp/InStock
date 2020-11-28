@@ -1,15 +1,15 @@
 import InventoryList from './components/InventoryList';
-import NavBar from './components/NavBar'
 import WarehouseList from './components/WarehouseList';
 import NewInventory from './components/NewInventory';
 import { BrowserRouter, Route } from 'react-router-dom';
-import './App.css';
+import './main.css';
 import axios from 'axios';
 import React from 'react';
 import WarehouseDetails from './components/WarehouseDetails';
+import Navbar from './components/NavBar'
 
 export default class App extends React.Component {
-  state = { names: {}}
+  state = { names: [] }
   
   componentDidMount() {
     const url = 'http://localhost:5000';
@@ -26,8 +26,9 @@ export default class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <NavBar />
+         
           <BrowserRouter>
+            <Navbar />
             <Route path="/" component={ InventoryList } exact/>
             <Route path="/wareHouseList" component={ WarehouseList } />
             <Route path="/warehouseDetails" component={ WarehouseDetails } />

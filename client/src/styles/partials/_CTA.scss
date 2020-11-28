@@ -17,7 +17,7 @@
   background-color: $Primaryindigo;
   color: $Primarywhite;
   @include large__sizes;
-  &:active {
+  &:hover {
     background-color: $Primaryblack;
   }
 }
@@ -151,4 +151,18 @@
 @mixin large__intag {
   @include large__tag;
   color: $Supportgreen;
+}
+
+@mixin tab_button {
+  @include small_sizes;
+  background-color: $Primaryblack;
+  color: $Secondarycloud;
+  &:active {
+    background-color: black;
+    color: $Primarywhite;
+  }
+  &:hover {
+    text-decoration: line-through;
+    color: $Primarywhite;
+  }
 }
