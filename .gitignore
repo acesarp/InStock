@@ -19,12 +19,6 @@ Thumbs.db
 server/node_modules/
 client/node_modules/
 /node_modules/
-<<<<<<< HEAD
-=======
-server/node_modules/
-client/node_modules/
-
->>>>>>> 96ebc0579b232cc058ec9a1fc8c0c7b50fb30487
 # dependencies
 **/node_modules
 /node_modules
