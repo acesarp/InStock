@@ -16,8 +16,8 @@ export default class InventoryList extends React.Component {
             list: [],
             sortToggle: false,
             modalOpen: false,
-            deleteConfirmation: false,
-            item: "",
+            showCloseButton: false,
+            itemName: "",
             itemId: "",
             message: ""
         };
@@ -52,9 +52,8 @@ export default class InventoryList extends React.Component {
 */
 deleteModalHandler = (event) => {
     let stateClone = this.state;
-    console.log(event.target.dataset);
     stateClone.itemId = event.target.dataset.itemtargetid;
-    stateClone.item = event.target.dataset.itemtargetname;
+    stateClone.itemName = event.target.dataset.itemtargetname;
 
     stateClone.modalOpen = true;
 
@@ -69,29 +68,28 @@ deleteModalHandler = (event) => {
         event.preventDefault();
         let stateClone = this.state;
 
-        if (event.target.value === "delete") {
-        
-            stateClone.deleteConfirmation = true;
+        if (event.target.value === "delete") {      
 
             axios.delete(`${this.url}/inventory/${this.state.itemId}`)
                 .then(response => {
                     console.log(stateClone.list.length);
                     stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
-                    console.log(stateClone.list.length);
-                    stateClone.item = response.data.itemName;
-                    stateClone.message = `${response.data.itemName} deleted successfully!`;
+                    console.log(response.data);
+                    stateClone.itemName = response.data.deleted.itemName;
+                    stateClone.message = `${response.data.deleted.itemName} deleted successfully!`;
+                    stateClone.showCloseButton = true
+                    this.setState(stateClone);
                 })
                 .catch(error => {
-                    stateClone.deleteConfirmation = false;
                     stateClone.message = `Error: ${stateClone.itemName} could not be deleted.`;
+                    this.setState(stateClone);
                     console.error(error);
                 });
         }
         else {
-            stateClone.deleteConfirmation = false;
             stateClone.modalOpen = false;
+            this.setState(stateClone);
         }
-        this.setState(stateClone);
     }
 
     /**
@@ -144,6 +142,7 @@ deleteModalHandler = (event) => {
 
 
     render() {
+        console.log("message ", this.state.message);
         return (
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
@@ -214,11 +213,12 @@ deleteModalHandler = (event) => {
                 </table>
 
                 </div>
-                  { this.state.modalOpen &&
+                {this.state.modalOpen &&
                     <DeleteModal
-                        item={this.state.item}
-                        clickModalHandler={ this.confirmationHandler }
-                        message={this.state.message} />
+                    itemName={this.state.itemName}
+                    clickModalHandler={this.confirmationHandler}
+                    message={this.state.message}
+                    showCloseButton={ this.state.showCloseButton}/>
                     }
                 </> /* <=== don't delete this tag!!! */ 
         );
