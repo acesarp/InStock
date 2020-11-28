@@ -14,7 +14,7 @@
 
 // PC
 @mixin desktop {
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1080px) {
     @content;
   }
 }
