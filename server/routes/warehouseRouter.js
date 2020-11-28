@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 router.get('/names', (req, res) => {
     //console.info('get \'/names\'');
     const result = warehouses.map(item => item.name); 
-    console.debug(result);
+    //console.debug(result);
     res.send(result);
 });
 
@@ -115,13 +115,19 @@ router.put('/', (req, res) => {
 * DELETE warehouse by id
 */
 router.delete('/:id', (req, res) => {
+    console.debug(req.params);
     let deletedItem = {};
     let found = false;
     let index = 0;
     for (; index < warehouses.length; ++index) {
+        
+        console.debug(warehouses[index].id, req.params.id);
+
         if (warehouses[index].id === req.params.id) {
             deletedItem = warehouses[index];
+            console.log(warehouses.length);
             delete warehouses[index];
+            console.log(warehouses.length);
         }
         break;
     }
@@ -132,7 +138,7 @@ router.delete('/:id', (req, res) => {
     }
     try {
         fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-            res.send({ deleted: deletedItem });
+            res.status(200).send({ deleted: deletedItem });
         });
     }
     catch (error) {

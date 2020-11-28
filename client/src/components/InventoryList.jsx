@@ -18,7 +18,8 @@ export default class InventoryList extends React.Component {
             modalOpen: false,
             deleteConfirmation: false,
             item: "",
-            itemId: ""
+            itemId: "",
+            message: ""
         };
     }
     
@@ -26,7 +27,7 @@ export default class InventoryList extends React.Component {
         const id = this.props.warehouseId ?? "";
         axios.get(`${this.url}/inventory/${id}`)
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 let stateClone = this.state;
                 stateClone.list = response.data
                 this.fullList = response.data;
@@ -74,8 +75,9 @@ deleteModalHandler = (event) => {
 
             axios.delete(`${this.url}/inventory/${this.state.itemId}`)
                 .then(response => {
-                    console.log(response.data);
-                    stateClone.list = stateClone.list.filter(item => item.id !== response.data.id);
+                    console.log(stateClone.list.length);
+                    stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
+                    console.log(stateClone.list.length);
                     stateClone.item = response.data.itemName;
                     stateClone.message = `${response.data.itemName} deleted successfully!`;
                 })
@@ -86,10 +88,9 @@ deleteModalHandler = (event) => {
                 });
         }
         else {
-        stateClone.deleteConfirmation = false;
-        stateClone.modalOpen = false;
+            stateClone.deleteConfirmation = false;
+            stateClone.modalOpen = false;
         }
-
         this.setState(stateClone);
     }
 
@@ -215,7 +216,6 @@ deleteModalHandler = (event) => {
                 </div>
                   { this.state.modalOpen &&
                     <DeleteModal
-                        confirmationHandler={this.confirmationHandler}
                         item={this.state.item}
                         clickModalHandler={ this.confirmationHandler }
                         message={this.state.message} />
