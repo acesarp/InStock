@@ -1,5 +1,5 @@
 import WarehouseList from "./components/WarehouseList";
-import "./App.css";
+import NavBar from './components/NavBar';
 import axios from "axios";
 import React from "react";
 
@@ -21,8 +21,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header"></header>
-        {/* <WarehouseList warehouseNames={this.state.names} /> */}
+        <NavBar />
+        <WarehouseList />
       </div>
     );
   }

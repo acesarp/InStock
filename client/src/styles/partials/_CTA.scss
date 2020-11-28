@@ -66,7 +66,7 @@
   color: $Primaryindigo;
 }
 
-@mixin large__formfield--search {
+@mixin large__input--search {
   border: 1px solid $Secondaryslate;
   @include large__sizes;
 
@@ -75,7 +75,7 @@
   }
 }
 
-@mixin small__formfield--search {
+@mixin input-search-small {
   border: 1px solid $Secondaryslate;
   @include small_sizes;
   &:active {
@@ -83,14 +83,14 @@
   }
 }
 
-@mixin small__formfield {
-  @include small__formfield--search;
+@mixin input-small {
+  @include input-search-small;
   :invalid {
     border: 1px solid $Supportred;
   }
 }
-@mixin large__formfield {
-  @include large__formfield--search;
+@mixin large__input {
+  @include large__input--search;
   :invalid {
     border: 1px solid $Supportred;
   }
@@ -151,4 +151,18 @@
 @mixin large__intag {
   @include large__tag;
   color: $Supportgreen;
+}
+
+@mixin tab_button {
+  @include small_sizes;
+  background-color: $Primaryblack;
+  color: $Secondarycloud;
+  &:active {
+    background-color: black;
+    color: $Primarywhite;
+  }
+  &:hover {
+    text-decoration: line-through;
+    color: $Primarywhite;
+  }
 }
