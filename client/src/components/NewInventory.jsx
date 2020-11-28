@@ -18,20 +18,23 @@ export default class NewInventory extends React.Component {
                 warehouseName: "",
                 quantity: 0,  
             },
-            warehouseData: props.location.state.warehouseData
+            warehouseData: props.location.state.warehouseData,
+            editItemId: props.location.state.itemId,
+            pageTitle: props.location.state.title
         };
 
-        console.log("props ", this.props.location.state.warehouseData);
+        console.log("props.location.state ", this.props.location.state);
     }
 
     submitHandler = (event) => {
         event.preventDefault();
         let data = new FormData(event.target);
         const warehouseName = data.get("warehouseName").toString();
-        const warehouseID = this.props.location.state.warehouseData.filter(item => item.warehouseName === warehouseName)[0].warehouseID;
+        const warehouseID = this.props.location.state.warehouseData
+            .filter(item => item.warehouseName === warehouseName)[0].warehouseID;
 
         const model = new InventoryModel(
-            "", //id is to be breated by the server
+            this.state.editItemId ?? "", //id is to be created by the server
             warehouseID,
             warehouseName,
             data.get("itemName").toString(),
@@ -40,6 +43,19 @@ export default class NewInventory extends React.Component {
             data.get("status").toString(),
             Number.parseInt(data.get("quantity").toString())
         );
+        const method = this.props.location.state.itemId ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
+        axios({
+                method: method,
+                url: `${this.url}/inventory`,
+                headers: { 'Content-Type': 'application/json' },
+                data: model.toJSON()
+            })
+            .then(response => {
+            //console.info(response);
+            event.target.reset();
+            })
+            .catch(error => console.error(error));
+
 
         axios.post(`${this.url}/inventory`, model.toJSON(), {
             headers: { 'Content-Type': 'application/json' }
@@ -63,7 +79,7 @@ export default class NewInventory extends React.Component {
     render() {
         return (
             <div>                
-                <h1>ADD NEW INVENTORY ITEM</h1>
+                <h1>{ this.state.pageTitle }</h1>
 
                 <form name="inventoryItemForm" onSubmit={ this.submitHandler }>
                     <div>

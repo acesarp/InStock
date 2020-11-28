@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 import '../styles/main.css';
@@ -162,7 +163,7 @@ deleteModalHandler = (event) => {
             <div className="inventoryList">
                 <SubHeader title={"Inventory"}
                     searchHandler={ this.searchHandler }
-                    warehouseData={ this.warehouseList }
+                    warehouseData={this.warehouseList}  
                     route="/newinventoryitem"
                     buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
@@ -211,10 +212,20 @@ deleteModalHandler = (event) => {
                                                 data-itemtargetname={ item.itemName }
                                                 alt="Delete icon" />
                                         </button>
-                                        <button onClick={this.editHandler}>
+                                        <Link
+                                            className="link-btn"
+                                            to={{
+                                                pathname: `/newinventoryItem`,
+                                                state: {
+                                                    itemId: item.id,
+                                                    warehouseData: this.warehouseList,
+                                                    title: "EDIT INVENTORY ITEM"
+                                                }
+                                            }}>
                                             <img src={`${this.iconFolder}/edit.svg`}
                                                 alt="Edit icon" />
-                                        </button>
+                                        </Link>
+
                                 </td>
                                 </tr>
                             )

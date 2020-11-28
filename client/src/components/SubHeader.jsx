@@ -26,7 +26,8 @@ function SubHeader(props) {
                 to={{
                     pathname: state.route,
                     state: {
-                        warehouseData: props.warehouseData
+                        warehouseData: props.warehouseData,
+                        title: "ADD NEW INVENTORY ITEM"
                     }
                 }} >
                     <div className="btn">
