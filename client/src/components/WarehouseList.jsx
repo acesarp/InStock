@@ -8,7 +8,6 @@ export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
-
     constructor() {
         super();
         this.state = {
@@ -52,14 +51,13 @@ export default class WarehouseList extends React.Component {
         let filteredList = [];
         currentState.forEach((element) => {
             const keys = Object.keys(element);
-            for(const key of keys) {
+            for (const key of keys) {
                 if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
                     filteredList.push(element);
                     break;
                 }
             }
         });
-        this.setState({ list: filteredList });
     }
 
     render() {

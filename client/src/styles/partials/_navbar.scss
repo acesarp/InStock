@@ -1,0 +1,161 @@
+.nav {
+  margin: 0%;
+  padding: 0%;
+  background-color: $PrimaryBlack;
+  &__bar {
+    width: 100%;
+    background-color: $Primaryblack;
+    margin-bottom: 0px;
+    display: flex;
+    align-content: center;
+    margin: 0%;
+    justify-content: right;
+    flex-wrap: wrap;
+    height: 80px;
+    width: 100%;
+    flex-direction: row;
+    @media (min-width: $tablet) {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+  }
+  &__tabs {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+
+    @media (min-width: $tablet) {
+      width: 200px;
+    }
+
+    a {
+      text-decoration: none;
+      align-self: baseline;
+      width: 50%;
+      text-align: center;
+      @media (min-width: $tablet) {
+        display: flex;
+        justify-content: flex-end;
+        align-self: flex-end;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+      color: $Primarywhite;
+      border-bottom: solid 3px $Primarywhite;
+
+      @media (min-width: $tablet) {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+  }
+  &__tabs {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+
+    @media (min-width: $tablet) {
+      width: 200px;
+    }
+
+    a {
+      text-decoration: none;
+      align-self: baseline;
+      width: 50%;
+      text-align: center;
+      @media (min-width: $tablet) {
+        display: flex;
+        justify-content: flex-end;
+        align-self: flex-end;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+
+      @mixin tabbtn {
+        @include small_sizes {
+          background-color: $PrimaryBlack;
+          color: $Primarcloud;
+          &:active {
+            background-color: black;
+            color: $Primarywhite;
+          }
+          &:hover {
+            text-decoration: line-through;
+            color: $Primarywhite;
+          }
+        }
+      }
+
+      @media (min-width: $tablet) {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+
+    &--warehouses {
+      text-decoration: none;
+      width: 50%;
+      @include tabbtn;
+
+      @media (min-width: $tablet) {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+      @media (min-width: $desktop) {
+        align-self: center;
+      }
+    }
+  }
+}
+.logo {
+  &__img {
+    display: flex;
+
+    @media (min-width: $desktop) {
+      padding-left: 108px;
+    }
+  }
+  &__link {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 40%;
+    width: 100%;
+
+    &a {
+      @media (min-width: $tablet) {
+        align-self: flex-start;
+        display: flex;
+      }
+    }
+
+    @media (min-width: $tablet) {
+      align-items: flex-end;
+      justify-content: flex-end;
+      width: 20%;
+    }
+
+    @media (min-width: $desktop) {
+      justify-content: end;
+      align-content: flex-start;
+    }
+  }
+}
