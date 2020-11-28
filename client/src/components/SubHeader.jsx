@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 function SubHeader(props) {
     
     const [state] = useState(props);
@@ -8,6 +9,9 @@ function SubHeader(props) {
     return (
         
         <div className="subHeader">
+            <button className="back-button">
+                <img src={`${process.env.PUBLIC_URL}/assets/Icons/back-arrow.svg`} alt="back arrow" />
+            </button>
             <h1>{props.title}</h1>
 
             { props.searchHandler &&

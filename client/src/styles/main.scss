@@ -7,3 +7,171 @@
   padding: 0;
   font-family: "Titillium";
 }
+
+body {
+  margin: 0;
+
+  @include tablet {
+    
+  }
+  @include desktop {
+    
+  }
+}
+
+a {
+  border: 1px solid green;
+  text-decoration: none;
+  align-self: baseline;
+  text-align: center;
+}
+
+button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0  1rem;
+  border-radius: 1rem;
+  border: none;
+}
+
+.header {
+  background-color: $Bacgroundgraphite;
+  display: flex;
+}
+
+.inventoryList {
+  border: 1px blue solid;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  filter: drop-shadow(-2px -2px 55px rgba(19, 24, 44, 0.1));
+
+  &__wrapper {
+    border-radius: 3px;
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    border: 1px pink solid;
+  }
+
+  &__header {
+    background-color: $Secondarycloud;
+  }
+
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $Secondarycloud;
+    padding: 1rem 0;
+  }
+  &__cell {
+    display: flex;
+    flex-direction: row;
+
+    &--header {
+    display: flex;
+    flex-direction: row;
+    }
+  }
+
+  @include tablet {
+
+  }
+
+  @include desktop {
+
+  }
+
+}
+
+
+.delete-modal {
+
+  &__wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: visible;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  &__title {
+
+  }
+
+}
+
+.subHeader {
+  display: flex;
+  border: 1px solid yellow;
+}
+
+
+//=============== header section ================//
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+    background-color: $Primaryblack;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: right;
+    flex-wrap: wrap;
+    height: 80px;
+
+    @include tablet {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+        @include desktop {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+  }
+
+  &__link {
+    &--inventory {
+      text-decoration: none;
+      color: $Primarywhite;
+      border-bottom: solid 3px $Primarywhite;
+      @include tablet  {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+      background-color: $Primaryblack;
+      color: $Secondarycloud;
+      &:active {
+        background-color: black;
+        color: $Primarywhite;
+      }
+      &:hover {
+        text-decoration: line-through;
+        color: $Primarywhite;
+      }
+    }
+  }
+}

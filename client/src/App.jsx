@@ -1,38 +1,40 @@
 import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
+import NavBar from './components/NavBar'
 import NewInventory from './components/NewInventory';
-import { BrowserRouter, Route } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './styles/main.css';
 import axios from 'axios';
 import React from 'react';
 import WarehouseDetails from './components/WarehouseDetails';
 
 export default class App extends React.Component {
-  state = { names: [] }
-  
+  state = { names: [] };
+
   componentDidMount() {
     const url = 'http://localhost:5000';
-      
+
     axios.get(`${url}/warehouses/names`)
-      .then(response => { 
+      .then(response => {
         this.setState({ names: response.data });
         //console.log(response.data);
       })
-      .catch(error => console.error(error))
+      .catch(error => console.error(error));
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
           <BrowserRouter>
-            <Route path="/" component={ InventoryList } exact/>
-            <Route path="/wareHouseList" component={ WarehouseList } />
-            <Route path="/warehouseDetails" component={ WarehouseDetails } />
-            <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames = { this.state.names } /> } />
-          </BrowserRouter>
+          <NavBar />
+          <Switch>
+            <Route path="/" component={InventoryList} exact />
+            <Route path="/wareHouseList" component={WarehouseList} />
+            <Route path="/warehouseDetails/:warehouseId" component={WarehouseDetails} />
+            <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames={this.state.names} />} />
+          </Switch>
 
-        </header>
+          </BrowserRouter>
       </div>
     );
   }
