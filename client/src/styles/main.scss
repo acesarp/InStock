@@ -1,7 +1,7 @@
 @import "./partials/breakpoints";
 @import "./partials/colors";
 @import "./partials/fonts";
-
+@import "./partials/navbar";
 * {
   margin: 0;
   padding: 0;
@@ -126,9 +126,6 @@ button {
        background-color: $Primarywhite;
     }
 
-    &__title {
-
-    }
   }
 
 }

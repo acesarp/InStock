@@ -1,5 +1,5 @@
 const path = require("path");
-const WAREHOUSES_FILE_PATH = '../Data/warehouses.json';
+const WAREHOUSES_FILE_PATH = path.join(__dirname, '../Data/warehouses.json');
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
@@ -37,29 +37,35 @@ router.get('/:id', (req, res) => {
  * POST add new warehouses item
  */
 router.post('/', (req, res) => {
+  try {
     let data = {
-        id: uuid(),
-        name: checkValue(req.body.name),
-        address: checkValue(req.body.address),
-        description: checkValue(req.body.description),
-        city: checkValue(req.body.city),
-        country: checkValue(req.body.country),
-        contact: {
-            name: checkValue(req.body.contact.name),
-            position: checkValue(req.body.contact.position),
-            phone: checkValue(req.body.contact.phone),
-            email: checkValue(req.body.contact.email)
-        }
+      id: uuid(),
+      name: checkValue(req.body.name),
+      address: checkValue(req.body.address),
+      city: checkValue(req.body.city),
+      country: checkValue(req.body.country),
+      contact: {
+          name: checkValue(req.body.contact.name),
+          position: checkValue(req.body.contact.position),
+          phone: checkPhoneNumber(req.body.contact.phone),
+          email: emailChecker(req.body.contact.email)
+      }
     };
     warehouses.push(data);
     try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-            res.status(200).send(data);
-        });
+      fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
+        res.status(200).send(data);
+      });
     }
     catch (error) {
-        res.sendStatus(500);
+      res.sendStatus(500);
     }
+  }
+  catch(error) {
+    res.status(400).json({
+      error: 'Invalid property or properties. Please check body and re-send request.',
+    });
+  }
 });
 
 
@@ -112,7 +118,7 @@ router.put('/', (req, res) => {
 
 
 /*
-* DELETE warehouse by id
+* Delete warehouse by id
 */
 router.delete('/:id', (req, res) => {
     let deletedItem = {};
