@@ -81,7 +81,7 @@ export default class WarehouseList extends React.Component {
                         {this.state.list && this.state.list.map(item => {
                             return (
                             <tr key={uuid()} id={item.id}>
-                                    <td><Link to="/wareHouseDetails" component={() => <WarehouseDetails warehouseId={ item.id } />} />{item.name}</td>
+                                    <td><Link to={`/wareHouseDetails/${ item.id }`}>{item.name}</Link></td>
                                     <td>{item.address}</td>
                                     <td>{item.contact.name}</td>
                                     <td><div>{item.contact.phone}</div>
