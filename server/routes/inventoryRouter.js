@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 * GET inventory item by id
 */
 router.get('/:id', (req, res) => {
-    res.send(inventory.filter(item => item.id = req.params.id));
+    res.send(inventory.filter(item => item.id === req.params.id));
 });
 
 /**

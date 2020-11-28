@@ -6,8 +6,6 @@ import DeleteModal from './DeleteModal';
 import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
-    idItemToDelete = "";
-    itemNameToDelete = "";
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
@@ -19,16 +17,20 @@ export default class InventoryList extends React.Component {
             sortToggle: false,
             modalOpen: false,
             deleteConfirmation: false,
-            item: ""
+            item: "",
+            itemId: ""
         };
     }
     
     componentDidMount() {
         const id = this.props.warehouseId ?? "";
-        axios.get(`${this.url}/inventory/:${id}`)
+        axios.get(`${this.url}/inventory/${id}`)
             .then(response => {
+                console.log(response.data);
+                let stateClone = this.state;
+                stateClone.list = response.data
                 this.fullList = response.data;
-                this.setState({ list: response.data });
+                this.setState(stateClone);
             })
             .catch(error => console.error(error));
     }
@@ -49,8 +51,9 @@ export default class InventoryList extends React.Component {
 */
 deleteModalHandler = (event) => {
     let stateClone = this.state;
-    this.idItemToDelete = event.target.dataset.itemtarget;
-    this.itemNameToDelete = event.target.dataset.itemtargetname;
+    console.log(event.target.dataset);
+    stateClone.itemId = event.target.dataset.itemtargetid;
+    stateClone.item = event.target.dataset.itemtargetname;
 
     stateClone.modalOpen = true;
 
@@ -69,20 +72,25 @@ deleteModalHandler = (event) => {
         
             stateClone.deleteConfirmation = true;
 
-            axios.delete(`${this.url}/inventory/${this.idItemToDelete}`)
+            axios.delete(`${this.url}/inventory/${this.state.itemId}`)
                 .then(response => {
+                    console.log(response.data);
                     stateClone.list = stateClone.list.filter(item => item.id !== response.data.id);
+                    stateClone.item = response.data.itemName;
                     stateClone.message = `${response.data.itemName} deleted successfully!`;
                 })
                 .catch(error => {
+                    stateClone.deleteConfirmation = false;
                     stateClone.message = `Error: ${stateClone.itemName} could not be deleted.`;
                     console.error(error);
                 });
         }
-        this.setState(stateClone);
+        else {
+        stateClone.deleteConfirmation = false;
         stateClone.modalOpen = false;
-        this.idItemToDelete = "";
-        this.itemNameToDelete = "";
+        }
+
+        this.setState(stateClone);
     }
 
     /**
@@ -136,6 +144,7 @@ deleteModalHandler = (event) => {
 
     render() {
         return (
+            <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
                 <SubHeader title={"Inventory"}
                     searchHandler={this.searchHandler}
@@ -176,7 +185,7 @@ deleteModalHandler = (event) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.list && this.state.list.map(item => {
+                            {this.state.list && this.state.list.map(item => {
                             return (
                             <tr className="inventoryList__row" key={uuid()} id={item.id}>
                                     <td className="inventoryList__cell" >{item.itemName}</td>
@@ -202,13 +211,16 @@ deleteModalHandler = (event) => {
                         })}
                     </tbody>
                 </table>
-                { this.state.modalOpen &&
+
+                </div>
+                  { this.state.modalOpen &&
                     <DeleteModal
                         confirmationHandler={this.confirmationHandler}
                         item={this.state.item}
+                        clickModalHandler={ this.confirmationHandler }
                         message={this.state.message} />
-                }
-            </div>
+                    }
+                </> /* <=== don't delete this tag!!! */ 
         );
     }
 }
