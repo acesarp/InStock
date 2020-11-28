@@ -28,10 +28,10 @@ export default class App extends React.Component {
           <BrowserRouter>
           <NavBar />
           <Switch>
-            <Route path="/" component={InventoryList} exact />
-            <Route path="/wareHouseList" component={WarehouseList} />
+            <Route path="/inventory" component={InventoryList} exact />
+            <Route path="/wareHouses" component={WarehouseList} />
             <Route path="/warehouseDetails/:warehouseId" component={WarehouseDetails} />
-            <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames={this.state.names} />} />
+            <Route path="/newinventoryitem" component={NewInventory} />
           </Switch>
 
           </BrowserRouter>

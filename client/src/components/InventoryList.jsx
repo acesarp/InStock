@@ -31,6 +31,7 @@ export default class InventoryList extends React.Component {
                 let stateClone = this.state;
                 stateClone.list = response.data
                 this.fullList = response.data;
+                this.warehouseList = this.getWarehouseUniqueData();
                 this.setState(stateClone);
             })
             .catch(error => console.error(error));
@@ -72,12 +73,10 @@ deleteModalHandler = (event) => {
 
             axios.delete(`${this.url}/inventory/${this.state.itemId}`)
                 .then(response => {
-                    console.log(stateClone.list.length);
                     stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
-                    console.log(response.data);
                     stateClone.itemName = response.data.deleted.itemName;
                     stateClone.message = `${response.data.deleted.itemName} deleted successfully!`;
-                    stateClone.showCloseButton = true
+                    stateClone.showCloseButton = true;
                     this.setState(stateClone);
                 })
                 .catch(error => {
@@ -140,6 +139,21 @@ deleteModalHandler = (event) => {
         this.setState({ list: filteredList });
     }
 
+    getWarehouseUniqueData() {
+        //console.log(this.fullList);
+
+        let keys = this.fullList.map(key => key.warehouseID)
+        let uniqueList = this.fullList.filter((id, index) => !keys.includes(id.warehouseID, index+1))
+
+        //console.log("uniqueList ", uniqueList)
+        
+        return uniqueList.map(item => {
+                let obj = { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
+                console.log("obj ", obj);
+                return obj;
+            });
+    }
+
 
     render() {
         console.log("message ", this.state.message);
@@ -147,12 +161,8 @@ deleteModalHandler = (event) => {
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
                 <SubHeader title={"Inventory"}
-                    searchHandler={this.searchHandler}
-                    warehouseList={this.fullList
-                        .map(item => {
-                            //console.log(item);
-                            return { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
-                        })}
+                    searchHandler={ this.searchHandler }
+                    warehouseData={ this.warehouseList }
                     route="/newinventoryitem"
                     buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 function SubHeader(props) {
     
     const [state] = useState(props);
-    //console.log(props.warehouseList);
+    //console.log("warehouseData ", props.warehouseData);
     
     return (
         
@@ -20,8 +20,15 @@ function SubHeader(props) {
                 </form>
             }
             
-            { props.warehouseList &&
-                <Link className="" to={{ pathname: state.route}} >
+            { props.warehouseData &&
+                <Link
+                className=""
+                to={{
+                    pathname: state.route,
+                    state: {
+                        warehouseData: props.warehouseData
+                    }
+                }} >
                     <div className="btn">
                         { state.buttonLabel }
                     </div>

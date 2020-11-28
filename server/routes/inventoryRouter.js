@@ -1,5 +1,6 @@
 const path = require("path");
 const INVENTORY_FILE_PATH = '../Data/inventory.json';
+const INVENTORY_FILE_ABSOLUTE_PATH = "/Users/augusto/Dropbox/Brainstorm/repo/instock/server/Data/inventory.json";
 const inventory = require(INVENTORY_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
@@ -25,6 +26,8 @@ router.get('/:id', (req, res) => {
  * POST add new inventory item
  */
 router.post('/', (req, res) => {
+    //console.log("req.body ", req.body);
+
     let data = {
         id: uuid(),
         warehouseID: req.body.warehouseID,
@@ -34,11 +37,13 @@ router.post('/', (req, res) => {
         status: req.body.status,
         quantity: req.body.quantity
     };
-
     inventory.push(data);
     try {
-        fs.writeFile(INVENTORY_FILE_PATH, JSON.stringify(inventory), () => {
-            res.status(200).send(data);
+        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(inventory), (error) => {
+            console.log("fs.writeFile message [null is good]: ", error);
+            if (!error) {
+                res.status(200).send({ itemAdded: data });
+            }
         });
     }
     catch (error) {
@@ -61,20 +66,26 @@ router.delete('/:id', (req, res) => {
     for (; index < inventory.length; ++index) {
         if (inventory[index].id === req.params.id) { 
             deletedItem = inventory[index];
-            inventory.splice([index], 1);
+            
             found = true;
             console.debug("Deleted: ", deletedItem.id);
             break;
         }
     }
-
     if (!found) {
         res.status(404).send({ error: "Inventory item not found" });
         return;
     }
+
     try {
-        fs.writeFile(INVENTORY_FILE_PATH, JSON.stringify(inventory), () => {
-            res.status(200).send({ deleted: deletedItem });
+        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(inventory), (error) => {
+            if (!error) {
+                inventory.splice([index], 1);
+                res.status(200).send({ deleted: deletedItem });
+            }
+            else {
+                console.error(error);
+            }
         });
     }
     catch (error) {
