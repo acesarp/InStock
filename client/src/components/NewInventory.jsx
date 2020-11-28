@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import InventoryModel from '../models/InventoryModel';
 import { v4 as uuid } from 'uuid';
+import '../styles/main.css';
+
 export default class NewInventory extends React.Component {
     url = 'http://localhost:5000';
 
@@ -127,8 +129,9 @@ export default class NewInventory extends React.Component {
                                 id="warehouseNames-id"
                                 name="warehouseNames"
                                 value={this.state.wareHouseName}
+                                onChange={this.changeHandler}
                                 required >
-                                <option value="" > Warehouse TEST </option>
+                                <option value="Warehouse TEST" > Warehouse TEST </option>
                                 {this.state.warehouseNames && this.state.warehouseNames.forEach(name => 
                                     <option key={ name } value={name} > {name}</option>
                                 

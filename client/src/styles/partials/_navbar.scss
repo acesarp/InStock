@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 @import "../../styles/partials/CTA";
 @import "../../styles/partials/breakpoints";
 .nav {
   margin: 0%;
   padding: 0%;
   background-color: $Primaryblack;
+=======
+.nav {
+  margin: 0%;
+  padding: 0%;
+  background-color: $PrimaryBlack;
+>>>>>>> main
   &__bar {
     width: 100%;
     background-color: $Primaryblack;
@@ -16,7 +23,11 @@
     height: 80px;
     width: 100%;
     flex-direction: row;
+<<<<<<< HEAD
     @include tablet {
+=======
+    @media (min-width: $tablet) {
+>>>>>>> main
       flex-direction: column;
       justify-content: flex-end;
       align-content: flex-start;
@@ -32,7 +43,11 @@
     height: 21%;
     height: 60%;
 
+<<<<<<< HEAD
     @include tablet {
+=======
+    @media (min-width: $tablet) {
+>>>>>>> main
       width: 200px;
     }
 
@@ -41,7 +56,11 @@
       align-self: baseline;
       width: 50%;
       text-align: center;
+<<<<<<< HEAD
       @include tablet {
+=======
+      @media (min-width: $tablet) {
+>>>>>>> main
         display: flex;
         justify-content: flex-end;
         align-self: flex-end;
@@ -53,13 +72,18 @@
       color: $Primarywhite;
       border-bottom: solid 3px $Primarywhite;
 
+<<<<<<< HEAD
       @include tablet {
+=======
+      @media (min-width: $tablet) {
+>>>>>>> main
         width: 75px;
         display: flex;
         margin: 0px;
       }
     }
   }
+<<<<<<< HEAD
 
   a {
     text-decoration: none;
@@ -99,11 +123,84 @@
   }
 }
 
+=======
+  &__tabs {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+
+    @media (min-width: $tablet) {
+      width: 200px;
+    }
+
+    a {
+      text-decoration: none;
+      align-self: baseline;
+      width: 50%;
+      text-align: center;
+      @media (min-width: $tablet) {
+        display: flex;
+        justify-content: flex-end;
+        align-self: flex-end;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+
+      @mixin tabbtn {
+        @include small_sizes {
+          background-color: $PrimaryBlack;
+          color: $Primarcloud;
+          &:active {
+            background-color: black;
+            color: $Primarywhite;
+          }
+          &:hover {
+            text-decoration: line-through;
+            color: $Primarywhite;
+          }
+        }
+      }
+
+      @media (min-width: $tablet) {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+
+    &--warehouses {
+      text-decoration: none;
+      width: 50%;
+      @include tabbtn;
+
+      @media (min-width: $tablet) {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+      @media (min-width: $desktop) {
+        align-self: center;
+      }
+    }
+  }
+}
+>>>>>>> main
 .logo {
   &__img {
     display: flex;
 
+<<<<<<< HEAD
     @include desktop {
+=======
+    @media (min-width: $desktop) {
+>>>>>>> main
       padding-left: 108px;
     }
   }
@@ -115,19 +212,31 @@
     width: 100%;
 
     &a {
+<<<<<<< HEAD
       @include tablet {
+=======
+      @media (min-width: $tablet) {
+>>>>>>> main
         align-self: flex-start;
         display: flex;
       }
     }
 
+<<<<<<< HEAD
     @include tablet {
+=======
+    @media (min-width: $tablet) {
+>>>>>>> main
       align-items: flex-end;
       justify-content: flex-end;
       width: 20%;
     }
 
+<<<<<<< HEAD
     @include desktop {
+=======
+    @media (min-width: $desktop) {
+>>>>>>> main
       justify-content: end;
       align-content: flex-start;
     }
