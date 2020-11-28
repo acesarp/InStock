@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
 function SubHeader(props) {
     
     const [state] = useState(props);
