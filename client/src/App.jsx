@@ -2,7 +2,7 @@ import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
 import NavBar from './components/NavBar'
 import NewInventory from './components/NewInventory';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './styles/main.css';
 import axios from 'axios';
 import React from 'react';
@@ -26,11 +26,14 @@ export default class App extends React.Component {
     return (
       <div className="app">
           <BrowserRouter>
-            <NavBar />
+          <NavBar />
+          <Switch>
             <Route path="/" component={InventoryList} exact />
             <Route path="/wareHouseList" component={WarehouseList} />
-            <Route path="/warehouseDetails" component={WarehouseDetails} />
+            <Route path="/warehouseDetails/:warehouseId" component={WarehouseDetails} />
             <Route path="/newinventoryitem" component={() => <NewInventory warehouseNames={this.state.names} />} />
+          </Switch>
+
           </BrowserRouter>
       </div>
     );

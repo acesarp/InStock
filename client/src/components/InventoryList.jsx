@@ -7,6 +7,7 @@ import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
     idItemToDelete = "";
+    itemNameToDelete = "";
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
@@ -49,7 +50,7 @@ export default class InventoryList extends React.Component {
 deleteModalHandler = (event) => {
     let stateClone = this.state;
     this.idItemToDelete = event.target.dataset.itemtarget;
-    this.itemNameToDelete = stateClone.list.filter(item => item.id === this.idItemToDelete)[0];
+    this.itemNameToDelete = event.target.dataset.itemtargetname;
 
     stateClone.modalOpen = true;
 
@@ -81,6 +82,7 @@ deleteModalHandler = (event) => {
         this.setState(stateClone);
         stateClone.modalOpen = false;
         this.idItemToDelete = "";
+        this.itemNameToDelete = "";
     }
 
     /**
@@ -186,7 +188,8 @@ deleteModalHandler = (event) => {
 
                                         <button onClick={this.deleteModalHandler}>
                                             <img src={`${this.iconFolder}/delete.svg`}
-                                                data-itemtarget={ item.id }
+                                                data-itemtargetid={item.id}
+                                                data-itemtargetname={ item.itemName }
                                                 alt="Delete icon" />
                                         </button>
                                         <button onClick={this.editHandler}>
