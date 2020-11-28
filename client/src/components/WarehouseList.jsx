@@ -16,7 +16,6 @@ export default class WarehouseList extends React.Component {
     }
     
     componentDidMount() {
-        console.log("iconFolder ", this.iconFolder);
         axios.get(`${this.url}/warehouses`)
             .then(response => {
                 

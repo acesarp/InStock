@@ -10,7 +10,7 @@ const { emailChecker, checkValue, checkPhoneNumber } = require('../fieldChecker.
 * GET warehouses list
 */
 router.get('/', (req, res) => {
-    console.info('get \'/\'');
+    //console.info('get \'/\'');
     res.send(warehouses);
 });
 
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 * GET warehouses list of names
 */
 router.get('/names', (req, res) => {
-    console.info('get \'/names\'');
+    //console.info('get \'/names\'');
     const result = warehouses.map(item => item.name); 
     console.debug(result);
     res.send(result);
@@ -28,6 +28,8 @@ router.get('/names', (req, res) => {
 * GET warehouse by id
 */
 router.get('/:id', (req, res) => {
+    //console.info('get \'/:id\'');
+    //console.info(warehouses.filter(item => item.id === req.params.id));
     res.send(warehouses.filter(item => item.id === req.params.id));
 });
 
