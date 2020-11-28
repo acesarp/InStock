@@ -2,6 +2,7 @@
 @import "./partials/colors";
 @import "./partials/fonts";
 @import "./partials/navbar";
+@import "./partials/editWarehouse";
 * {
   margin: 0;
   padding: 0;
@@ -12,10 +13,8 @@ body {
   margin: 0;
 
   @include tablet {
-    
   }
   @include desktop {
-    
   }
 }
 
@@ -30,7 +29,7 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0  1rem;
+  padding: 0 1rem;
   border-radius: 1rem;
   border: none;
 }
@@ -60,7 +59,6 @@ button {
     background-color: $Secondarycloud;
   }
 
-
   &__row {
     display: flex;
     flex-direction: row;
@@ -72,24 +70,19 @@ button {
     flex-direction: row;
 
     &--header {
-    display: flex;
-    flex-direction: row;
+      display: flex;
+      flex-direction: row;
     }
   }
 
   @include tablet {
-
   }
 
   @include desktop {
-
   }
-
 }
 
-
 .delete-modal {
-
   &__wrapper {
     width: 100vw;
     height: 100vh;
@@ -98,7 +91,7 @@ button {
     z-index: 1;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -107,7 +100,6 @@ button {
   border: 1px solid yellow;
 }
 
-
 //=============== header section ================//
 .header {
   margin: 0;
@@ -115,25 +107,25 @@ button {
 }
 
 .nav {
-    background-color: $Primaryblack;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: right;
-    flex-wrap: wrap;
-    height: 80px;
+  background-color: $Primaryblack;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: right;
+  flex-wrap: wrap;
+  height: 80px;
 
-    @include tablet {
-      flex-direction: column;
-      justify-content: flex-end;
-      align-content: flex-start;
-    }
-        @include desktop {
-      flex-direction: row;
-      justify-content: flex-end;
-      align-content: flex-start;
-    }
+  @include tablet {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: flex-start;
+  }
+  @include desktop {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-content: flex-start;
+  }
   &-wrapper {
     display: flex;
     justify-content: space-between;
@@ -148,7 +140,7 @@ button {
       text-decoration: none;
       color: $Primarywhite;
       border-bottom: solid 3px $Primarywhite;
-      @include tablet  {
+      @include tablet {
         width: 75px;
         display: flex;
         margin: 0px;

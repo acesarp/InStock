@@ -1,11 +1,11 @@
 @font-face {
-  src: url(./assets/fonts/TitilliumWeb-Regular.ttf);
+  src: url("./fonts/TitilliumWeb-Regular.woff") format("woff");
   font-family: "Titillium";
   font-weight: 400;
 }
 
 @font-face {
-  src: url(./assets/fonts/TitilliumWeb-Bold.ttf);
+  src: url("./fonts/TitilliumWeb-Bold.woff") format("woff");
   font-family: "Titillium";
   font-weight: 600;
 }
@@ -39,7 +39,7 @@
           flex-direction: row;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .nav__bar {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -73,7 +73,7 @@
   height: 60%;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .nav__tabs {
     width: 200px;
   }
@@ -87,7 +87,7 @@
   text-align: center;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .nav__tabs a {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -106,7 +106,7 @@
   border-bottom: solid 3px #ffffff;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .nav__tabs--inventory {
     width: 75px;
     display: -webkit-box;
@@ -116,7 +116,33 @@
   }
 }
 
-.nav a {
+.nav__tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  -webkit-box-align: self-end;
+      -ms-flex-align: self-end;
+          align-items: self-end;
+  height: 21%;
+  height: 60%;
+}
+
+@media (min-width: 768px) {
+  .nav__tabs {
+    width: 200px;
+  }
+}
+
+.nav__tabs a {
   text-decoration: none;
   -ms-flex-item-align: baseline;
       align-self: baseline;
@@ -124,8 +150,8 @@
   text-align: center;
 }
 
-@media only screen and (min-width: 768px) {
-  .nav a {
+@media (min-width: 768px) {
+  .nav__tabs a {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -137,28 +163,12 @@
   }
 }
 
-.nav--inventory {
+.nav__tabs--inventory {
   text-decoration: none;
-  border-radius: 20px;
-  height: 36px;
-  width: 90vw;
-  text-decoration: none;
-  background-color: #13182c;
-  color: #bdc5d5;
 }
 
-.nav--inventory:active {
-  background-color: black;
-  color: #ffffff;
-}
-
-.nav--inventory:hover {
-  text-decoration: line-through;
-  color: #ffffff;
-}
-
-@media only screen and (min-width: 768px) {
-  .nav {
+@media (min-width: 768px) {
+  .nav__tabs--inventory {
     width: 75px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -167,29 +177,13 @@
   }
 }
 
-.nav--warehouses {
+.nav__tabs--warehouses {
   text-decoration: none;
   width: 50%;
-  border-radius: 20px;
-  height: 36px;
-  width: 90vw;
-  text-decoration: none;
-  background-color: #13182c;
-  color: #bdc5d5;
 }
 
-.nav--warehouses:active {
-  background-color: black;
-  color: #ffffff;
-}
-
-.nav--warehouses:hover {
-  text-decoration: line-through;
-  color: #ffffff;
-}
-
-@media only screen and (min-width: 768px) {
-  .nav--warehouses {
+@media (min-width: 768px) {
+  .nav__tabs--warehouses {
     width: 75px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -198,8 +192,8 @@
   }
 }
 
-@media only screen and (min-width: 1440px) {
-  .nav--warehouses {
+@media (min-width: 1440px) {
+  .nav__tabs--warehouses {
     -ms-flex-item-align: center;
         -ms-grid-row-align: center;
         align-self: center;
@@ -212,7 +206,7 @@
   display: flex;
 }
 
-@media only screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
   .logo__img {
     padding-left: 108px;
   }
@@ -232,7 +226,7 @@
   width: 100%;
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .logo__linka {
     -ms-flex-item-align: start;
         align-self: flex-start;
@@ -242,7 +236,7 @@
   }
 }
 
-@media only screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .logo__link {
     -webkit-box-align: end;
         -ms-flex-align: end;
@@ -254,7 +248,7 @@
   }
 }
 
-@media only screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
   .logo__link {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
