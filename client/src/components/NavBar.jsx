@@ -7,7 +7,7 @@ const Navbar = (props) => {
   let iClass;
   let wClass;
 
-  if (props.path === '/inventories') {
+  if (props.page === 'inventory') {
     iClass = 'active'
     wClass = 'inactive'
   } else {

@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import NavBar from './NavBar';
 import SubHeader from './SubHeader';
+
 export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
@@ -61,7 +63,9 @@ export default class WarehouseList extends React.Component {
 
     render() {
         return (
-            <div>
+          <div>
+              <NavBar />
+            <div className="section-wrapper">
                 <SubHeader title={"Warehouses"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit.svg`} alt="" /> }/>
                 <h1>Warehouses</h1>
                 <table>
@@ -105,6 +109,8 @@ export default class WarehouseList extends React.Component {
                     </tbody>
                     </table>
             </div>
+          </div>
+            
         );
     }
 }
