@@ -155,25 +155,7 @@ deleteModalHandler = (event) => {
             });
     }
 
-    createItemObjectHandler = (async event => {
-        const itemId = event.target.dataset.itemtargeid;
-        try {
-            const response = await axios.get(`${this.url}/inventory/${itemId}`);
-            console.log(response.data);
-            return {
-                id: itemId,
-                itemName: response.data.itemName,
-                category: response.data.category,
-                status: response.data.status,
-                quantity: response.data.quantity,
-                warehouseName: response.data.warehouseName,
-                stockStatus: response.data
-            };
-        } 
-        catch (error) {
-            console.error(error);
-        }
-    });
+
 
 
     render() {
@@ -227,16 +209,16 @@ deleteModalHandler = (event) => {
                                             <td className="inventoryList__cell" >{item.warehouseName}</td>
                                             <td className="inventoryList__cell">
 
-                                                <button onClick={ this.deleteModalHandler }>
+                                            <button
+                                                className="inventoryList__delete-btn"
+                                                onClick={this.deleteModalHandler}>
                                                     <img src={ `${this.iconFolder }/delete.svg` }
                                                         data-itemtargetid={ item.id }
                                                         data-itemtargetname={ item.itemName }
                                                         alt="Delete icon" />
                                                 </button>
                                                 <Link
-                                                    className="link-btn"
-                                                    onClick={ this.createItemObjectHandler }
-                                                    data-itemtargetkey={ key_ }
+                                                    className="inventoryList__edit-btn"
                                                     to={{
                                                         pathname: `/newinventoryItem`,
                                                         state: {

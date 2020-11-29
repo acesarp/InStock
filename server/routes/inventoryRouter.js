@@ -27,36 +27,37 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', (req, res) => {
     //console.log("req.body ", req.body);
-
-    let data = {
-        id: uuid(),
-        warehouseID: req.body.warehouseID,
-        warehouseName: req.body.warehouseName,
-        description: req.body.description,
-        category: req.body.category,
-        status: req.body.status,
-        quantity: req.body.quantity
-    };
+    req.body.id = uuid();
+    const data = createObject(req.body);
     inventory.push(data);
-    try {
-        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(inventory), (error) => {
-            console.log("fs.writeFile message [null is good]: ", error);
-            if (!error) {
-                res.status(200).send({ itemAdded: data });
-            }
-        });
+    saveTofile(inventory) ? res.status(200).send({ item: data }) : res.status(500);
+});
+
+/**
+ * POST add new inventory item
+ */
+router.put('/', (req, res) => {
+    //console.log("req.body ", req.body);
+    const itemFound = inventory.filter(item => item.id === req.body.id)[0];
+    if (!itemFound) {
+        res.status(404).send("Item not found");
+        return;
     }
-    catch (error) {
-        res.sendStatus(500);
-    }
+
+    let data = createObject(req.body);
+    const objIndex = inventory.indexOf(itemFound);
+    inventory.splice(objIndex, 1, data);
+    console.log(objIndex);
+
+    saveTofile(inventory) ? res.status(200).send({ item: data }) : res.status(500);
 });
 
 /*
-* GET inventory item by id
+* DELETE inventory item by id
 */
 router.delete('/:id', (req, res) => {
     if (!req.params.id) {
-        res.status(404.1).send({ error: "Inventory item id is null" });
+        res.status(404).send({ error: "Inventory item id is null" });
         return;
     } 
 
@@ -65,8 +66,7 @@ router.delete('/:id', (req, res) => {
     let index = 0;
     for (; index < inventory.length; ++index) {
         if (inventory[index].id === req.params.id) { 
-            deletedItem = inventory[index];
-            
+            deletedItem = inventory[index]; 
             found = true;
             console.debug("Deleted: ", deletedItem.id);
             break;
@@ -94,5 +94,43 @@ router.delete('/:id', (req, res) => {
 });
 
 
-module.exports = router;
+/**
+ * 
+ * @param {JSON} content_ 
+ */
+function saveTofile(content_) {
+    try {
+        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(content_), (error) => {
+            console.log("fs.writeFile message [null is good]: ", error);
+            if (!error) {
+                console.log(true);
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    }
+    catch (error) {
+        return false;
+    }
+}
 
+/**
+ * 
+ * @param {Object} body_ 
+ */
+function createObject(body_) {
+    return {
+        id: body_.id,
+        warehouseID: body_.warehouseID,
+        warehouseName: body_.warehouseName,
+        itemName: body_.itemName,
+        description: body_.description,
+        category: body_.category,
+        status: body_.status,
+        quantity: body_.quantity
+    };
+}
+
+module.exports = router;
