@@ -1,8 +1,3 @@
-
-import logo from '../assets/Logo/InStock-Logo.svg';
-
-
-  
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,14 +17,14 @@ import { Link } from 'react-router-dom';
     
     return (
         <div className="nav">
-        <img className="nav__logo" src={logo} alt="logo" />
+        <img className="nav__logo" src='/assets/Logo/InStock-Logo.svg' alt="logo" />
         <nav className="nav__wrapper">
             <ul className="nav__menu">
             <li className={`nav__list-warehouses nav__list-warehouses--${wClass}`}>
-                <Link className={`nav__list-link--${wClass}`} to="/warehouses">Warehouses</Link>
+                <Link className={`nav__list-link--${wClass}`} to="/warehouselist">Warehouses</Link>
             </li>
             <li className={`nav__list-inventory nav__list-inventory--${iClass}`}>
-                <Link className={`nav__list-link--${iClass}`} to="/inventories">Inventory</Link>
+                <Link className={`nav__list-link--${iClass}`} to="/inventorylist">Inventory</Link>
             </li>
            
             </ul>

@@ -34,5 +34,18 @@ export default class InventoryModel {
             quantity: this.quantity
         });
     }
+
+    toJSON() {
+        return {
+            id: this.id,
+            warehouseID: this.warehouseID,
+            warehouseName: this.warehouseName,
+            itemName: this.itemName,
+            description: this.description,
+            category: this.category,
+            status: this.status,
+            quantity: this.quantity
+        };
+    }
 }
 

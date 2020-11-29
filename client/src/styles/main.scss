@@ -1,0 +1,262 @@
+@import "./partials/mixins";
+@import "./partials/breakpoints";
+@import "./partials/colors";
+@import "./partials/fonts";
+@import "./partials/navbar";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Titillium";
+}
+
+body {
+  margin: 0;
+
+  @include tablet {
+    
+  }
+  @include desktop {
+    
+  }
+}
+
+a {
+  border: 1px solid green;
+  text-decoration: none;
+  align-self: baseline;
+  text-align: center;
+}
+
+button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0  1rem;
+  border-radius: 1rem;
+  border: none;
+}
+
+.title {
+  @include set-font(1.75rem, 2.25rem);
+
+  @include tablet {
+    @include set-font(2rem, 2.5rem);
+  }
+}
+
+.sub-title {
+  @include set-font(1.25rem, 1.75rem);
+
+  @include tablet {
+    @include set-font(1.5rem, 2rem);
+  }
+}
+
+.labels {
+  @include set-font(0.8125rem, 1.25rem);
+
+  @include tablet {
+    @include set-font(0.875rem, 1.375rem);
+  }
+}
+
+.table-title {
+  @include set-font(0.6875rem, 1rem);
+
+  @include tablet {
+    @include set-font(0.75rem, 1.125rem);
+  }
+}
+
+.large-text {
+  @include set-font(0.9375rem, 1.625rem);
+
+  @include tablet {
+    @include set-font(1rem, 1.75rem);
+  }
+}
+
+.medium-text {
+  @include set-font(0.8125rem, 1.25rem);
+
+  @include tablet {
+    @include set-font(0.875rem, 1.375rem);
+  }
+}
+
+.small-text {
+  @include set-font(0.6875rem, 1rem);
+
+  @include tablet {
+    @include set-font(0.75rem, 1.125rem);
+  }
+}
+
+.header {
+  background-color: $Bacgroundgraphite;
+  display: flex;
+}
+
+.inventoryList {
+  border: 1px blue solid;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  filter: drop-shadow(-2px -2px 55px rgba(19, 24, 44, 0.1));
+
+  &__wrapper {
+    border-radius: 3px;
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    border: 1px pink solid;
+  }
+
+  &__header {
+    background-color: $Secondarycloud;
+  }
+
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid $Secondarycloud;
+    padding: 1rem 0;
+  }
+  &__cell {
+    display: flex;
+    flex-direction: row;
+
+    &--header {
+    display: flex;
+    flex-direction: row;
+    }
+  }
+
+  @include tablet {
+
+  }
+
+  @include desktop {
+
+  }
+
+}
+
+//======================== delete modal window =================//
+.delete-modal {
+  &__backdrop {
+      position: fixed;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0,0,0,0.4);
+      z-index: 1;
+      left: 0;
+      top: 0;
+  }
+  &__close {
+    background: none;
+    float: right;
+    cursor: pointer;
+  }
+
+  @include tablet {
+
+    &__wrapper {
+      margin: auto;
+      width: 42rem;
+      height: 16.375rem;
+      display: visible;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $Primarywhite;
+    }
+
+    &__paragraph {
+      background-color: $Primarywhite;
+    }
+    &__content {
+       background-color: $Primarywhite;
+    }
+
+  }
+
+}
+
+//======================== END delete modal window =================//
+
+
+
+.subHeader {
+  display: flex;
+  border: 1px solid yellow;
+}
+
+
+//=============== header section ================//
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+    background-color: $Primaryblack;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: right;
+    flex-wrap: wrap;
+    height: 80px;
+
+    @include tablet {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+        @include desktop {
+      flex-direction: row;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: self-end;
+    height: 21%;
+    height: 60%;
+  }
+
+  &__link {
+    &--inventory {
+      text-decoration: none;
+      color: $Primarywhite;
+      border-bottom: solid 3px $Primarywhite;
+      @include tablet  {
+        width: 75px;
+        display: flex;
+        margin: 0px;
+      }
+    }
+
+    &--inventory {
+      text-decoration: none;
+      background-color: $Primaryblack;
+      color: $Secondarycloud;
+      &:active {
+        background-color: black;
+        color: $Primarywhite;
+      }
+      &:hover {
+        text-decoration: line-through;
+        color: $Primarywhite;
+      }
+    }
+  }
+}

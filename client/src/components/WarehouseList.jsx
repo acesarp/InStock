@@ -1,12 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import WarehouseDetails from './WarehouseDetails';
 import { v4 as uuid } from 'uuid';
 import SubHeader from './SubHeader';
 export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
-    iconFolder = `${process.env.PUBLIC_URL}/Icons`;
+    iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
     constructor() {
         super();
@@ -24,7 +23,8 @@ export default class WarehouseList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    editHandler = () => {
+    editHandler = (event) => {
+        let data = event.target.value;
         axios.put(`${this.url}/warehouses`, {
                 })
             .then(response => {
@@ -62,7 +62,7 @@ export default class WarehouseList extends React.Component {
     render() {
         return (
             <div>
-                <SubHeader title={"Warehouses"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit-24px.svg`} alt="" /> }/>
+                <SubHeader title={"Warehouses"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit.svg`} alt="" /> }/>
                 <h1>Warehouses</h1>
                 <table>
                     <thead>
@@ -78,7 +78,7 @@ export default class WarehouseList extends React.Component {
                         {this.state.list && this.state.list.map(item => {
                             return (
                             <tr key={uuid()} id={item.id}>
-                                    <td><Link to="/wareHouseDetails" component={() => <WarehouseDetails warehouseId={ item.id } />} />{item.name}</td>
+                                    <td><Link to={`/wareHouseDetails/${ item.id }`}>{item.name}</Link></td>
                                     <td>{item.address}</td>
                                     <td>{item.contact.name}</td>
                                     <td><div>{item.contact.phone}</div>
@@ -86,8 +86,18 @@ export default class WarehouseList extends React.Component {
                                     </td>
                                     <td>{item.warhouseName}</td>
                                 <td>
-                                        <button onClick={this.editHandler}><img src={ `${process.env.PUBLIC_URL}/incons/edit-24px.svg` } alt="Edit icon" /></button>
-                                    <button onClick={this.deleteHandler}><img src={ `${process.env.PUBLIC_URL}/incons/delete-outline-24px.svg` } alt="Delete icon" /></button>
+                                        <Link
+                                            className=""
+                                            to={{
+                                                pathname: `/newwarehouse/${item.id}`,
+                                                state: {
+                                                    editHandler: this.editHandler
+                                                }
+                                            }}>
+                                            <img src={`${this.iconFolder}/edit.svg`}
+                                                alt="Edit icon" />
+                                        </Link>
+                                    <button className="" onClick={this.deleteHandler}><img src={ `${this.iconFolder}/delete.svg` } alt="Delete icon" /></button>
                                 </td>
                                 </tr>
                             )
