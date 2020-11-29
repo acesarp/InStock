@@ -1,12 +1,14 @@
+import AddEditInventory from './components/AddEditInventory';
 import InventoryList from './components/InventoryList';
 import WarehouseList from './components/WarehouseList';
+import WarehouseDetails from './components/WarehouseDetails';
+import AddEditWarehouse from './components/AddEditWarehouse';
 import NavBar from './components/NavBar'
-import NewInventory from './components/NewInventory';
+
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './styles/main.css';
 import axios from 'axios';
 import React from 'react';
-import WarehouseDetails from './components/WarehouseDetails';
 
 export default class App extends React.Component {
   state = { names: [] };
@@ -28,10 +30,15 @@ export default class App extends React.Component {
           <BrowserRouter>
           <NavBar />
           <Switch>
+            {/* Inventory routes */}
             <Route path="/inventory" component={InventoryList} exact />
-            <Route path="/wareHouses" component={WarehouseList} />
+            <Route path="/AddEditInventory" component={AddEditInventory} />
+            <Route path="/ItemDetails/:itemId" component={WarehouseDetails} />
+            
+            {/* Warehouse routes */}
+            <Route path="/warehouses" component={WarehouseList} />
+            <Route path="/AddEditWarehouse" component={AddEditWarehouse} />
             <Route path="/warehouseDetails/:warehouseId" component={WarehouseDetails} />
-            <Route path="/newinventoryitem" component={NewInventory} />
           </Switch>
 
           </BrowserRouter>

@@ -48,14 +48,14 @@ export default class DeleteModal extends Component {
                         aria-label="close">
                         X
                         </button>
-                    <h1 className="delete-modal__title"> Delete {this.props.itemName} inventory item?</h1>
+                    <h1 className="delete-modal__title"> Delete {this.props.name} inventory item?</h1>
                     <div className="delete-modal__content" >
                         { this.props.message ||
-                            <p className="delete-modal__paragraph">Please confirm that you'd like to delete {this.props.itemName} from the inventory list.<br />
+                                <p className="delete-modal__paragraph">Please confirm that you'd like to delete {this.props.name} from the { this.props.listType } list.<br />
                             You won't be able to undo this action.</p>
                         }
 
-                            { buttons }
+                        { buttons }
                     </div>
                 </div>
             </div>

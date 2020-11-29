@@ -1,5 +1,5 @@
 const path = require("path");
-const WAREHOUSES_FILE_PATH = '../Data/warehouses.json';
+const WAREHOUSES_FILE_PATH = './data/warehouses.json';
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
@@ -29,7 +29,8 @@ router.get('/names', (req, res) => {
 */
 router.get('/:id', (req, res) => {
     //console.info('get \'/:id\'');
-    //console.info(warehouses.filter(item => item.id === req.params.id));
+    console.info(warehouses.filter(item => item.id === req.params.id));
+    
     res.send(warehouses.filter(item => item.id === req.params.id));
 });
 
@@ -53,7 +54,7 @@ router.post('/', (req, res) => {
     };
     warehouses.push(data);
     try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
+        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), () => {
             res.status(200).send(data);
         });
     }
@@ -70,7 +71,7 @@ router.put('/', (req, res) => {
     let found = false;
     let index = 0
     const body = req.body;
-
+    console.info("PUT ", body);
     for (; index < warehouses.length; ++index) {
 
         if (warehouses[index].id === req.body.id) {
@@ -101,12 +102,14 @@ router.put('/', (req, res) => {
         return;
     }
     try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-            res.send({ saved: warehouses[index] });
+
+        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), (error) => {
+            console.log("fs.writeFile message [null is good]: ", error);
+            res.send({ updated: warehouses[index] });
         });
     }
     catch (error) {
-        res.sendStatus(500);
+        res.status(500);
     }
 });
 
@@ -137,14 +140,36 @@ router.delete('/:id', (req, res) => {
         return;
     }
     try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
+        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), (error) => {
+            console.log("fs.writeFile message [null is good]: ", error);
             res.status(200).send({ deleted: deletedItem });
         });
     }
     catch (error) {
-        res.sendStatus(500);
+        res.status(500);
     }
 });
+
+
+/**
+ * 
+ * @param {Object} body_ 
+ */
+function createObject(body_) {
+    return {
+        id: body_.id,
+        name:body_.name,
+        address:body_.address,
+        city:body_.city,
+        country:body_.country,
+        contact: {
+            name: body_.contact.name,
+            position: body_.contact.position,
+            phone: body_.contact.phone,
+            email: body_.contact.email
+        }
+    };
+}
 
 
 module.exports = router;

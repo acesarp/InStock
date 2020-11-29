@@ -1,6 +1,5 @@
 const path = require("path");
-const INVENTORY_FILE_PATH = '../Data/inventory.json';
-const INVENTORY_FILE_ABSOLUTE_PATH = "/Users/augusto/Dropbox/Brainstorm/repo/instock/server/Data/inventory.json";
+const INVENTORY_FILE_PATH = './data/inventory.json';
 const inventory = require(INVENTORY_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
@@ -78,7 +77,7 @@ router.delete('/:id', (req, res) => {
     }
 
     try {
-        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(inventory), (error) => {
+        fs.writeFile(path.join(path.resolve(__dirname, INVENTORY_FILE_PATH)), JSON.stringify(inventory), (error) => {
             if (!error) {
                 inventory.splice([index], 1);
                 res.status(200).send({ deleted: deletedItem });
@@ -100,7 +99,7 @@ router.delete('/:id', (req, res) => {
  */
 function saveTofile(content_) {
     try {
-        fs.writeFile(INVENTORY_FILE_ABSOLUTE_PATH, JSON.stringify(content_), (error) => {
+        fs.writeFile(path.join(path.resolve(__dirname, INVENTORY_FILE_PATH)), JSON.stringify(content_), (error) => {
             console.log("fs.writeFile message [null is good]: ", error);
             if (!error) {
                 console.log(true);

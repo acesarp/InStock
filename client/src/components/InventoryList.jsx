@@ -48,24 +48,24 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
- /**
- * 
-* @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
-*/
-deleteModalHandler = (event) => {
-    let stateClone = this.state;
-    stateClone.itemId = event.target.dataset.itemtargetid;
-    stateClone.itemName = event.target.dataset.itemtargetname;
+    /**
+     * 
+    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+    */
+    deleteModalHandler = (event) => {
+        let stateClone = this.state;
+        stateClone.itemId = event.target.dataset.itemtargetid;
+        stateClone.itemName = event.target.dataset.itemtargetname;
 
-    stateClone.modalOpen = true;
+        stateClone.modalOpen = true;
 
-    this.setState(stateClone);
-}
+        this.setState(stateClone);
+    }
 
-/**
- * 
- * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
- */
+    /**
+     * 
+     * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+     */
     confirmationHandler = (event) => {
         event.preventDefault();
         let stateClone = this.state;
@@ -157,17 +157,17 @@ deleteModalHandler = (event) => {
 
 
 
-
     render() {
         console.log("message ", this.state.message);
         return (
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
-                <SubHeader title={"Inventory"}
-                    searchHandler={ this.searchHandler }
-                    warehouseData={this.warehouseList}  
-                    route="/newinventoryitem"
-                    buttonLabel={"+ Add New Item"} />
+                    <SubHeader
+                        title={"Inventory"}
+                        searchHandler={ this.searchHandler }
+                        warehouseData={this.warehouseList}  
+                        route="/newinventoryitem"
+                        buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
 
                     <thead className="inventoryList__header">
@@ -220,9 +220,9 @@ deleteModalHandler = (event) => {
                                                 <Link
                                                     className="inventoryList__edit-btn"
                                                     to={{
-                                                        pathname: `/newinventoryItem`,
+                                                        pathname: `/AddEditInventoryItem`,
                                                         state: {
-                                                            itemId: item.id,
+                                                            id: item.id,
                                                             warehouseData: this.warehouseList,
                                                             title: "EDIT INVENTORY ITEM"
                                                         }
@@ -232,16 +232,17 @@ deleteModalHandler = (event) => {
                                                 </Link>
                                                 
                                         </td>
-                                        </tr>
+                                    </tr>
                                 )
                         })}
                     </tbody>
                 </table>
 
-                </div>
+            </div>
                 { this.state.modalOpen &&
                     <DeleteModal
-                        itemName={ this.state.itemName }
+                        name={this.state.itemName}
+                        listType={ "Inventory" }
                         clickModalHandler={ this.confirmationHandler }
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
