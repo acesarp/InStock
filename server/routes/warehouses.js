@@ -10,7 +10,6 @@ const { emailChecker, checkValue, checkPhoneNumber } = require('../fieldChecker.
 * GET warehouses list
 */
 router.get('/', (req, res) => {
-    //console.info('get \'/\'');
     res.send(warehouses);
 });
 
@@ -18,9 +17,7 @@ router.get('/', (req, res) => {
 * GET warehouses list of names
 */
 router.get('/names', (req, res) => {
-    //console.info('get \'/names\'');
     const result = warehouses.map(item => item.name); 
-    console.debug(result);
     res.send(result);
 });
 
@@ -28,8 +25,6 @@ router.get('/names', (req, res) => {
 * GET warehouse by id
 */
 router.get('/:id', (req, res) => {
-    //console.info('get \'/:id\'');
-    //console.info(warehouses.filter(item => item.id === req.params.id));
     res.send(warehouses.filter(item => item.id === req.params.id));
 });
 
@@ -70,7 +65,7 @@ router.post('/', (req, res) => {
 
 
 /*
-* Edit warehouse
+* EDIT warehouse
 */
 router.put('/', (req, res) => {
     let found = false;
@@ -103,7 +98,7 @@ router.put('/', (req, res) => {
     }
     
     if (!found) {
-        res.status(404).send({ error: "Warehouse not found" });
+        res.status(404).send({ error: `Warehouse with id: ${req.body.id} not found` });
         return;
     }
     try {
@@ -120,31 +115,27 @@ router.put('/', (req, res) => {
 /*
 * Delete warehouse by id
 */
-router.delete('/:id', (req, res) => {
-    let deletedItem = {};
-    let found = false;
-    let index = 0;
-    for (; index < warehouses.length; ++index) {
-        if (warehouses[index].id === req.params.id) {
-            deletedItem = warehouses[index];
-            delete warehouses[index];
-        }
-        break;
-    }
+router.delete("/:id", (request, response) => {
+  const item = warehouses.some(
+    (warehouse) => warehouse.id === request.params.id
+  );
+  let warehouseDeleted = [];
 
-    if(!found) {
-        res.status(404).send({ error: "Warehouse not found" });
-        return;
-    }
-    try {
-        fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouses), () => {
-            res.send({ deleted: deletedItem });
-        });
-    }
-    catch (error) {
-        res.sendStatus(500);
-    }
+  if (item) {
+    warehouseDeleted = warehouses.filter(
+      (warehouse) => warehouse.id !== request.params.id
+    );
+    fs.writeFile(WAREHOUSES_FILE_PATH, JSON.stringify(warehouseDeleted), () => {
+      console.log("file written");
+      response.json({
+        msg: "Item deleted",
+      });
+    });
+  } else {
+    response.status(400).json({
+      msg: `No Item with the id of ${request.params.id}`,
+    });
+  }
 });
-
 
 module.exports = router;
