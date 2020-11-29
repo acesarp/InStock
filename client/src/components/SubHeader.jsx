@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function SubHeader(props) {
     
@@ -36,8 +36,13 @@ function SubHeader(props) {
                 </Link>
             }
 
-        </div>
-    );
+      {props.warehouseList && (
+        <Link className="" to={{ pathname: state.route }}>
+          <div className="btn">{state.buttonLabel}</div>
+        </Link>
+      )}
+    </div>
+  );
 }
 
 export default SubHeader;
