@@ -7,7 +7,7 @@ function EditWarehouse(props) {
   return (
     <div className="edit-warehouse-1">
       <NavBar />
-      <div className="edit-warehouse">
+      <form className="edit-warehouse">
         <SubHeader title="Edit Warehouse" />
         <div className="edit-warehouse__container">
           <h2 className="edit-warehouse__title">Warehouse Details</h2>
@@ -51,7 +51,7 @@ function EditWarehouse(props) {
             Save
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
