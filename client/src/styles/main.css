@@ -325,15 +325,42 @@ button {
           flex-direction: row;
 }
 
-.delete-modal__wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: visible;
+.delete-modal__backdrop {
   position: fixed;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.delete-modal__close {
+  background: none;
+  float: right;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .delete-modal__wrapper {
+    margin: auto;
+    width: 42rem;
+    height: 16.375rem;
+    display: visible;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+    background-color: #ffffff;
+  }
+  .delete-modal__paragraph {
+    background-color: #ffffff;
+  }
+  .delete-modal__content {
+    background-color: #ffffff;
+  }
 }
 
 .subHeader {

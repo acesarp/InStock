@@ -1,9 +1,8 @@
-
 /**
  * 
  * @param {String} email_ 
  */
-const emailChecker = (email_) => {
+const checkEmail = (email_) => {
     const regex = new RegExp(/(^[\w\-]{1,}[\w\-\.^abc$]{3,}@[\w\-\.]{3,}\.\w{2,})$/, "g");
     try {
         checkValue(email_);
@@ -58,4 +57,4 @@ const checkPhoneNumber = (phone_) => {
     }
 };
 
-module.exports =  { emailChecker, checkValue, checkPhoneNumber }
+module.exports =  { checkEmail, checkValue, checkPhoneNumber }

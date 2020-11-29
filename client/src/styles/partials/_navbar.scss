@@ -1,11 +1,23 @@
+<<<<<<< HEAD
 nav {
+=======
+.nav {
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
   position: relative;
   background-color: $Primaryblack;
   height: 10rem;
   width: 100vw;
+<<<<<<< HEAD
   &__logo {
     margin: 1rem 0 0 30vw;
   }
+=======
+
+  &__logo {
+    margin: 1rem 0 0 30vw;
+  }
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
   &__menu {
     margin: unset;
     list-style: none;
@@ -13,6 +25,10 @@ nav {
     align-items: center;
     justify-content: center;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
   &__list-link {
     &--active {
       background-color: black;
@@ -37,6 +53,10 @@ nav {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
 @include tablet {
   .nav {
     height: 10rem;
@@ -48,11 +68,19 @@ nav {
       display: flex;
       margin-left: 38vw;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
     &__logo {
       margin-top: 1rem;
       margin-left: 3.125vw;
       margin-right: 56px;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
     &__menu {
       display: flex;
       align-items: center;
@@ -87,6 +115,10 @@ nav {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
 @include desktop {
   .nav {
     &__wrapper {
