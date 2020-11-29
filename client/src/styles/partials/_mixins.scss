@@ -1,0 +1,15 @@
+@mixin set-font($font-size, $line-height) {
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin set-width {
+  width: 91.47%;
+  margin: 0 auto;
+  max-width: 63.75rem;
+
+  @include tablet {
+    width: 91.7%;
+    margin: 0 auto;
+  }
+}

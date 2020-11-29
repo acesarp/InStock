@@ -1,26 +1,36 @@
-
-import React, {Component} from 'react';
-import "../styles/main.css";
+import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../styles/InStock-Logo_2x.png';
 
-export default class NavBar extends Component {
 
-    render(){
-        return(
-            <header className="header">
-                <div className="nav" >
-                    <div className="logo-link"><Link to={"/warehouses"}><img className="logo-img" src={ Logo } alt="InStock Logo"/></Link></div>
-                    <div className="nav-wrapper">
-                        <Link to={"/warehouses"}>
-                            <p className="nav__link--warehouses" >Warehouses</p>
-                        </Link>
-                        <Link to={"/inventory"}>
-                            <p className="nav__link--inventory" >Inventory</p>
-                        </Link>
-                    </div>
-                </div>
-            </header>
-        )
-    }
+const Navbar = (props) => {
+  console.log(props);
+  let iClass;
+  let wClass;
+
+  if (props.path === '/inventories') {
+    iClass = 'active'
+    wClass = 'inactive'
+  } else {
+    iClass = 'inactive'
+    wClass = 'active'
+  }
+
+  return (
+    <nav className="nav">
+      <div className="nav__wrapper">
+        <img className="nav__logo" src='/assets/Logo/InStock-Logo.svg' alt="logo" />
+      
+        <ul className="nav__menu">
+          <li className={`nav__list-item nav__list-item--${wClass}`}>
+            <Link className="labels nav__link" to="/warehouselist">Warehouses</Link>
+          </li>
+
+          <li className={`nav__list-item nav__list-item--${iClass}`}>
+            <Link className="labels nav__link" to="/inventorylist">Inventory</Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
 }
+export default Navbar

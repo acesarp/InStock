@@ -1,10 +1,14 @@
+@import "./partials/mixins";
 @import "./partials/breakpoints";
 @import "./partials/colors";
 @import "./partials/fonts";
+@import "./partials/CTA";
+@import "./partials/navbar";
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; 
   font-family: "Titillium";
 }
 
@@ -20,10 +24,11 @@ body {
 }
 
 a {
-  border: 1px solid green;
   text-decoration: none;
-  align-self: baseline;
-  text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button {
@@ -35,8 +40,64 @@ button {
   border: none;
 }
 
+.title {
+  @include set-font(1.75rem, 2.25rem);
+
+  @include tablet {
+    @include set-font(2rem, 2.5rem);
+  }
+}
+
+.sub-title {
+  @include set-font(1.25rem, 1.75rem);
+
+  @include tablet {
+    @include set-font(1.5rem, 2rem);
+  }
+}
+
+.labels {
+  @include set-font(0.8125rem, 1.25rem);
+
+  @include tablet {
+    @include set-font(0.875rem, 1.375rem);
+  }
+}
+
+.table-title {
+  @include set-font(0.6875rem, 1rem);
+
+  @include tablet {
+    @include set-font(0.75rem, 1.125rem);
+  }
+}
+
+.large-text {
+  @include set-font(0.9375rem, 1.625rem);
+
+  @include tablet {
+    @include set-font(1rem, 1.75rem);
+  }
+}
+
+.medium-text {
+  @include set-font(0.8125rem, 1.25rem);
+
+  @include tablet {
+    @include set-font(0.875rem, 1.375rem);
+  }
+}
+
+.small-text {
+  @include set-font(0.6875rem, 1rem);
+
+  @include tablet {
+    @include set-font(0.75rem, 1.125rem);
+  }
+}
+
 .header {
-  background-color: $Bacgroundgraphite;
+  background-color: $Backgroundgraphite;
   display: flex;
 }
 
@@ -126,9 +187,6 @@ button {
        background-color: $Primarywhite;
     }
 
-    &__title {
-
-    }
   }
 
 }
@@ -140,68 +198,4 @@ button {
 .subHeader {
   display: flex;
   border: 1px solid yellow;
-}
-
-
-//=============== header section ================//
-.header {
-  margin: 0;
-  padding: 0;
-}
-
-.nav {
-    background-color: $Primaryblack;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: right;
-    flex-wrap: wrap;
-    height: 80px;
-
-    @include tablet {
-      flex-direction: column;
-      justify-content: flex-end;
-      align-content: flex-start;
-    }
-        @include desktop {
-      flex-direction: row;
-      justify-content: flex-end;
-      align-content: flex-start;
-    }
-  &-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: self-end;
-    height: 21%;
-    height: 60%;
-  }
-
-  &__link {
-    &--inventory {
-      text-decoration: none;
-      color: $Primarywhite;
-      border-bottom: solid 3px $Primarywhite;
-      @include tablet  {
-        width: 75px;
-        display: flex;
-        margin: 0px;
-      }
-    }
-
-    &--inventory {
-      text-decoration: none;
-      background-color: $Primaryblack;
-      color: $Secondarycloud;
-      &:active {
-        background-color: black;
-        color: $Primarywhite;
-      }
-      &:hover {
-        text-decoration: line-through;
-        color: $Primarywhite;
-      }
-    }
-  }
 }
