@@ -2,6 +2,7 @@
   margin: 0%;
   padding: 0%;
   background-color: $Primaryblack;
+
   &__bar {
     width: 100%;
     background-color: $Primaryblack;
@@ -20,6 +21,7 @@
       align-content: flex-start;
     }
   }
+  
   &__tabs {
     display: flex;
     align-items: center;
