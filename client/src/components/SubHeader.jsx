@@ -1,31 +1,36 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function SubHeader(props) {
+    const history = useHistory();
+
+    const goBack = () => {
+      history.goBack();
+    }
 
     const [state] = useState(props);
     //console.log("warehouseData ", props.warehouseData);
 
     return (
         
-        <div className="subHeader">
+        <section className="sub-header">
 
             <button
-                className="back-button"
-                onClick={ this.props.history.goBack() }>
+                className="sub-header__back-btn"
+                onClick={ goBack }>
                 <img src={`${process.env.PUBLIC_URL}/assets/Icons/back-arrow.svg`} alt="back arrow" />
             </button>
             <h1>{props.title}</h1>
 
             { props.searchHandler &&
-                <form id="listSearch">
-                    <input onChange={ props.searchHandler } name="search" placeholder="Search..." />
+                <form className="sub-header__search-form" id="listSearch">
+                    <input className="sub-header__search-field" onChange={ props.searchHandler } name="search" placeholder="Search..." />
                 </form>
             }
             
             { props.warehouseData &&
                 <Link
-                className=""
+                className="sub-header__link"
                 to={{
                     pathname: state.route,
                     state: {
@@ -33,18 +38,18 @@ function SubHeader(props) {
                         title: "ADD NEW INVENTORY ITEM"
                     }
                 }} >
-                    <div className="btn">
+                    <div className="sub-header__btn">
                         { state.buttonLabel }
                     </div>
                 </Link>
             }
 
       {props.warehouseList && (
-        <Link className="" to={{ pathname: state.route }}>
-          <div className="btn">{state.buttonLabel}</div>
+        <Link className="sub-header__link" to={{ pathname: state.route }}>
+          <div className="sub-header__btn">{state.buttonLabel}</div>
         </Link>
       )}
-    </div>
+    </section>
   );
 }
 
