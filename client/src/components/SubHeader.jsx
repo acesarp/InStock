@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function SubHeader(props) {
-    
+
     const [state] = useState(props);
     //console.log("warehouseData ", props.warehouseData);
-    
+
     return (
         
         <div className="subHeader">
-            <button className="back-button">
+
+            <button
+                className="back-button"
+                onClick={ this.props.history.goBack() }>
                 <img src={`${process.env.PUBLIC_URL}/assets/Icons/back-arrow.svg`} alt="back arrow" />
             </button>
             <h1>{props.title}</h1>

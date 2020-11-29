@@ -56,15 +56,14 @@ export default class NewInventory extends React.Component {
             })
             .catch(error => console.error(error));
 
-
-        axios.post(`${this.url}/inventory`, model.toJSON(), {
-            headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => {
-                //console.info(response);
-                event.target.reset();
-            })
-            .catch(error => console.error(error));
+        // axios.post(`${this.url}/inventory`, model.toJSON(), {
+        //     headers: { 'Content-Type': 'application/json' }
+        //     })
+        //     .then(response => {
+        //         //console.info(response);
+        //         event.target.reset();
+        //     })
+        //     .catch(error => console.error(error));
     }
 
     changeHandler = (event) => {
@@ -81,7 +80,9 @@ export default class NewInventory extends React.Component {
             <div>                
                 <h1>{ this.state.pageTitle }</h1>
 
-                <form name="inventoryItemForm" onSubmit={ this.submitHandler }>
+                <form
+                    name="inventoryItemForm"
+                    onSubmit={this.submitHandler} >
                     <div>
                         <div>
                             <label htmlFor="itemName">Item Name</label>
