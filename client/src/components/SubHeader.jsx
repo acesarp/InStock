@@ -9,8 +9,7 @@ function SubHeader(props) {
     }
 
     const [state] = useState(props);
-    //console.log("warehouseData ", props.warehouseData);
-
+ 
     return (
         
         <section className="sub-header">
