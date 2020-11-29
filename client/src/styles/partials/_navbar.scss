@@ -1,5 +1,12 @@
 .nav {
   background-color: $Backgroundgraphite;
+  height: 12.5rem;
+  position: relative;
+  z-index: 1;
+
+  @include tablet {
+    height: 11.625rem;
+  }
 
   &__wrapper {
     @include set-width;
@@ -20,7 +27,7 @@
     width: 100%;
     padding-top: 1.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
     @include tablet {
       width: auto;

@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
+import NavBar from './NavBar';
 import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
@@ -161,8 +162,10 @@ deleteModalHandler = (event) => {
     render() {
         console.log("message ", this.state.message);
         return (
+          <div>
+            <NavBar page='inventory'/>
             <> { /* <=== don't delete this tag!!! */ }
-            <div className="inventoryList">
+            <div className="section-wrapper inventoryList">
                 <SubHeader title={"Inventory"}
                     searchHandler={ this.searchHandler }
                     warehouseData={this.warehouseList}  
@@ -246,7 +249,8 @@ deleteModalHandler = (event) => {
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
                     }
-                </> /* <=== don't delete this tag!!! */ 
+                </> {/* <=== don't delete this tag!!! */ }
+          </div>
         );
     }
 }
