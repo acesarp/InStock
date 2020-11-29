@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 function SubHeader(props) {
-
+    const history = useHistory();
     const [state] = useState(props);
     //console.log("warehouseData ", props.warehouseData);
+
+    const goBack = () => {
+        history.goBack();
+    }
 
     return (
         
@@ -12,7 +17,7 @@ function SubHeader(props) {
 
             <button
                 className="back-button"
-                onClick={ this.props.history.goBack() }>
+                onClick={ goBack }>
                 <img src={`${process.env.PUBLIC_URL}/assets/Icons/back-arrow.svg`} alt="back arrow" />
             </button>
             <h1>{props.title}</h1>
