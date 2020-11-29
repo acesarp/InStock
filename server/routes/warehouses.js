@@ -4,7 +4,13 @@ const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
-const { emailChecker, checkValue, checkPhoneNumber } = require('../fieldChecker.js');
+const { checkEmail, checkValue, checkPhoneNumber } = require('../fieldChecker.js');
+
+const INVENTORY_FILE_PATH = path.join(__dirname, "../Data/inventory.json");
+const loadInventories = () => {
+  const inventories = fs.readFileSync(INVENTORY_FILE_PATH);
+  return JSON.parse(inventories);
+}
 
 /* 
 * GET warehouses list
@@ -24,8 +30,28 @@ router.get('/names', (req, res) => {
 /*
 * GET warehouse by id
 */
-router.get('/:id', (req, res) => {
-    res.send(warehouses.filter(item => item.id === req.params.id));
+router.get("/:id", (req, res) => {
+  let item = warehouses.filter((item) => (item.id === req.params.id));
+  if (!item[0]) {
+      res.status(404).send({ error: `Warehosue with id: ${req.body.id} not found` });
+      return;
+  } else {
+      res.send(item);
+  }
+});
+
+/*
+* GET inventory by warehouse id
+*/
+router.get('/:id/inventory', (req, res) => {
+  let item = warehouses.filter((item) => (item.id === req.params.id));
+  if (!item[0]) {
+      res.status(404).send({ error: `Warehosue with id: ${req.body.id} not found` });
+      return;
+  } else {
+      const inventory = loadInventories();
+      res.send(inventory.filter((item) => (item.warehouseID === req.params.id)));
+  }
 });
 
 /**
@@ -43,7 +69,7 @@ router.post('/', (req, res) => {
           name: checkValue(req.body.contact.name),
           position: checkValue(req.body.contact.position),
           phone: checkPhoneNumber(req.body.contact.phone),
-          email: emailChecker(req.body.contact.email)
+          email: checkEmail(req.body.contact.email)
       }
     };
     warehouses.push(data);
@@ -86,7 +112,7 @@ router.put('/', (req, res) => {
                     name: checkValue(body.contact.name),
                     position: checkValue(body.contact.position),
                     phone: checkPhoneNumber(body.contact.phone),
-                    email: emailChecker(body.contact.email)
+                    email: checkEmail(body.contact.email)
                 };
                 break;
             }

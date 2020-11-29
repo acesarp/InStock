@@ -4,7 +4,7 @@ let router = require("express").Router();
 const uuid = require("uuid").v4;
 const fs = require("fs");
 
-function loadInventories() {
+const loadInventories = () => {
   const inventories = fs.readFileSync(INVENTORY_FILE_PATH);
   return JSON.parse(inventories);
 }
@@ -17,7 +17,6 @@ function writeInventories(data) {
  * GET inventory list
  */
 router.get("/", (req, res) => {
-  console.info(inventory);
   res.send(loadInventories());
 });
 
@@ -25,7 +24,13 @@ router.get("/", (req, res) => {
  * GET inventory item
  */
 router.get("/:id", (req, res) => {
-  res.send(inventory.filter((item) => (item.id === req.params.id)));
+  let item = inventory.filter((item) => (item.id === req.params.id));
+  if (!item[0]) {
+      res.status(404).send({ error: `Item with id: ${req.body.id} not found` });
+      return;
+  } else {
+      res.send(item);
+  }
 });
 
 /**

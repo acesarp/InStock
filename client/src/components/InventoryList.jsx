@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 import '../styles/main.css';
@@ -16,9 +17,10 @@ export default class InventoryList extends React.Component {
             list: [],
             sortToggle: false,
             modalOpen: false,
-            deleteConfirmation: false,
-            item: "",
-            itemId: ""
+            showCloseButton: false,
+            itemName: "",
+            itemId: "",
+            message: ""
         };
     }
     
@@ -26,10 +28,11 @@ export default class InventoryList extends React.Component {
         const id = this.props.warehouseId ?? "";
         axios.get(`${this.url}/inventory/${id}`)
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
                 let stateClone = this.state;
                 stateClone.list = response.data
                 this.fullList = response.data;
+                this.warehouseList = this.getWarehouseUniqueData();
                 this.setState(stateClone);
             })
             .catch(error => console.error(error));
@@ -51,9 +54,8 @@ export default class InventoryList extends React.Component {
 */
 deleteModalHandler = (event) => {
     let stateClone = this.state;
-    console.log(event.target.dataset);
     stateClone.itemId = event.target.dataset.itemtargetid;
-    stateClone.item = event.target.dataset.itemtargetname;
+    stateClone.itemName = event.target.dataset.itemtargetname;
 
     stateClone.modalOpen = true;
 
@@ -68,29 +70,26 @@ deleteModalHandler = (event) => {
         event.preventDefault();
         let stateClone = this.state;
 
-        if (event.target.value === "delete") {
-        
-            stateClone.deleteConfirmation = true;
+        if (event.target.value === "delete") {      
 
             axios.delete(`${this.url}/inventory/${this.state.itemId}`)
                 .then(response => {
-                    console.log(response.data);
-                    stateClone.list = stateClone.list.filter(item => item.id !== response.data.id);
-                    stateClone.item = response.data.itemName;
-                    stateClone.message = `${response.data.itemName} deleted successfully!`;
+                    stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
+                    stateClone.itemName = response.data.deleted.itemName;
+                    stateClone.message = `${response.data.deleted.itemName} deleted successfully!`;
+                    stateClone.showCloseButton = true;
+                    this.setState(stateClone);
                 })
                 .catch(error => {
-                    stateClone.deleteConfirmation = false;
                     stateClone.message = `Error: ${stateClone.itemName} could not be deleted.`;
+                    this.setState(stateClone);
                     console.error(error);
                 });
         }
         else {
-        stateClone.deleteConfirmation = false;
-        stateClone.modalOpen = false;
+            stateClone.modalOpen = false;
+            this.setState(stateClone);
         }
-
-        this.setState(stateClone);
     }
 
     /**
@@ -141,18 +140,30 @@ deleteModalHandler = (event) => {
         this.setState({ list: filteredList });
     }
 
+    getWarehouseUniqueData() {
+        //console.log(this.fullList);
+
+        let keys = this.fullList.map(key => key.warehouseID)
+        let uniqueList = this.fullList.filter((id, index) => !keys.includes(id.warehouseID, index+1))
+
+        //console.log("uniqueList ", uniqueList)
+        
+        return uniqueList.map(item => {
+                let obj = { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
+                console.log("obj ", obj);
+                return obj;
+            });
+    }
+
 
     render() {
+        console.log("message ", this.state.message);
         return (
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
                 <SubHeader title={"Inventory"}
-                    searchHandler={this.searchHandler}
-                    warehouseList={this.fullList
-                        .map(item => {
-                            //console.log(item);
-                            return { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
-                        })}
+                    searchHandler={ this.searchHandler }
+                    warehouseData={this.warehouseList}  
                     route="/newinventoryitem"
                     buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
@@ -201,10 +212,20 @@ deleteModalHandler = (event) => {
                                                 data-itemtargetname={ item.itemName }
                                                 alt="Delete icon" />
                                         </button>
-                                        <button onClick={this.editHandler}>
+                                        <Link
+                                            className="link-btn"
+                                            to={{
+                                                pathname: `/newinventoryItem`,
+                                                state: {
+                                                    itemId: item.id,
+                                                    warehouseData: this.warehouseList,
+                                                    title: "EDIT INVENTORY ITEM"
+                                                }
+                                            }}>
                                             <img src={`${this.iconFolder}/edit.svg`}
                                                 alt="Edit icon" />
-                                        </button>
+                                        </Link>
+
                                 </td>
                                 </tr>
                             )
@@ -213,12 +234,12 @@ deleteModalHandler = (event) => {
                 </table>
 
                 </div>
-                  { this.state.modalOpen &&
+                {this.state.modalOpen &&
                     <DeleteModal
-                        confirmationHandler={this.confirmationHandler}
-                        item={this.state.item}
-                        clickModalHandler={ this.confirmationHandler }
-                        message={this.state.message} />
+                    itemName={this.state.itemName}
+                    clickModalHandler={this.confirmationHandler}
+                    message={this.state.message}
+                    showCloseButton={ this.state.showCloseButton}/>
                     }
                 </> /* <=== don't delete this tag!!! */ 
         );
