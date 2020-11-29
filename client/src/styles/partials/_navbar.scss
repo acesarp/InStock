@@ -1,7 +1,25 @@
+<<<<<<< HEAD
+@import "../../styles/partials/CTA";
+@import "../../styles/partials/breakpoints";
+@import "../../styles/partials/colors";
+
+=======
+>>>>>>> main
 .nav {
-  margin: 0%;
-  padding: 0%;
+  position: relative;
   background-color: $Primaryblack;
+<<<<<<< HEAD
+  height: 10rem;
+  width: 100vw;
+
+  &__logo {
+    margin: 1rem 0 0 30vw;
+  }
+
+  &__menu {
+    margin: unset;
+    list-style: none;
+=======
 
   &__bar {
     width: 100%;
@@ -23,113 +41,105 @@
   }
   
   &__tabs {
+>>>>>>> main
     display: flex;
     align-items: center;
-    align-self: center;
-    justify-content: space-between;
-    width: 100%;
-    align-items: self-end;
-    height: 21%;
-    height: 60%;
+    justify-content: center;
+  }
 
-    @include tablet {
-      width: 200px;
-    }
-
-    a {
-      text-decoration: none;
-      align-self: baseline;
-      width: 50%;
-      text-align: center;
-      @include tablet {
-        display: flex;
-        justify-content: flex-end;
-        align-self: flex-end;
-      }
-    }
-
-    &--inventory {
-      text-decoration: none;
+  &__list-link {
+    &--active {
+      background-color: black;
+      height: 2.25rem;
+      padding: 0 1.5rem;
+      border-radius: 20px;
       color: $Primarywhite;
-      border-bottom: solid 3px $Primarywhite;
-
-      @include tablet {
-        width: 75px;
-        display: flex;
-        margin: 0px;
+      text-decoration: none;
+    }
+    &--inactive {
+      background-color: $Primaryblack;
+      height: 2.25rem;
+      padding: 0 1.5rem;
+      border-radius: 20px;
+      text-decoration: none;
+      color: $Secondaryslate;
+      &:hover {
+        text-decoration: underline;
+        text-decoration: $Primarywhite;
+        color: $Primarywhite;
       }
-    }
-  }
-
-  a {
-    text-decoration: none;
-    align-self: baseline;
-    width: 50%;
-    text-align: center;
-    @include tablet {
-      display: flex;
-      justify-content: flex-end;
-      align-self: flex-end;
-    }
-  }
-
-  &--inventory {
-    text-decoration: none;
-    @include tab_button;
-  }
-
-  @include tablet {
-    width: 75px;
-    display: flex;
-    margin: 0px;
-  }
-
-  &--warehouses {
-    text-decoration: none;
-    width: 50%;
-    @include tab_button;
-    @include tablet {
-      width: 75px;
-      display: flex;
-      margin: 0px;
-    }
-    @include desktop {
-      align-self: center;
     }
   }
 }
 
-.logo {
-  &__img {
+@include tablet {
+  .nav {
+    height: 10rem;
     display: flex;
-
-    @include desktop {
-      padding-left: 108px;
+    flex-direction: row;
+    align-items: flex-start;
+    &__wrapper {
+      margin-top: 1rem;
+      display: flex;
+      margin-left: 38vw;
     }
-  }
-  &__link {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 40%;
-    width: 100%;
 
+    &__logo {
+      margin-top: 1rem;
+      margin-left: 3.125vw;
+      margin-right: 56px;
+    }
+
+<<<<<<< HEAD
+    &__menu {
+      display: flex;
+      align-items: center;
+      &__list-link {
+        &--active {
+          background-color: black;
+          height: 2.25rem;
+          padding: 0 1.5rem;
+          border-radius: 20px;
+          color: $Primarywhite;
+          text-decoration: none;
+          &:hover {
+            text-decoration: underline;
+            text-decoration: $Primarywhite;
+            color: $Primarywhite;
+          }
+        }
+        &--inactive {
+          background-color: $Primaryblack;
+          height: 2.25rem;
+          padding: 0 1.5rem;
+          border-radius: 20px;
+          text-decoration: none;
+          color: $Secondaryslate;
+          &:hover {
+            text-decoration: underline;
+            text-decoration: $Primarywhite;
+            color: $Primarywhite;
+          }
+        }
+=======
     & a {
       @include tablet {
         align-self: flex-start;
         display: flex;
+>>>>>>> main
       }
     }
+  }
+}
 
-    @include tablet {
-      align-items: flex-end;
-      justify-content: flex-end;
-      width: 20%;
+@include desktop {
+  .nav {
+    &__wrapper {
+      // margin-right: 5rem;
+      margin-left: 40vw;
     }
-
-    @include desktop {
-      justify-content: end;
-      align-content: flex-start;
+    &__logo {
+      margin-left: 5rem;
     }
   }
 }
