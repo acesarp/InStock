@@ -1,8 +1,3 @@
-
-import logo from '../assets/Logo/InStock-Logo.svg';
-
-
-  
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +17,7 @@ import { Link } from 'react-router-dom';
     
     return (
         <div className="nav">
-        <img className="nav__logo" src={logo} alt="logo" />
+        <img className="nav__logo" src='/assets/Logo/InStock-Logo.svg' alt="logo" />
         <nav className="nav__wrapper">
             <ul className="nav__menu">
             <li className={`nav__list-warehouses nav__list-warehouses--${wClass}`}>

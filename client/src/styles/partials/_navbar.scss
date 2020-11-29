@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 @import "../../styles/partials/CTA";
 @import "../../styles/partials/breakpoints";
 @import "../../styles/partials/colors";
 
+=======
+>>>>>>> main
 .nav {
   position: relative;
   background-color: $Primaryblack;
+<<<<<<< HEAD
   height: 10rem;
   width: 100vw;
 
@@ -15,6 +19,29 @@
   &__menu {
     margin: unset;
     list-style: none;
+=======
+
+  &__bar {
+    width: 100%;
+    background-color: $Primaryblack;
+    margin-bottom: 0px;
+    display: flex;
+    align-content: center;
+    margin: 0%;
+    justify-content: right;
+    flex-wrap: wrap;
+    height: 80px;
+    width: 100%;
+    flex-direction: row;
+    @include tablet {
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-start;
+    }
+  }
+  
+  &__tabs {
+>>>>>>> main
     display: flex;
     align-items: center;
     justify-content: center;
@@ -63,6 +90,7 @@
       margin-right: 56px;
     }
 
+<<<<<<< HEAD
     &__menu {
       display: flex;
       align-items: center;
@@ -93,6 +121,12 @@
             color: $Primarywhite;
           }
         }
+=======
+    & a {
+      @include tablet {
+        align-self: flex-start;
+        display: flex;
+>>>>>>> main
       }
     }
   }

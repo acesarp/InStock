@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 function SubHeader(props) {
     
     const [state] = useState(props);
-    //console.log(props.warehouseList);
+    //console.log("warehouseData ", props.warehouseData);
     
     return (
         
         <div className="subHeader">
+            <button className="back-button">
+                <img src={`${process.env.PUBLIC_URL}/assets/Icons/back-arrow.svg`} alt="back arrow" />
+            </button>
             <h1>{props.title}</h1>
 
             { props.searchHandler &&
@@ -16,16 +20,29 @@ function SubHeader(props) {
                 </form>
             }
             
-            { props.warehouseList &&
-                <Link className="" to={{ pathname: state.route}} >
+            { props.warehouseData &&
+                <Link
+                className=""
+                to={{
+                    pathname: state.route,
+                    state: {
+                        warehouseData: props.warehouseData,
+                        title: "ADD NEW INVENTORY ITEM"
+                    }
+                }} >
                     <div className="btn">
                         { state.buttonLabel }
                     </div>
                 </Link>
             }
 
-        </div>
-    );
+      {props.warehouseList && (
+        <Link className="" to={{ pathname: state.route }}>
+          <div className="btn">{state.buttonLabel}</div>
+        </Link>
+      )}
+    </div>
+  );
 }
 
 export default SubHeader;

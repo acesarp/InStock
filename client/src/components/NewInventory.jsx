@@ -1,55 +1,74 @@
 import React from 'react';
 import axios from 'axios';
 import InventoryModel from '../models/InventoryModel';
-import { v4 as uuid } from 'uuid';
+import '../styles/main.css';
+
 export default class NewInventory extends React.Component {
     url = 'http://localhost:5000';
-
+    category =  ["Apparel", "Gear", "Health", "Electronics"];
     constructor(props) {
         super(props);
+        //console.log("state ", this.state);
         this.state = {
             formData: {
                 itemName: "Test value item name",
                 description: "Test value description",
                 category: "",
                 stockStatus: false,
+                warehouseName: "",
                 quantity: 0,  
             },
-
-            warehouseNames: props.warehouseNames
+            warehouseData: props.location.state.warehouseData,
+            editItemId: props.location.state.itemId,
+            pageTitle: props.location.state.title
         };
-        console.log("warehouseList ", this.state.warehouseNames);
+
+        console.log("props.location.state ", this.props.location.state);
     }
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(event.target);
         let data = new FormData(event.target);
+        const warehouseName = data.get("warehouseName").toString();
+        const warehouseID = this.props.location.state.warehouseData
+            .filter(item => item.warehouseName === warehouseName)[0].warehouseID;
 
         const model = new InventoryModel(
-
-            uuid(),
-            this.props.warehouseList.warehouseId,
-            this.props.warehouseList.warehouseName,
+            this.state.editItemId ?? "", //id is to be created by the server
+            warehouseID,
+            warehouseName,
             data.get("itemName").toString(),
             data.get("description").toString(),
             data.get("category").toString(),
             data.get("status").toString(),
             Number.parseInt(data.get("quantity").toString())
         );
-
-        axios.post(`${this.url}/inventory`, {
-            data: model.stringify()
-                })
+        const method = this.props.location.state.itemId ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
+        axios({
+                method: method,
+                url: `${this.url}/inventory`,
+                headers: { 'Content-Type': 'application/json' },
+                data: model.toJSON()
+            })
             .then(response => {
-                console.info(response);
+            //console.info(response);
+            event.target.reset();
+            })
+            .catch(error => console.error(error));
+
+
+        axios.post(`${this.url}/inventory`, model.toJSON(), {
+            headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => {
+                //console.info(response);
                 event.target.reset();
             })
             .catch(error => console.error(error));
     }
 
     changeHandler = (event) => {
-        console.log([event.target.name], event.target.value);
+        //console.log([event.target.name], event.target.value);
         const currentState = this.state;
         this.setState({
             ...currentState,
@@ -60,9 +79,9 @@ export default class NewInventory extends React.Component {
     render() {
         return (
             <div>                
-                <h1>ADD NEW INVENTORY ITEM</h1>
+                <h1>{ this.state.pageTitle }</h1>
 
-                <form name="inventoryItem" onSubmit={ this.submitHandler }>
+                <form name="inventoryItemForm" onSubmit={ this.submitHandler }>
                     <div>
                         <div>
                             <label htmlFor="itemName">Item Name</label>
@@ -80,12 +99,16 @@ export default class NewInventory extends React.Component {
                                 placeholder="Please enter a brief description..."
                                 required
                                 value={ this.state.description }
-                                onChange={this.changeHandler} ></textarea>            
+                                onChange={this.changeHandler} >
+                            </textarea>            
                         </div>
                         <div>
                         <label htmlFor="category">Category</label>
-                        <select name="category">
-                            <option value=""></option>
+                            <select name="category"
+                                onChange={this.changeHandler} >
+                                { this.category
+                                    .map(item => <option key={ item } value={item}>{item}</option>)
+                                }
                         </select>
                         </div>
                     </div>
@@ -117,28 +140,29 @@ export default class NewInventory extends React.Component {
                                 type="number"
                                 value={this.state.quantity}
                                 onChange={this.changeHandler}
-                                required
-                                />
+                                required />
                     </div>
                     
                     <div>
-                    <label htmlFor="warehouseNames">Warehouse Name</label>
+                    <label htmlFor="warehouseNameDropdown">Warehouse Name</label>
                             <select
-                                id="warehouseNames-id"
-                                name="warehouseNames"
+                                id="warehouseNameDropdown-id"
+                                name="warehouseName"
                                 value={this.state.wareHouseName}
+                                
+                                onChange={this.changeHandler}
                                 required >
-                                <option value="" > Warehouse TEST </option>
-                                {this.state.warehouseNames && this.state.warehouseNames.forEach(name => 
-                                    <option key={ name } value={name} > {name}</option>
+                                {this.state.warehouseData && this.state.warehouseData.map(obj => {
+                                    return <option id={ obj.warehouseID} key={obj.warehouseName} value={obj.warehouseName} > {obj.warehouseName}</option>;
+                                }
                                 
                                 )}
                         </select>
                     </div>
             </div>
                     <div>
-                        <input type="submit" value="+Add Item" />
-                        <input type="reset" value="Cancel" />
+                        <input className="" type="submit" value="+Add Item" />
+                        <input className="" type="reset" value="Cancel" />
                     </div>
                     
                 </form>
