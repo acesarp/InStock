@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import SubHeader from "./SubHeader";
+import NavBar from './NavBar';
 import axios from 'axios';
 import WarehouseModel from '../models/WarehouseModel';
 import '../styles/main.css';
@@ -99,8 +100,11 @@ export default class AddEditWarehouse extends React.Component {
     render() {
                 
         return (
+          <div>
+            <NavBar />
             <Fragment>
-                <SubHeader title={this.state.pageTitle} />
+              <div className="section-wrapper">
+              <SubHeader title={this.state.pageTitle} />
                 <div className="warehouse__form--wrapper">
                     <form
                         className="warehouse__form"
@@ -206,7 +210,9 @@ export default class AddEditWarehouse extends React.Component {
                     </form>
 
                 </div>
+              </div>
             </Fragment>
+          </div>
         );
     }
         

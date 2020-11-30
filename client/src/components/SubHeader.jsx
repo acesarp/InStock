@@ -10,9 +10,7 @@ function SubHeader(props) {
 
     const [state] = useState(props);
 
-    console.log(history.location.pathname);
-
-    if (history.location.pathname !== 'warehouselist' || history.location.pathname !== 'inventorylist') {
+    if (history.location.pathname !== '/warehouselist' && history.location.pathname !== '/inventorylist') {
       return (
           <section className="sub-header">
 
