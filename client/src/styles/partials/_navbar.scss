@@ -13,92 +13,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-<<<<<<< HEAD
-    justify-content: center;
-  }
-  &__list-link {
-    &--active {
-      background-color: black;
-      height: 2.25rem;
-      padding: 0 1.5rem;
-      border-radius: 20px;
-      color: $Primarywhite;
-      text-decoration: none;
-    }
-    &--inactive {
-      background-color: $Primaryblack;
-      height: 2.25rem;
-      padding: 0 1.5rem;
-      border-radius: 20px;
-      text-decoration: none;
-      color: $Secondaryslate;
-      &:hover {
-        text-decoration: underline;
-        text-decoration: $Primarywhite;
-        color: $Primarywhite;
-      }
-    }
-  }
-}
-@include tablet {
-  .nav {
-    height: 10rem;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    &__wrapper {
-      margin-top: 1rem;
-      display: flex;
-      margin-left: 38vw;
-    }
-    &__logo {
-      margin-top: 1rem;
-      margin-left: 3.125vw;
-      margin-right: 56px;
-    }
-    &__menu {
-      display: flex;
-      align-items: center;
-      &__list-link {
-        &--active {
-          background-color: black;
-          height: 2.25rem;
-          padding: 0 1.5rem;
-          border-radius: 20px;
-          color: $Primarywhite;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-            text-decoration: $Primarywhite;
-            color: $Primarywhite;
-          }
-        }
-        &--inactive {
-          background-color: $Primaryblack;
-          height: 2.25rem;
-          padding: 0 1.5rem;
-          border-radius: 20px;
-          text-decoration: none;
-          color: $Secondaryslate;
-          &:hover {
-            text-decoration: underline;
-            text-decoration: $Primarywhite;
-            color: $Primarywhite;
-          }
-        }
-      }
-    }
-  }
-}
-@include desktop {
-  .nav {
-    &__wrapper {
-      // margin-right: 5rem;
-      margin-left: 40vw;
-    }
-    &__logo {
-      margin-left: 5rem;
-=======
     padding: 1.5rem 0;
 
     @include tablet {
@@ -138,7 +52,6 @@
 
     &:hover {
       text-decoration: underline;
->>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
     }
   }
 }

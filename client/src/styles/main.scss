@@ -8,21 +8,13 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   font-family: "Titillium";
 }
 
 body {
   margin: 0;
-<<<<<<< HEAD
-
-  @include tablet {
-  }
-  @include desktop {
-  }
-=======
   background-color: $Backgroundlightgrey;
->>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
 }
 
 a {
@@ -209,71 +201,4 @@ button {
 .subHeader {
   display: flex;
   border: 1px solid yellow;
-<<<<<<< HEAD
 }
-
-//=============== header section ================//
-.header {
-  margin: 0;
-  padding: 0;
-}
-
-.nav {
-  background-color: $Primaryblack;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: right;
-  flex-wrap: wrap;
-  height: 80px;
-
-  @include tablet {
-    flex-direction: column;
-    justify-content: flex-end;
-    align-content: flex-start;
-  }
-  @include desktop {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-content: flex-start;
-  }
-  &-wrapper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: self-end;
-    height: 21%;
-    height: 60%;
-  }
-
-  &__link {
-    &--inventory {
-      text-decoration: none;
-      color: $Primarywhite;
-      border-bottom: solid 3px $Primarywhite;
-      @include tablet {
-        width: 75px;
-        display: flex;
-        margin: 0px;
-      }
-    }
-
-    &--inventory {
-      text-decoration: none;
-      background-color: $Primaryblack;
-      color: $Secondarycloud;
-      &:active {
-        background-color: black;
-        color: $Primarywhite;
-      }
-      &:hover {
-        text-decoration: line-through;
-        color: $Primarywhite;
-      }
-    }
-  }
-}
-=======
-}
->>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4

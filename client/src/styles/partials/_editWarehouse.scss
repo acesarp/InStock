@@ -9,6 +9,9 @@
     background: $Primarywhite;
     box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
     margin: 0 1rem 0 1rem;
+    position: relative;
+    top: -4rem;
+    z-index: 5;
   }
   &__subheader {
     font-family: Titillium Web;
@@ -27,7 +30,10 @@
     line-height: 28px;
     color: $Primaryblack;
 
-    margin: 1rem 0 1.5rem 1.5rem;
+    margin-top: 1.5rem;
+    padding-left: 1.5rem;
+    border-top: 1px solid $Secondarycloud;
+    padding-top: 1rem;
   }
   &__subtitle {
     margin: 1rem 9.8125rem 0 1.5rem;
@@ -68,7 +74,7 @@
     }
   }
   &__copyright {
-    padding: 2.5rem 6.8125rem 2.5rem 5.5rem;
+    margin: 0 6.8125rem 2.5rem 5.5rem;
     width: 9.8125rem;
     font-family: Titillium Web;
     font-style: normal;

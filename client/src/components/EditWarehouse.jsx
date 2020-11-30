@@ -46,18 +46,22 @@ class EditWarehouse extends React.Component {
   };
 
   submitEditedWarehouse = () => {
-    axios.post("http://localhost:5000", {
-      name: this.state.name,
-      address: this.state.address,
-      city: this.state.city,
-      country: this.state.country,
-      contact: {
-        name: this.state.contactName,
-        position: this.state.position,
-        phone: this.state.phone,
-        email: this.state.email,
-      },
-    });
+    axios
+      .post("http://localhost:5000/warehouses", {
+        name: this.state.name,
+        address: this.state.address,
+        city: this.state.city,
+        country: this.state.country,
+        contact: {
+          name: this.state.contactName,
+          position: this.state.position,
+          phone: this.state.phone,
+          email: this.state.email,
+        },
+      })
+      .catch((err) => {
+        console.log("there is an error", err);
+      });
   };
 
   render(props) {
