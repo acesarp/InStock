@@ -1,6 +1,7 @@
 const path = require("path");
 const INVENTORY_FILE_PATH = './data/inventory.json';
 const inventory = require(INVENTORY_FILE_PATH);
+const RESOLVED_FILE_PATH = path.join(path.resolve(__dirname, INVENTORY_FILE_PATH));
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
@@ -76,9 +77,9 @@ router.delete('/:id', (req, res) => {
     }
 
     try {
-        fs.writeFile(path.join(path.resolve(__dirname, INVENTORY_FILE_PATH)), JSON.stringify(inventory), (error) => {
+        fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(inventory, null, 4), (error) => {
+            console.log(error);
             if (!error) {
-                
                 console.log(deletedItem);
                 res.status(200).send({ deleted: deletedItem });
             }
@@ -99,10 +100,10 @@ router.delete('/:id', (req, res) => {
  */
 function saveTofile(content_) {
     try {
-        fs.writeFile(path.join(path.resolve(__dirname, INVENTORY_FILE_PATH)), JSON.stringify(content_), (error) => {
+        fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(content_, null, 4), (error) => {
             console.log("fs.writeFile message [null is good]: ", error);
             if (!error) {
-                console.log(true);
+                //console.log(true);
                 return true;
             }
             else {

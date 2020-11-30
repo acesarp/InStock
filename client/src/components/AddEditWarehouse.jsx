@@ -48,7 +48,7 @@ export default class AddEditWarehouse extends React.Component {
             
             };
             this.setState(clone);
-            console.log(clone.formData);
+            //console.log(clone.formData);
 
         } 
         catch (error) {

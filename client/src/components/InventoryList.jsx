@@ -38,15 +38,15 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    editHandler = () => {
-        axios.put(`${this.url}/inventory`, {
-                //STUB To Do
-                })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
-    }
+    // editHandler = () => {
+    //     axios.put(`${this.url}/inventory`, {
+    //             //STUB To Do
+    //             })
+    //         .then(response => {
+    //             this.setState(response.data);
+    //         })
+    //         .catch(error => console.error(error));
+    // }
 
     /**
      * 

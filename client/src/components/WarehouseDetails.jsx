@@ -31,7 +31,7 @@ export default class WarehouseDetails extends React.Component {
         axios.get(`${this.url}/warehouses/${this.props.match.params.warehouseId}`)
             .then(response => {
                 this.setState({ warehouse: response.data[0]});
-                console.debug(this.state.wareHouse, response.data[0]);
+                //console.debug(this.state.wareHouse, response.data[0]);
             })
             .catch(err => console.error(err));
     }

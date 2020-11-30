@@ -73,6 +73,11 @@ export default class WarehouseList extends React.Component {
         }
         else {
             stateClone.modalOpen = false;
+            stateClone.id = "";
+            stateClone.name = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
+
             this.setState(stateClone);
         }
     }

@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 */
 router.get('/names', (req, res) => {
     //console.info('get \'/names\'');
-    console.log(warehouses)
+    //console.log(warehouses)
     const result = warehouses.map(item => item.name); 
     //console.debug(result);
     res.send(result);
@@ -113,9 +113,9 @@ router.delete('/:id', async (req, res) => {
             console.debug(warehouses[index].id, req.params.id);
             found = true;
             deletedItem = warehouses[index];
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
             warehouses.splice(index, 1);
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
             break;
         }
     }
