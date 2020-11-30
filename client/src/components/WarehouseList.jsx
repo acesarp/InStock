@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import NavBar from './NavBar';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 
@@ -10,7 +11,6 @@ export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
-
     constructor() {
         super();
         this.state = {
@@ -137,21 +137,23 @@ export default class WarehouseList extends React.Component {
         let filteredList = [];
         currentState.forEach((element) => {
             const keys = Object.keys(element);
-            for(const key of keys) {
+            for (const key of keys) {
                 if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
                     filteredList.push(element);
                     break;
                 }
             }
         });
-        this.setState({ list: filteredList });
     }
 
 
     render() {
         return (
             <> { /* <=== don't delete this tag!!! */ }
-            <div className="warehouseList">
+            <div>
+            
+            <NavBar />
+            <div className="section-wrapper warehouseList">
                     <SubHeader
                         title={"Warehouses"}
                         searchHandler={ this.searchHandler }
@@ -211,6 +213,7 @@ export default class WarehouseList extends React.Component {
                         })}
                     </tbody>
                 </table>
+            </div>
             </div>
                 { this.state.modalOpen &&
                     <DeleteModal

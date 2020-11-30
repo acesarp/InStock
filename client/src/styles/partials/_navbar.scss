@@ -1,0 +1,57 @@
+.nav {
+  background-color: $Backgroundgraphite;
+  height: 12.5rem;
+  position: relative;
+  z-index: 1;
+
+  @include tablet {
+    height: 11.625rem;
+  }
+
+  &__wrapper {
+    @include set-width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem;
+    }
+  }
+
+  &__menu {
+    width: 100%;
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+
+    @include tablet {
+      width: auto;
+      padding-top: 0;
+      justify-content: flex-end;
+    }
+  }
+
+  &__list-item {
+    padding: 0.5rem;
+    width: 10rem;
+    text-align: center;
+    border-radius: 1.25rem;
+
+    &--active {
+      background-color: $Primaryblack;
+    }
+  }
+
+  &__link {
+    color: $Primarywhite;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
