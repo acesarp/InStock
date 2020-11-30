@@ -1,40 +1,40 @@
 [
   {
     "id": "2922c286-16cd-4d43-ab98-c79f698aeab0",
-    "name": "Manhattan",
+    "name": "Manhattanyyyy",
     "address": "503 Broadway",
     "city": "New York",
     "country": "USA",
     "contact": {
       "name": "Parmin Aujla",
       "position": "Warehouse Manager",
-      "phone": "+1 (646) 123-1234",
+      "phone": "+1(646)123-1234",
       "email": "paujla@instock.com"
     }
   },
   {
     "id": "5bf7bd6c-2b16-4129-bddc-9d37ff8539e9",
-    "name": "King West",
+    "name": "King Westrtyytyr",
     "address": "469 King Street West",
     "city": "Toronto",
     "country": "CAN",
     "contact": {
       "name": "Greame Lyon",
       "position": "Warehouse Manager",
-      "phone": "+1 (646) 123-1234",
+      "phone": "+1(646)123-1234",
       "email": "glyon@instock.com"
     }
   },
   {
     "id": "90ac3319-70d1-4a51-b91d-ba6c2464408c",
-    "name": "Granville",
+    "name": "Richmond",
     "address": "455 Granville Street",
     "city": "Vancouver",
     "country": "CAN",
     "contact": {
       "name": "Brad MacDonald",
       "position": "Warehouse Manager",
-      "phone": "+1 (646) 123-1234",
+      "phone": "+1(646)123-1234",
       "email": "bmcdonald@instock.com"
     }
   },

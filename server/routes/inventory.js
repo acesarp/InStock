@@ -1,5 +1,5 @@
 const path = require("path");
-const INVENTORY_FILE_PATH = path.join(__dirname, "../Data/inventory.json");
+const INVENTORY_FILE_PATH = path.join(__dirname, "./data/inventory.json");
 let router = require("express").Router();
 const uuid = require("uuid").v4;
 const fs = require("fs");

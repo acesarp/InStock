@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 
 const Navbar = (props) => {
-  console.log(props);
   let iClass;
   let wClass;
 
