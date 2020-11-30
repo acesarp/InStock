@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 */
 router.get('/names', (req, res) => {
     //console.info('get \'/names\'');
+    console.log(warehouses)
     const result = warehouses.map(item => item.name); 
     //console.debug(result);
     res.send(result);
@@ -30,7 +31,6 @@ router.get('/names', (req, res) => {
 */
 router.get('/:id', (req, res) => {
     //console.info('get \'/:id\'');
-    console.info(warehouses.filter(item => item.id === req.params.id));
     
     res.send(warehouses.filter(item => item.id === req.params.id));
 });
@@ -38,17 +38,31 @@ router.get('/:id', (req, res) => {
 /**
  * POST add new warehouses item
  */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+    let data = req.body;
 
-    let data = createObject(req.body);
     data.id = uuid();
+    try {
+        data = createObject(req.body);
+    }
+    catch (error) {
+        res.status(400).send({ error: error });
+        return;
+    }
+    
     warehouses.push(data);
+    console.log("data: ", data);
 
-    tools.saveTofile(RESOLVED_FILE_PATH, JSON.stringify(warehouses))
-        ?
-        res.status(200).send({ warehouse: data })
-        :
+    if (data !== null) {
+        await tools.saveTofile(RESOLVED_FILE_PATH, warehouses)
+            ?
+            res.status(200).send({ warehouse: data })
+            :
+            res.status(500);
+    }
+    else {
         res.status(500);
+    }
 });
 
 
@@ -56,15 +70,20 @@ router.post('/', (req, res) => {
 * Edit warehouse
 */
 router.put('/', async (req, res) => {
-
+    let data;
     //console.info("PUT ", req.body);
     const warehouseFound = warehouses.filter(item => item.id === req.body.id)[0];
     if (!warehouseFound) {
         res.status(404).send(`Warehouse id: [ ${req.body.id} ] not found`);
         return;
     }
-    
-    let data = createObject(req.body);
+    try {
+        data = createObject(req.body);
+    }
+    catch(error) {
+        res.status(400).send({ error: error });
+        return;
+    }
     const objIndex = warehouses.indexOf(warehouseFound);
     warehouses.splice(objIndex, 1, data);
     //console.log(objIndex);
@@ -80,29 +99,32 @@ router.put('/', async (req, res) => {
 /*
 * DELETE warehouse by id
 */
-router.delete('/:id', (req, res) => {
-    console.debug(req.params);
+router.delete('/:id', async (req, res) => {
+    if (req.params.id === null) {
+        res.status(400).send("Id invalid!");
+        return;
+    }
     let deletedItem = {};
     let found = false;
     let index = 0;
-    for (; index < warehouses.length; ++index) {
-        
+    for (; index < warehouses.length; index++) {
         console.debug(warehouses[index].id, req.params.id);
-
         if (warehouses[index].id === req.params.id) {
+            console.debug(warehouses[index].id, req.params.id);
+            found = true;
             deletedItem = warehouses[index];
-            //console.log(warehouses.length);
-            delete warehouses[index];
-            //console.log(warehouses.length);
+            console.log(warehouses.length);
+            warehouses.splice(index, 1);
+            console.log(warehouses.length);
+            break;
         }
-        break;
     }
 
     if(!found) {
         res.status(404).send({ error: "Warehouse not found" });
         return;
     }
-    const result = tools.saveTofile(RESOLVED_FILE_PATH, JSON.stringify(warehouses));
+    const result = await tools.saveTofile(RESOLVED_FILE_PATH, warehouses);
     if (result) {
         res.status(200).send({ deleted: deletedItem });
     }
@@ -135,7 +157,7 @@ function createObject(body_) {
     }
     catch (error) {
         console.error(error);
-        return null;
+        throw error;
     }
 }
 

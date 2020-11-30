@@ -13,8 +13,8 @@ export default class NewInventory extends React.Component {
         //console.log("state ", this.state);
         this.state = {
             formData: {
-                itemName: "Test value item name",
-                description: "Test value description",
+                itemName: "",
+                description: "",
                 category: "",
                 status: "",
                 warehouseName: "",

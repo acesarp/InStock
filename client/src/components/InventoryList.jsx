@@ -88,6 +88,10 @@ export default class InventoryList extends React.Component {
         }
         else {
             stateClone.modalOpen = false;
+            stateClone.itemId = "";
+            stateClone.itemName = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
             this.setState(stateClone);
         }
     }
@@ -150,7 +154,7 @@ export default class InventoryList extends React.Component {
         
         return uniqueList.map(item => {
                 let obj = { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
-                console.log("obj ", obj);
+                //console.log("obj ", obj);
                 return obj;
             });
     }
@@ -158,7 +162,6 @@ export default class InventoryList extends React.Component {
 
 
     render() {
-        console.log("message ", this.state.message);
         return (
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
@@ -166,7 +169,7 @@ export default class InventoryList extends React.Component {
                         title={"Inventory"}
                         searchHandler={ this.searchHandler }
                         warehouseData={this.warehouseList}  
-                        route="/newinventoryitem"
+                        route="/AddEditInventory"
                         buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
 

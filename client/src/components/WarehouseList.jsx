@@ -32,36 +32,14 @@ export default class WarehouseList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    // editHandler = (event) => {
-    //     let data = event.target.value;
-    //     axios.put(`${this.url}/warehouses`, {
-    //             })
-    //         .then(response => {
-    //             this.setState(response.data);
-    //         })
-    //         .catch(error => console.error(error));
-    // }
-
-    /**
-    *   
-    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
-    */
-    deleteHandler = (event) => {
-        axios.delete(`${this.url}/warehouses/:id`)
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
-    }
-
     /**
      * 
     * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
     */
     deleteModalHandler = (event) => {
         let stateClone = this.state;
-        stateClone.warehouseId = event.target.dataset.warehousetargetid;
-        stateClone.warehouseName = event.target.dataset.warehousetargetname;
+        stateClone.id = event.target.dataset.targetid;
+        stateClone.name = event.target.dataset.targetname;
 
         stateClone.modalOpen = true;
 
@@ -80,14 +58,15 @@ export default class WarehouseList extends React.Component {
 
             axios.delete(`${this.url}/warehouses/${this.state.id}`)
                 .then(response => {
+                    console.log(response.data);
                     stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
-                    stateClone.warehouseName = response.data.deleted.warehouseName;
-                    stateClone.message = `${response.data.deleted.warehouseName} deleted successfully!`;
+                    stateClone.name = response.data.deleted.name;
+                    stateClone.message = `${response.data.deleted.name} deleted successfully!`;
                     stateClone.showCloseButton = true;
                     this.setState(stateClone);
                 })
                 .catch(error => {
-                    stateClone.message = `Error: ${stateClone.warehouseName} could not be deleted.`;
+                    stateClone.message = `Error: ${stateClone.name} could not be deleted.`;
                     this.setState(stateClone);
                     console.error(error);
                 });
@@ -154,7 +133,9 @@ export default class WarehouseList extends React.Component {
             <div className="warehouseList">
                     <SubHeader
                         title={"Warehouses"}
-                        searchHandler={ this.searchHandler }
+                        warehouseData={"no data"}  
+                        searchHandler={this.searchHandler}
+                        route={ "/AddEditWarehouse"}
                         buttonLabel={"+ Add New Warehouse"} />
                 <table className="warehouseList__wrapper">
                     <thead>
@@ -169,7 +150,7 @@ export default class WarehouseList extends React.Component {
                             </th>
                             <th>
                                 CONTACT NAME
-                                <div onClick={(event) => this.sortHandler(event, "contact.name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                                <div onClick={(event) => this.sortHandler(event, "contactName") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
                             <th>
                                 CONTACT INFORMATION
@@ -191,7 +172,16 @@ export default class WarehouseList extends React.Component {
                                         <div>{item.contact.email}</div>
                                     </td>
                                     <td>{item.warhouseName}</td>
-                                <td>
+                                    <td>
+                                        <button
+                                            className="warehouseList__delete-btn"
+                                            onClick={this.deleteModalHandler}>
+                                            <img src={`${this.iconFolder}/delete.svg`}
+                                               data-targetid={ item.id }
+                                                data-targetname={ item.name }
+                                                alt="Delete icon" />
+                                        </button>
+
                                         <Link
                                             className="warehouseList__edit-btn"
                                             to={{
@@ -204,7 +194,6 @@ export default class WarehouseList extends React.Component {
                                             <img src={`${this.iconFolder}/edit.svg`}
                                                 alt="Edit icon" />
                                         </Link>
-                                    <button className="delete-btn" onClick={this.deleteHandler}><img src={ `${this.iconFolder}/delete.svg` } alt="Delete icon" /></button>
                                 </td>
                                 </tr>
                             )

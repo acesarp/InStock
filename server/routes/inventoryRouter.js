@@ -38,14 +38,14 @@ router.put('/', (req, res) => {
     //console.log("req.body ", req.body);
     const itemFound = inventory.filter(item => item.id === req.body.id)[0];
     if (!itemFound) {
-        res.status(404).send("Item not found");
+        res.status(400).send("Item not found");
         return;
     }
 
     let data = createObject(req.body);
     const objIndex = inventory.indexOf(itemFound);
     inventory.splice(objIndex, 1, data);
-    console.log(objIndex);
+    //console.log(objIndex);
 
     saveTofile(inventory) ? res.status(200).send({ item: data }) : res.status(500);
 });
@@ -55,7 +55,7 @@ router.put('/', (req, res) => {
 */
 router.delete('/:id', (req, res) => {
     if (!req.params.id) {
-        res.status(404).send({ error: "Inventory item id is null" });
+        res.status(400).send({ error: "Inventory item id is null" });
         return;
     } 
 
@@ -64,9 +64,9 @@ router.delete('/:id', (req, res) => {
     let index = 0;
     for (; index < inventory.length; ++index) {
         if (inventory[index].id === req.params.id) { 
-            deletedItem = inventory[index]; 
             found = true;
-            console.debug("Deleted: ", deletedItem.id);
+            deletedItem = inventory[index]; 
+            inventory.splice([index], 1);
             break;
         }
     }
@@ -78,7 +78,8 @@ router.delete('/:id', (req, res) => {
     try {
         fs.writeFile(path.join(path.resolve(__dirname, INVENTORY_FILE_PATH)), JSON.stringify(inventory), (error) => {
             if (!error) {
-                inventory.splice([index], 1);
+                
+                console.log(deletedItem);
                 res.status(200).send({ deleted: deletedItem });
             }
             else {

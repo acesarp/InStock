@@ -47,7 +47,7 @@ export default class AddEditWarehouse extends React.Component {
                 email: resObj.contact.email
             
             };
-            this.setState(clone)
+            this.setState(clone);
             console.log(clone.formData);
 
         } 
@@ -73,7 +73,7 @@ export default class AddEditWarehouse extends React.Component {
                 email: data.get("email").toString()
             }
         );
-
+        console.log( model.toJSON())
         const method = this.props.location.state.id ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
         axios({
                 method: method,
@@ -86,15 +86,6 @@ export default class AddEditWarehouse extends React.Component {
                 event.target.reset();
             })
             .catch(error => console.error(error));
-
-        // axios.post(`${this.url}/warehouse`, model.toJSON(), {
-        //     headers: { 'Content-Type': 'application/json' }
-        //     })
-        //     .then(response => {
-        //         //console.info(response);
-        //         event.target.reset();
-        //     })
-        //     .catch(error => console.error(error));
     }
 
     changeHandler = (event) => {
@@ -108,7 +99,6 @@ export default class AddEditWarehouse extends React.Component {
     render() {
                 
         return (
-
             <Fragment>
                 <SubHeader title={this.state.pageTitle} />
                 <div className="warehouse__form--wrapper">
@@ -192,7 +182,6 @@ export default class AddEditWarehouse extends React.Component {
                                     placeholder="Phone Number"
                                     type="tel"
                                     name="phone"
-                                    // pattern="^((\+\d){0,1}|\d{0,1})[(]\d{3}[)]\d{3}[-]\d{4}"
                                     value={this.state.formData.phone}
                                     onChange={this.changeHandler}
                                     required />
@@ -204,7 +193,6 @@ export default class AddEditWarehouse extends React.Component {
                                     placeholder="Email"
                                     type="email"
                                     name="email"
-                                    // pattern="/(^[\w\-]{1,}[\w\-\.^abc$]{3,}@[\w\-\.]{3,}\.\w{2,})$/g/"
                                     value={this.state.formData.email}
                                     onChange={this.changeHandler}
                                     required />
