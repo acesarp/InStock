@@ -197,7 +197,7 @@ export default class WarehouseList extends React.Component {
                                         <Link
                                             className="warehouseList__edit-btn"
                                             to={{
-                                                pathname: `/AddEditWarehouse`,
+                                                pathname: `/editwarehouse`,
                                                 state: {
                                                     id: item.id,
                                                     title: "EDIT WAREHOUSE"
