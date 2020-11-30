@@ -103,6 +103,100 @@
   text-decoration: underline;
 }
 
+.edit-warehouse {
+  background-color: #f7f8f9;
+}
+
+.edit-warehouse__form {
+  background: #ffffff;
+  -webkit-box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+          box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+  margin: 0 1rem 0 1rem;
+  position: relative;
+  top: -4rem;
+  z-index: 5;
+}
+
+.edit-warehouse__subheader {
+  font-family: Titillium Web;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 36px;
+  color: #13182c;
+  margin: 2rem 6.0625rem 1.5rem 6rem;
+}
+
+.edit-warehouse__title {
+  font-family: Titillium Web;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
+  color: #13182c;
+  margin-top: 1.5rem;
+  padding-left: 1.5rem;
+  border-top: 1px solid #bdc5d5;
+  padding-top: 1rem;
+}
+
+.edit-warehouse__subtitle {
+  margin: 1rem 9.8125rem 0 1.5rem;
+  width: 10.125rem;
+  font-family: Titillium Web;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 20px;
+  color: #13182c;
+}
+
+.edit-warehouse__input {
+  margin: 0 1.5rem 1rem 1.5rem;
+  border-radius: 20px;
+  border: 1px solid #bdc5d5;
+  height: 2rem;
+  width: 15.2rem;
+}
+
+.edit-warehouse__btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 2.65rem;
+}
+
+.edit-warehouse__btn--cancel {
+  background: #ffffff;
+  margin-left: 1.5rem;
+}
+
+.edit-warehouse__btn--save {
+  background: #2e66e5;
+  color: #ffffff;
+  margin-left: 1rem;
+}
+
+.edit-warehouse__btn-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f7f8f9;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit-warehouse__copyright {
+  margin: 0 6.8125rem 2.5rem 5.5rem;
+  width: 9.8125rem;
+  font-family: Titillium Web;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -135,7 +229,7 @@ button {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0  1rem;
+  padding: 0 1rem;
   border-radius: 1rem;
   border: none;
 }
