@@ -1,10 +1,10 @@
 const path = require("path");
 const WAREHOUSES_FILE_PATH = './data/warehouses.json';
 const warehouses = require(WAREHOUSES_FILE_PATH);
+const RESOLVED_FILE_PATH = path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH));
 let router = require('express').Router();
 const uuid = require('uuid').v4;
-const fs = require('fs');
-const { emailChecker, checkValue, checkPhoneNumber } = require('../fieldChecker.js');
+const tools = require('../HelperFunctions.js');
 
 /* 
 * GET warehouses list
@@ -22,6 +22,7 @@ router.get('/names', (req, res) => {
     const result = warehouses.map(item => item.name); 
     //console.debug(result);
     res.send(result);
+
 });
 
 /*
@@ -38,79 +39,41 @@ router.get('/:id', (req, res) => {
  * POST add new warehouses item
  */
 router.post('/', (req, res) => {
-    let data = {
-        id: uuid(),
-        name: checkValue(req.body.name),
-        address: checkValue(req.body.address),
-        description: checkValue(req.body.description),
-        city: checkValue(req.body.city),
-        country: checkValue(req.body.country),
-        contact: {
-            name: checkValue(req.body.contact.name),
-            position: checkValue(req.body.contact.position),
-            phone: checkValue(req.body.contact.phone),
-            email: checkValue(req.body.contact.email)
-        }
-    };
+
+    let data = createObject(req.body);
+    data.id = uuid();
     warehouses.push(data);
-    try {
-        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), () => {
-            res.status(200).send(data);
-        });
-    }
-    catch (error) {
-        res.sendStatus(500);
-    }
+
+    tools.saveTofile(RESOLVED_FILE_PATH, JSON.stringify(warehouses))
+        ?
+        res.status(200).send({ warehouse: data })
+        :
+        res.status(500);
 });
 
 
 /*
 * Edit warehouse
 */
-router.put('/', (req, res) => {
-    let found = false;
-    let index = 0
-    const body = req.body;
-    console.info("PUT ", body);
-    for (; index < warehouses.length; ++index) {
+router.put('/', async (req, res) => {
 
-        if (warehouses[index].id === req.body.id) {
-            try {
-                found = true;
-                warehouses[index].id = checkValue(body.id);
-                warehouses[index].name = checkValue(body.name);
-                warehouses[index].address = checkValue(body.address);
-                warehouses[index].city = checkValue(body.city);
-                warehouses[index].country = checkValue(body.country);
-                warehouses[index].contact = {
-                    name: checkValue(body.contact.name),
-                    position: checkValue(body.contact.position),
-                    phone: checkPhoneNumber(body.contact.phone),
-                    email: emailChecker(body.contact.email)
-                };
-                break;
-            }
-            catch (err) {
-                res.status(404).send({ error: "Invalid request" });
-                return;
-            }
-        };
-    }
-    
-    if (!found) {
-        res.status(404).send({ error: "Warehouse not found" });
+    //console.info("PUT ", req.body);
+    const warehouseFound = warehouses.filter(item => item.id === req.body.id)[0];
+    if (!warehouseFound) {
+        res.status(404).send(`Warehouse id: [ ${req.body.id} ] not found`);
         return;
     }
-    try {
-
-        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), (error) => {
-            console.log("fs.writeFile message [null is good]: ", error);
-            res.send({ updated: warehouses[index] });
-        });
-    }
-    catch (error) {
-        res.status(500);
-    }
+    
+    let data = createObject(req.body);
+    const objIndex = warehouses.indexOf(warehouseFound);
+    warehouses.splice(objIndex, 1, data);
+    //console.log(objIndex);
+    await tools.saveTofile(RESOLVED_FILE_PATH, warehouses)
+        ?
+        res.status(200).send({ item: data })
+        :
+        res.status(500);        
+    
 });
 
 
@@ -128,9 +91,9 @@ router.delete('/:id', (req, res) => {
 
         if (warehouses[index].id === req.params.id) {
             deletedItem = warehouses[index];
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
             delete warehouses[index];
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
         }
         break;
     }
@@ -139,15 +102,11 @@ router.delete('/:id', (req, res) => {
         res.status(404).send({ error: "Warehouse not found" });
         return;
     }
-    try {
-        fs.writeFile(path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH)), JSON.stringify(warehouses), (error) => {
-            console.log("fs.writeFile message [null is good]: ", error);
-            res.status(200).send({ deleted: deletedItem });
-        });
+    const result = tools.saveTofile(RESOLVED_FILE_PATH, JSON.stringify(warehouses));
+    if (result) {
+        res.status(200).send({ deleted: deletedItem });
     }
-    catch (error) {
-        res.status(500);
-    }
+    
 });
 
 
@@ -156,20 +115,28 @@ router.delete('/:id', (req, res) => {
  * @param {Object} body_ 
  */
 function createObject(body_) {
-    return {
-        id: body_.id,
-        name:body_.name,
-        address:body_.address,
-        city:body_.city,
-        country:body_.country,
-        contact: {
-            name: body_.contact.name,
-            position: body_.contact.position,
-            phone: body_.contact.phone,
-            email: body_.contact.email
-        }
-    };
+    try {
+        //console.log("body_ ", body_);
+        const data = {
+            
+            id: tools.checkValue(body_.id),
+            name: tools.checkValue(body_.name),
+            address: tools.checkValue(body_.address),
+            city: tools.checkValue(body_.city),
+            country: tools.checkValue(body_.country),
+            contact: {
+                name: tools.checkValue(body_.contact.name),
+                position: tools.checkValue(body_.contact.position),
+                phone: tools.checkPhoneNumber(body_.contact.phone),
+                email: tools.checkEmail(body_.contact.email)
+            }
+        };
+        return data;
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
 }
-
 
 module.exports = router;

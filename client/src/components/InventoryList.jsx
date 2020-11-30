@@ -220,7 +220,7 @@ export default class InventoryList extends React.Component {
                                                 <Link
                                                     className="inventoryList__edit-btn"
                                                     to={{
-                                                        pathname: `/AddEditInventoryItem`,
+                                                        pathname: `/AddEditInventory`,
                                                         state: {
                                                             id: item.id,
                                                             warehouseData: this.warehouseList,

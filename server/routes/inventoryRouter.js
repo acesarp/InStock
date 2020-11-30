@@ -5,7 +5,6 @@ let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
 
-
 /* 
 * GET inventory list
 */
@@ -88,7 +87,7 @@ router.delete('/:id', (req, res) => {
         });
     }
     catch (error) {
-        res.sendStatus(500);
+        res.status(500);
     }
 });
 
