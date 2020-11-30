@@ -65,20 +65,24 @@ const  checkEmail = (email_) => {
      * @returns {Promise<Boolean>} a boolean
      */
 const saveTofile = async (pathToFile_, content_) => {
-    
-    const fs = require('fs');
+    console.log(pathToFile_)
+        const fs = require('fs');
     try {
         return new Promise((resolve, reject) => {
-            fs.writeFile(pathToFile_, JSON.stringify(content_), async (error) => {
-                console.log("fs.writeFile message [null is good]: ", error);
-                if (error === null) {
-                    resolve(true);
-                }
-                else {
-                    console.error("Error: ", error);
-                    resolve(false);
-                }
-            });
+            try {
+                fs.writeFile(pathToFile_, JSON.stringify(content_, null, 4), (error) => {
+                    console.log("fs.writeFile message [null is good]: ", error);
+                    if (error === null) {
+                        resolve(true);
+                    }
+                    else {
+                        console.error("Error: ", error);
+                        resolve(false);
+                    }
+                });
+            } catch (error) {
+                reject(false);
+            }
         });
     }
     catch (error) {

@@ -7,14 +7,14 @@
 
 // Tablet
 @mixin tablet {
-  @media only screen and (min-width: 48rem) {
+  @media only screen and (min-width: 768px) {
     @content;
   }
 }
 
 // PC
 @mixin desktop {
-  @media only screen and (min-width: 80rem) {
+  @media only screen and (min-width: 1280px) {
     @content;
   }
 }

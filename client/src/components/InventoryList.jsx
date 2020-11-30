@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 import NavBar from './NavBar';
-import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
     url = 'http://localhost:5000';
@@ -39,15 +38,15 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    editHandler = () => {
-        axios.put(`${this.url}/inventory`, {
-                //STUB To Do
-                })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
-    }
+    // editHandler = () => {
+    //     axios.put(`${this.url}/inventory`, {
+    //             //STUB To Do
+    //             })
+    //         .then(response => {
+    //             this.setState(response.data);
+    //         })
+    //         .catch(error => console.error(error));
+    // }
 
     /**
      * 
@@ -89,6 +88,10 @@ export default class InventoryList extends React.Component {
         }
         else {
             stateClone.modalOpen = false;
+            stateClone.itemId = "";
+            stateClone.itemName = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
             this.setState(stateClone);
         }
     }
@@ -151,7 +154,7 @@ export default class InventoryList extends React.Component {
         
         return uniqueList.map(item => {
                 let obj = { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
-                console.log("obj ", obj);
+                //console.log("obj ", obj);
                 return obj;
             });
     }
@@ -159,17 +162,17 @@ export default class InventoryList extends React.Component {
 
 
     render() {
-        console.log("message ", this.state.message);
         return (
+          <> { /* <=== don't delete this tag!!! */ }
           <div>
             <NavBar page='inventory'/>
-            <> { /* <=== don't delete this tag!!! */ }
             <div className="section-wrapper inventoryList">
-                <SubHeader title={"Inventory"}
-                    searchHandler={ this.searchHandler }
-                    warehouseData={this.warehouseList}  
-                    route="/newinventoryitem"
-                    buttonLabel={"+ Add New Item"} />
+                    <SubHeader
+                        title={"Inventory"}
+                        searchHandler={ this.searchHandler }
+                        warehouseData={this.warehouseList}  
+                        route="/AddEditInventory"
+                        buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
 
                     <thead className="inventoryList__header">
@@ -249,8 +252,8 @@ export default class InventoryList extends React.Component {
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
                     }
-                </> {/* <=== don't delete this tag!!! */ }
           </div>
+          </> /* <=== don't delete this tag!!! */ 
         );
     }
 }
