@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
+import NavBar from './NavBar';
 import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
@@ -32,7 +33,7 @@ export default class InventoryList extends React.Component {
                 let stateClone = this.state;
                 stateClone.list = response.data
                 this.fullList = response.data;
-                this.warehouseList = this.getWarehouseUniqueData();
+                this.warehouseList = this.getWarehouseUniqueDataList();
                 this.setState(stateClone);
             })
             .catch(error => console.error(error));
@@ -140,7 +141,7 @@ deleteModalHandler = (event) => {
         this.setState({ list: filteredList });
     }
 
-    getWarehouseUniqueData() {
+    getWarehouseUniqueDataList() {
         //console.log(this.fullList);
 
         let keys = this.fullList.map(key => key.warehouseID)
@@ -156,11 +157,15 @@ deleteModalHandler = (event) => {
     }
 
 
+
+
     render() {
         console.log("message ", this.state.message);
         return (
+          <div>
+            <NavBar page='inventory'/>
             <> { /* <=== don't delete this tag!!! */ }
-            <div className="inventoryList">
+            <div className="section-wrapper inventoryList">
                 <SubHeader title={"Inventory"}
                     searchHandler={ this.searchHandler }
                     warehouseData={this.warehouseList}  
@@ -196,52 +201,56 @@ deleteModalHandler = (event) => {
                         </tr>
                     </thead>
                     <tbody>
-                            {this.state.list && this.state.list.map(item => {
-                            return (
-                            <tr className="inventoryList__row" key={uuid()} id={item.id}>
-                                    <td className="inventoryList__cell" >{item.itemName}</td>
-                                    <td className="inventoryList__cell" >{item.category}</td>
-                                    <td className="inventoryList__cell" >{item.status}</td>
-                                    <td className="inventoryList__cell" >{item.quantity}</td>
-                                    <td className="inventoryList__cell" >{item.warehouseName}</td>
-                                    <td className="inventoryList__cell">
+                            { this.state.list && this.state.list.map(item => {
+                                let key_ = uuid();
+                                return (
+                                    <tr className="inventoryList__row" key={key_} id={item.id}>
+                                            <td className="inventoryList__cell" >{item.itemName}</td>
+                                            <td className="inventoryList__cell" >{item.category}</td>
+                                            <td className="inventoryList__cell" >{item.status}</td>
+                                            <td className="inventoryList__cell" >{item.quantity}</td>
+                                            <td className="inventoryList__cell" >{item.warehouseName}</td>
+                                            <td className="inventoryList__cell">
 
-                                        <button onClick={this.deleteModalHandler}>
-                                            <img src={`${this.iconFolder}/delete.svg`}
-                                                data-itemtargetid={item.id}
-                                                data-itemtargetname={ item.itemName }
-                                                alt="Delete icon" />
-                                        </button>
-                                        <Link
-                                            className="link-btn"
-                                            to={{
-                                                pathname: `/newinventoryItem`,
-                                                state: {
-                                                    itemId: item.id,
-                                                    warehouseData: this.warehouseList,
-                                                    title: "EDIT INVENTORY ITEM"
-                                                }
-                                            }}>
-                                            <img src={`${this.iconFolder}/edit.svg`}
-                                                alt="Edit icon" />
-                                        </Link>
-
-                                </td>
-                                </tr>
-                            )
+                                            <button
+                                                className="inventoryList__delete-btn"
+                                                onClick={this.deleteModalHandler}>
+                                                    <img src={ `${this.iconFolder }/delete.svg` }
+                                                        data-itemtargetid={ item.id }
+                                                        data-itemtargetname={ item.itemName }
+                                                        alt="Delete icon" />
+                                                </button>
+                                                <Link
+                                                    className="inventoryList__edit-btn"
+                                                    to={{
+                                                        pathname: `/newinventoryItem`,
+                                                        state: {
+                                                            itemId: item.id,
+                                                            warehouseData: this.warehouseList,
+                                                            title: "EDIT INVENTORY ITEM"
+                                                        }
+                                                    }}>
+                                                    <img src={`${this.iconFolder}/edit.svg`}
+                                                        alt="Edit icon" />
+                                                </Link>
+                                                
+                                        </td>
+                                        </tr>
+                                )
                         })}
                     </tbody>
                 </table>
 
                 </div>
-                {this.state.modalOpen &&
+                { this.state.modalOpen &&
                     <DeleteModal
-                    itemName={this.state.itemName}
-                    clickModalHandler={this.confirmationHandler}
-                    message={this.state.message}
-                    showCloseButton={ this.state.showCloseButton}/>
+                        itemName={ this.state.itemName }
+                        clickModalHandler={ this.confirmationHandler }
+                        message={ this.state.message }
+                        showCloseButton={ this.state.showCloseButton } />
                     }
-                </> /* <=== don't delete this tag!!! */ 
+                </> {/* <=== don't delete this tag!!! */ }
+          </div>
         );
     }
 }

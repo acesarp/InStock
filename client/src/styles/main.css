@@ -11,6 +11,7 @@
 }
 
 .nav {
+<<<<<<< HEAD
   position: relative;
   background-color: #13182c;
   height: 10rem;
@@ -66,10 +67,51 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
+=======
+  background-color: #232940;
+  height: 12.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media only screen and (min-width: 48rem) {
+  .nav {
+    height: 11.625rem;
+  }
+}
+
+.nav__wrapper {
+  width: 91.47%;
+  margin: 0 auto;
+  max-width: 63.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1.5rem 0;
+}
+
+@media only screen and (min-width: 48rem) {
+  .nav__wrapper {
+    width: 91.7%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 48rem) {
+  .nav__wrapper {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
             flex-direction: row;
+<<<<<<< HEAD
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
@@ -219,24 +261,77 @@
   font-size: 11px;
   line-height: 16px;
   text-align: center;
+=======
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 1.75rem;
+  }
+}
+
+.nav__menu {
+  width: 100%;
+  padding-top: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media only screen and (min-width: 48rem) {
+  .nav__menu {
+    width: auto;
+    padding-top: 0;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+.nav__list-item {
+  padding: 0.5rem;
+  width: 10rem;
+  text-align: center;
+  border-radius: 1.25rem;
+}
+
+.nav__list-item--active {
+  background-color: #13182c;
+}
+
+.nav__link {
+  color: #ffffff;
+}
+
+.nav__link:hover {
+  text-decoration: underline;
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
 }
 
 * {
   margin: 0;
   padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: "Titillium";
 }
 
 body {
   margin: 0;
+  background-color: #f7f8f9;
 }
 
 a {
-  border: 1px solid green;
   text-decoration: none;
-  -ms-flex-item-align: baseline;
-      align-self: baseline;
-  text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button {
@@ -255,12 +350,53 @@ button {
   border: none;
 }
 
+<<<<<<< HEAD
+=======
+.section-wrapper {
+  width: 91.47%;
+  margin: 0 auto;
+  max-width: 63.75rem;
+  background-color: #ffffff;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+          box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+  padding: 2rem 1.5rem 1rem;
+  position: relative;
+  top: -4rem;
+  z-index: 5;
+}
+
+@media only screen and (min-width: 48rem) {
+  .section-wrapper {
+    width: 91.7%;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 48rem) {
+  .section-wrapper {
+    padding: 2rem 2rem 1rem;
+    top: -5.875rem;
+  }
+}
+
+@media only screen and (min-width: 80rem) {
+  .section-wrapper {
+    padding: 2rem 1.5rem 1rem;
+  }
+}
+
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
 .title {
   font-size: 1.75rem;
   line-height: 2.25rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .title {
     font-size: 2rem;
     line-height: 2.5rem;
@@ -272,7 +408,11 @@ button {
   line-height: 1.75rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .sub-title {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -284,7 +424,11 @@ button {
   line-height: 1.25rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .labels {
     font-size: 0.875rem;
     line-height: 1.375rem;
@@ -296,7 +440,11 @@ button {
   line-height: 1rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .table-title {
     font-size: 0.75rem;
     line-height: 1.125rem;
@@ -308,7 +456,11 @@ button {
   line-height: 1.625rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .large-text {
     font-size: 1rem;
     line-height: 1.75rem;
@@ -320,7 +472,11 @@ button {
   line-height: 1.25rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .medium-text {
     font-size: 0.875rem;
     line-height: 1.375rem;
@@ -332,7 +488,11 @@ button {
   line-height: 1rem;
 }
 
+<<<<<<< HEAD
 @media only screen and (min-width: 768px) {
+=======
+@media only screen and (min-width: 48rem) {
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
   .small-text {
     font-size: 0.75rem;
     line-height: 1.125rem;
@@ -340,14 +500,13 @@ button {
 }
 
 .header {
-  background-color: #233940;
+  background-color: #232940;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
 .inventoryList {
-  border: 1px blue solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -356,8 +515,6 @@ button {
       -ms-flex-direction: column;
           flex-direction: column;
   margin: auto;
-  -webkit-filter: drop-shadow(-2px -2px 55px rgba(19, 24, 44, 0.1));
-          filter: drop-shadow(-2px -2px 55px rgba(19, 24, 44, 0.1));
 }
 
 .inventoryList__wrapper {
@@ -429,7 +586,7 @@ button {
   cursor: pointer;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 48rem) {
   .delete-modal__wrapper {
     margin: auto;
     width: 42rem;
@@ -456,6 +613,7 @@ button {
   display: flex;
   border: 1px solid yellow;
 }
+<<<<<<< HEAD
 
 .header {
   margin: 0;
@@ -556,4 +714,6 @@ button {
   text-decoration: line-through;
   color: #ffffff;
 }
+=======
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
 /*# sourceMappingURL=main.css.map */

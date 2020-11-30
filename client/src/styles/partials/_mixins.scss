@@ -2,3 +2,17 @@
   font-size: $font-size;
   line-height: $line-height;
 }
+<<<<<<< HEAD
+=======
+
+@mixin set-width {
+  width: 91.47%;
+  margin: 0 auto;
+  max-width: 63.75rem;
+
+  @include tablet {
+    width: 91.7%;
+    margin: 0 auto;
+  }
+}
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4

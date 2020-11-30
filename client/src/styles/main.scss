@@ -2,28 +2,35 @@
 @import "./partials/breakpoints";
 @import "./partials/colors";
 @import "./partials/fonts";
+@import "./partials/CTA";
 @import "./partials/navbar";
 @import "./partials/editWarehouse";
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; 
   font-family: "Titillium";
 }
 
 body {
   margin: 0;
+<<<<<<< HEAD
 
   @include tablet {
   }
   @include desktop {
   }
+=======
+  background-color: $Backgroundlightgrey;
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
 }
 
 a {
-  border: 1px solid green;
   text-decoration: none;
-  align-self: baseline;
-  text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }
 
 button {
@@ -33,6 +40,26 @@ button {
   padding: 0 1rem;
   border-radius: 1rem;
   border: none;
+}
+
+.section-wrapper {
+  @include set-width;
+  background-color: $Primarywhite;
+  border-radius: 3px;
+  box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+  padding: 2rem 1.5rem 1rem;
+  position: relative;
+  top: -4rem;
+  z-index: 5;
+
+  @include tablet {
+    padding: 2rem 2rem 1rem;
+    top: -5.875rem;
+  }
+
+  @include desktop {
+    padding: 2rem 1.5rem 1rem;
+  }
 }
 
 .title {
@@ -92,16 +119,14 @@ button {
 }
 
 .header {
-  background-color: $Bacgroundgraphite;
+  background-color: $Backgroundgraphite;
   display: flex;
 }
 
 .inventoryList {
-  border: 1px blue solid;
   display: flex;
   flex-direction: column;
   margin: auto;
-  filter: drop-shadow(-2px -2px 55px rgba(19, 24, 44, 0.1));
 
   &__wrapper {
     border-radius: 3px;
@@ -184,6 +209,7 @@ button {
 .subHeader {
   display: flex;
   border: 1px solid yellow;
+<<<<<<< HEAD
 }
 
 //=============== header section ================//
@@ -248,3 +274,6 @@ button {
     }
   }
 }
+=======
+}
+>>>>>>> 971cd09ab38eda6a63260f6fe0fd4c747a5676c4
