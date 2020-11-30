@@ -5,22 +5,19 @@ const RESOLVED_FILE_PATH = path.join(path.resolve(__dirname, INVENTORY_FILE_PATH
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
-
-/* 
+/*
 * GET inventory list
 */
 router.get('/', (req, res) => {
     //console.info(inventory);
     res.send(inventory);
 });
-
 /*
 * GET inventory item by id
 */
 router.get('/:id', (req, res) => {
     res.send(inventory.filter(item => item.id === req.params.id));
 });
-
 /**
  * POST add new inventory item
  */
@@ -31,7 +28,6 @@ router.post('/', (req, res) => {
     inventory.push(data);
     saveTofile(inventory) ? res.status(200).send({ item: data }) : res.status(500);
 });
-
 /**
  * POST add new inventory item
  */
@@ -42,15 +38,12 @@ router.put('/', (req, res) => {
         res.status(400).send("Item not found");
         return;
     }
-
     let data = createObject(req.body);
     const objIndex = inventory.indexOf(itemFound);
     inventory.splice(objIndex, 1, data);
     //console.log(objIndex);
-
     saveTofile(inventory) ? res.status(200).send({ item: data }) : res.status(500);
 });
-
 /*
 * DELETE inventory item by id
 */
@@ -58,17 +51,14 @@ router.delete('/:id', (req, res) => {
     if (!req.params.id) {
         res.status(400).send({ error: "Inventory item id is null" });
         return;
-    } 
-
+    }
     let deletedItem = {};
     let found = false;
     let index = 0;
     for (; index < inventory.length; ++index) {
-        if (inventory[index].id === req.params.id) { 
-          console.log(inventory[index].id);
-          console.log(req.params.id);
+        if (inventory[index].id === req.params.id) {
             found = true;
-            deletedItem = inventory[index]; 
+            deletedItem = inventory[index];
             inventory.splice([index], 1);
             break;
         }
@@ -77,11 +67,9 @@ router.delete('/:id', (req, res) => {
         res.status(404).send({ error: "Inventory item not found" });
         return;
     }
-
     try {
         fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(inventory, null, 4), (error) => {
             if (!error) {
-                
                 console.log(deletedItem);
                 res.status(200).send({ deleted: deletedItem });
             }
@@ -94,18 +82,16 @@ router.delete('/:id', (req, res) => {
         res.status(500);
     }
 });
-
-
 /**
- * 
- * @param {JSON} content_ 
+ *
+ * @param {JSON} content_
  */
 function saveTofile(content_) {
     try {
         fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(content_, null, 4), (error) => {
             console.log("fs.writeFile message [null is good]: ", error);
             if (!error) {
-                // console.log(true);
+                //console.log(true);
                 return true;
             }
             else {
@@ -117,10 +103,9 @@ function saveTofile(content_) {
         return false;
     }
 }
-
 /**
- * 
- * @param {Object} body_ 
+ *
+ * @param {Object} body_
  */
 function createObject(body_) {
     return {
@@ -134,5 +119,4 @@ function createObject(body_) {
         quantity: body_.quantity
     };
 }
-
 module.exports = router;

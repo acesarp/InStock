@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
 */
 router.get('/names', (req, res) => {
     //console.info('get \'/names\'');
-    console.log(warehouses)
     const result = warehouses.map(item => item.name); 
     //console.debug(result);
     res.send(result);

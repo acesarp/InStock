@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
-import '../styles/main.css';
+import NavBar from './NavBar';
 
 export default class InventoryList extends React.Component {
     url = 'http://localhost:5000';
@@ -38,15 +38,15 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    editHandler = () => {
-        axios.put(`${this.url}/inventory`, {
-                //STUB To Do
-                })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
-    }
+    // editHandler = () => {
+    //     axios.put(`${this.url}/inventory`, {
+    //             //STUB To Do
+    //             })
+    //         .then(response => {
+    //             this.setState(response.data);
+    //         })
+    //         .catch(error => console.error(error));
+    // }
 
     /**
      * 
@@ -163,8 +163,10 @@ export default class InventoryList extends React.Component {
 
     render() {
         return (
-            <> { /* <=== don't delete this tag!!! */ }
-            <div className="inventoryList">
+          <> { /* <=== don't delete this tag!!! */ }
+          <div>
+            <NavBar page='inventory'/>
+            <div className="section-wrapper inventoryList">
                     <SubHeader
                         title={"Inventory"}
                         searchHandler={ this.searchHandler }
@@ -250,7 +252,8 @@ export default class InventoryList extends React.Component {
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
                     }
-                </> /* <=== don't delete this tag!!! */ 
+          </div>
+          </> /* <=== don't delete this tag!!! */ 
         );
     }
 }

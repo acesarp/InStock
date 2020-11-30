@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import NavBar from './NavBar';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 
@@ -10,7 +11,6 @@ export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
-
     constructor() {
         super();
         this.state = {
@@ -73,6 +73,10 @@ export default class WarehouseList extends React.Component {
         }
         else {
             stateClone.modalOpen = false;
+            stateClone.id = "";
+            stateClone.name = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
             this.setState(stateClone);
         }
     }
@@ -130,7 +134,10 @@ export default class WarehouseList extends React.Component {
     render() {
         return (
             <> { /* <=== don't delete this tag!!! */ }
-            <div className="warehouseList">
+            <div>
+            
+            <NavBar />
+            <div className="section-wrapper warehouseList">
                     <SubHeader
                         title={"Warehouses"}
                         warehouseData={"no data"}  
@@ -185,7 +192,7 @@ export default class WarehouseList extends React.Component {
                                         <Link
                                             className="warehouseList__edit-btn"
                                             to={{
-                                                pathname: `/AddEditWarehouse`,
+                                                pathname: `/addeditwarehouse`,
                                                 state: {
                                                     id: item.id,
                                                     title: "EDIT WAREHOUSE"
@@ -200,6 +207,7 @@ export default class WarehouseList extends React.Component {
                         })}
                     </tbody>
                 </table>
+            </div>
             </div>
                 { this.state.modalOpen &&
                     <DeleteModal

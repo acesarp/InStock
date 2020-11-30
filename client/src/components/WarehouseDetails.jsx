@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import InventoryList from './InventoryList';
 import axios from 'axios';
-import '../styles/main.css';
 
 export default class WarehouseDetails extends React.Component {
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;

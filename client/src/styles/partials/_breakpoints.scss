@@ -1,6 +1,6 @@
 // Mobile
 @mixin mobile {
-  @media only screen and (max-width: 767px) {
+  @media only screen {
     @content;
   }
 }
@@ -14,7 +14,7 @@
 
 // PC
 @mixin desktop {
-  @media only screen and (min-width: 1440px) {
+  @media only screen and (min-width: 1280px) {
     @content;
   }
 }

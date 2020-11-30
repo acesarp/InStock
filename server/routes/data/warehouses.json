@@ -6,7 +6,7 @@
         "city": "Seattle",
         "country": "USA",
         "contact": {
-            "name": "Daniel Bachu",
+            "name": "Daniel Bachune",
             "position": "Warehouse Manager",
             "phone": "+1(646)123-1234",
             "email": "dbachu@inslltock.com"
@@ -48,32 +48,6 @@
             "name": "kljh",
             "position": "kljh",
             "phone": "7783164444",
-            "email": "fffarp@ouftlook.com"
-        }
-    },
-    {
-        "id": "816b9bcc-c380-41d5-8175-af712a9d3d66",
-        "name": "df",
-        "address": "kjh",
-        "city": "lkjh",
-        "country": "kljkjh",
-        "contact": {
-            "name": "kljh",
-            "position": "kljh",
-            "phone": "(778)316-4444",
-            "email": "fffarp@ouftlook.com"
-        }
-    },
-    {
-        "id": "db1e91a9-480c-4ed0-b8e6-03c58d9e4b2b",
-        "name": "df",
-        "address": "kjh",
-        "city": "lkjh",
-        "country": "kljkjh",
-        "contact": {
-            "name": "kljh",
-            "position": "kljh",
-            "phone": "(778)316-4444",
             "email": "fffarp@ouftlook.com"
         }
     },
