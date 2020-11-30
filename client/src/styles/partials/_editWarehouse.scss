@@ -1,73 +1,82 @@
+// * {
+//   border: 1px dotted black;
+// }
 .edit-warehouse {
-  box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
-  margin: 0 1rem 5.9375rem 1rem;
-  margin-bottom: 96px;
-  width: 21.4375rem;
-  height: 57.625rem;
-  &--1 {
-    background: rgba(247, 248, 249, 0.7);
+  background-color: #f7f8f9;
+  // height: 72.125rem;
+  &__form {
+    // border: 1px dotted black;
+    background: $Primarywhite;
+    box-shadow: 0px 2px 5px rgba(19, 24, 44, 0.1);
+    margin: 0 1rem 0 1rem;
   }
-  &__container {
-    background: #ffffff;
-
-    border-radius: 3px;
+  &__subheader {
+    font-family: Titillium Web;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 36px;
+    color: $Primaryblack;
+    margin: 2rem 6.0625rem 1.5rem 6rem;
   }
   &__title {
-    font-family: titillium web;
+    font-family: Titillium Web;
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
     line-height: 28px;
+    color: $Primaryblack;
 
-    margin: 1rem 9.8125rem 1.5rem 1.5rem;
-    width: 10.125rem;
+    margin: 1rem 0 1.5rem 1.5rem;
   }
   &__subtitle {
+    margin: 1rem 9.8125rem 0 1.5rem;
+    width: 10.125rem;
     font-family: Titillium Web;
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
     line-height: 20px;
     color: $Primaryblack;
-
-    margin-left: 1.5rem;
-    margin-right: 13.6875;
   }
   &__input {
-    background: $Primarywhite;
-    width: 18.43rem;
-    height: 2.25rem;
+    margin: 0 1.5rem 1rem 1.5rem;
     border-radius: 20px;
     border: 1px solid $Secondarycloud;
-    margin: 0 1.5rem 1rem 1.5rem;
+    height: 2rem;
+    width: 15.2rem;
   }
   &__btn {
-    padding: 0.5rem 3.1875rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    margin-left: 1.5rem;
-    border-radius: 20px;
-    width: 8.6875rem;
-    &-container {
-      display: flex;
-      background: rgba(247, 248, 249, 0.7);
-      justify-content: center;
-      width: 21.4375rem;
-      border-radius: 0px 0px 3px 3px;
-    }
+    // height: 36px;
+    padding: 0.5rem 2.65rem;
     &--cancel {
       background: $Primarywhite;
-      border: 1px solid $Secondarycloud;
-      color: $Secondaryslate;
-      position: static;
-      margin-left: 0;
-      margin-right: 0;
+      margin-left: 1.5rem;
     }
     &--save {
-      margin-left: 1rem;
       background: $Primaryindigo;
-      position: static;
       color: $Primarywhite;
+      margin-left: 1rem;
+    }
+
+    &-container {
+      display: flex;
+      background-color: #f7f8f9;
+      align-items: center;
+    }
+  }
+  &__copyright {
+    padding: 2.5rem 6.8125rem 2.5rem 5.5rem;
+    width: 9.8125rem;
+    font-family: Titillium Web;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 16px;
+    text-align: center;
+    &-section {
     }
   }
 }

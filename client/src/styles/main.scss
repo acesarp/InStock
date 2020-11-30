@@ -3,11 +3,7 @@
 @import "./partials/colors";
 @import "./partials/fonts";
 @import "./partials/navbar";
-<<<<<<< HEAD
 @import "./partials/editWarehouse";
-=======
-
->>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
 * {
   margin: 0;
   padding: 0;
@@ -143,29 +139,17 @@ button {
   }
 }
 
-<<<<<<< HEAD
-.delete-modal {
-  &__wrapper {
-    width: 100vw;
-    height: 100vh;
-    display: visible;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-=======
 //======================== delete modal window =================//
 .delete-modal {
   &__backdrop {
-      position: fixed;
-      overflow: hidden;
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0,0,0,0.4);
-      z-index: 1;
-      left: 0;
-      top: 0;
+    position: fixed;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    left: 0;
+    top: 0;
   }
   &__close {
     background: none;
@@ -174,7 +158,6 @@ button {
   }
 
   @include tablet {
-
     &__wrapper {
       margin: auto;
       width: 42rem;
@@ -191,17 +174,12 @@ button {
       background-color: $Primarywhite;
     }
     &__content {
-       background-color: $Primarywhite;
+      background-color: $Primarywhite;
     }
-
->>>>>>> df381d821e92bf8c4fbb3a552865c67b47e35252
   }
-
 }
 
 //======================== END delete modal window =================//
-
-
 
 .subHeader {
   display: flex;
