@@ -1,12 +1,12 @@
 const path = require("path");
-const WAREHOUSES_FILE_PATH = path.join(__dirname, '../Data/warehouses.json');
+const WAREHOUSES_FILE_PATH = path.join(__dirname, './data/warehouses.json');
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require('express').Router();
 const uuid = require('uuid').v4;
 const fs = require('fs');
-const { checkEmail, checkValue, checkPhoneNumber } = require('../fieldChecker.js');
+const { checkEmail, checkValue, checkPhoneNumber } = require('../HelperFunctions.js');
 
-const INVENTORY_FILE_PATH = path.join(__dirname, "../Data/inventory.json");
+const INVENTORY_FILE_PATH = path.join(__dirname, "./data/inventory.json");
 const loadInventories = () => {
   const inventories = fs.readFileSync(INVENTORY_FILE_PATH);
   return JSON.parse(inventories);

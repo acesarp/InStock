@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import axios from 'axios';
 import InventoryModel from '../models/InventoryModel';
+import SubHeader from './SubHeader';
 import '../styles/main.css';
 
 export default class NewInventory extends React.Component {
@@ -20,7 +21,7 @@ export default class NewInventory extends React.Component {
                 quantity: 0,  
             },
             warehouseData: props.location.state.warehouseData,
-            editItemId: props.location.state.itemId,
+            editItemId: props.location.state.id,
             pageTitle: props.location.state.title,
         };
 
@@ -39,7 +40,7 @@ async componentDidMount() {
                 description: resObj.description,
                 category: resObj.category,
                 status: resObj.status,
-                quantity: resObj.quantity,
+                quantity: resObj.quantity
             };
             this.setState(clone)
             console.log(clone.formData);
@@ -68,7 +69,7 @@ async componentDidMount() {
             Number.parseInt(data.get("quantity").toString())
         );
 
-        const method = this.props.location.state.itemId ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
+        const method = this.props.location.state.id ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
         axios({
                 method: method,
                 url: `${this.url}/inventory`,
@@ -102,47 +103,51 @@ async componentDidMount() {
 
     render() {
         return (
-            <div>                
-                <h1>{ this.state.pageTitle }</h1>
+            <Fragment>
+                <SubHeader title={ this.state.pageTitle } />
+                <div className="inventory__form-wrapper">
 
-                <form
-                    className="inventory__form"
-                    name="inventoryItemForm"
-                    onSubmit={this.submitHandler} >
-                    <div>
-                        <div className="inventory__form--wrapper">
-                            <label htmlFor="itemName">Item Name</label>
-                            <input
-                                type="text"
-                                name="itemName"
-                                value={this.state.formData.itemName}
-                                required
-                                onChange={this.changeHandler} />
-                        </div>
-                        <div className="inventory__form--wrapper">
-                        <label htmlFor="description">Description</label>
-                            <textarea
-                                name="description"
-                                placeholder="Please enter a brief description..."
-                                required
-                                value={this.state.formData.description}
-                                onChange={this.changeHandler} >
-                            </textarea>            
-                        </div>
-                        <div className="inventory__form--wrapper">
-                        <label htmlFor="category">Category</label>
-                            <select name="category"
-                                value={ this.state.formData.category }
-                                onChange={this.changeHandler} >
-                                { this.category
-                                    .map(item => <option key={ item } value={item}>{item}</option>)
-                                }
-                        </select>
-                        </div>
-                    </div>
+                    <form
+                        className="inventory__form"
+                        name="inventoryItemForm"
+                        onSubmit={this.submitHandler} >
+                        
+                        <div className="inventory__form--col-2">
+                            <div className="inventory__form-group">
+                                <label htmlFor="itemName">Item Name</label>
+                                <input
+                                    type="text"
+                                    name="itemName"
+                                    value={this.state.formData.itemName}
+                                    required
+                                    onChange={this.changeHandler} />
+                            </div>
 
-                    <div>
-                        <div className="inventory__form--wrapper">
+                            <div className="inventory__form-group">
+                            <label htmlFor="description">Description</label>
+                                <textarea
+                                    name="description"
+                                    placeholder="Please enter a brief description..."
+                                    required
+                                    value={this.state.formData.description}
+                                    onChange={this.changeHandler} >
+                                </textarea>            
+                            </div>
+
+                            <div className="inventory__form-group">
+                            <label htmlFor="category">Category</label>
+                                <select name="category"
+                                    value={ this.state.formData.category }
+                                    onChange={this.changeHandler} >
+                                    { this.category
+                                        .map(item => <option key={ item } value={item}>{item}</option>)
+                                    }
+                            </select>
+                            </div>
+                        </div>
+
+                        <div className="inventory__form--col-2">
+                            <div className="inventory__form-group">
                             <input
                                 type="radio"
                                 name="status"
@@ -152,7 +157,7 @@ async componentDidMount() {
                                 onChange={this.changeHandler} />
                         <label htmlFor="in-stock">In stock</label>
                     </div>
-                    <div className="inventory__form--wrapper">               
+                    <div className="inventory__form-group">               
                             <input
                                 type="radio"
                                 name="status"
@@ -162,8 +167,9 @@ async componentDidMount() {
                                 onChange={this.changeHandler}
                                 required />
                         <label htmlFor="out-of-stock">Out of stock</label>
-                    </div>
-                    <div className="inventory__form--wrapper">
+                            </div>
+                            
+                    <div className="inventory__form-group">
                         <label htmlFor="quantity">Quantity</label>
                             <input
                                 name="quantity"
@@ -173,7 +179,7 @@ async componentDidMount() {
                                 required />
                     </div>
                     
-                    <div className="inventory__form--wrapper">
+                    <div className="inventory__form-group">
                     <label htmlFor="warehouseName">Warehouse Name</label>
                             <select
                                 id="warehouseName-id"
@@ -183,20 +189,19 @@ async componentDidMount() {
                                 required >
                                 {this.state.warehouseData && this.state.warehouseData.map(obj => {
                                     return <option id={ obj.warehouseID} key={obj.warehouseName} value={obj.warehouseName} > {obj.warehouseName}</option>;
-                                }
-                                
+                                    }           
                                 )}
                         </select>
                     </div>
-            </div>
-                    <div>
-                        <input className="btn" type="submit" value="+Add Item" />
-                        <input className="btn" type="reset" value="Cancel" />
-                    </div>
+                        </div>
+                        <div>
+                            <input className="btn" type="submit" value="Save" />
+                            <input className="btn" type="reset" value="Cancel" />
+                        </div>
                     
-                </form>
-
-            </div>
+                    </form>
+                </div>
+            </Fragment>
         );
     }
 }
