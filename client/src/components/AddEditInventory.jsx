@@ -30,6 +30,9 @@ export default class NewInventory extends React.Component {
     }
 
 async componentDidMount() {
+    if(!this.state.editItemId) {
+    return;
+  }
         try {
             const response = await axios.get(`${this.url}/inventory/${this.state.editItemId}`);
             const resObj = response.data[0];
