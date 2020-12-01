@@ -26,36 +26,38 @@ export default class WarehouseDetails extends React.Component {
   }
 
   componentDidMount() {
-    console.debug("warehouseId => ", this.props.match.params.warehouseId);
+    console.log("warehouseId => ", this.props.match.params.warehouseId);
+
     axios
       .get(`${this.url}/warehouses/${this.props.match.params.warehouseId}`)
       .then((response) => {
         this.setState({ warehouse: response.data[0] });
         console.debug(this.state.wareHouse, response.data[0]);
+        console.table("=====>", response.data[0]);
       })
       .catch((err) => console.error(err));
   }
 
   render() {
-    //console.log(this.state.warehouse);
+    console.log(this.state.warehouse);
     return (
       <div className="warehouse-details__wrapper">
         <div>
           <div>WAREHOUSE ADDRESS:</div>
-          <div>{this.state.warehouse.address}</div>
+          {/* <div>{this.state.warehouse.address}</div> */}
           <div>
-            {this.state.warehouse.city} {this.state.warehouse.country}
+            {/* {this.state.warehouse.city} {this.state.warehouse.country} */}
           </div>
         </div>
         <div>
           <div>CONTACT NAME</div>
-          <div>{this.state.warehouse.contact.name}</div>
-          <div>{this.state.warehouse.contact.position}</div>
+          {/* <div>{this.state.warehouse.contact.name}</div>
+          <div>{this.state.warehouse.contact.position}</div> */}
         </div>
         <div>
           <div>CONTACT INFORMATION</div>
-          <div>{this.state.warehouse.contact.phone}</div>
-          <div>{this.state.warehouse.contact.email}</div>
+          {/* <div>{this.state.warehouse.contact.phone}</div>
+          <div>{this.state.warehouse.contact.email}</div> */}
         </div>
         <Link
           className="edit-btn"

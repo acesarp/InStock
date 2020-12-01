@@ -26,7 +26,11 @@ export default class WarehouseList extends React.Component {
     axios
       .get(`${this.url}/warehouses`)
       .then((response) => {
-        this.setState({ list: response.data });
+        let stateClone = this.state;
+        stateClone.list = response.data;
+        this.fullList = response.data;
+        this.setState(stateClone);
+        console.log("======>", response.data);
       })
       .catch((error) => console.error(error));
   }

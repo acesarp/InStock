@@ -25,6 +25,7 @@ export default class AddEditWarehouse extends React.Component {
       pageTitle: props.location.state && props.location.state.title,
     };
     //console.log("props.location.state ", this.state);
+    console.log("This is page title ==>", this.state.pageTitle);
   }
   async componentDidMount() {
     try {
