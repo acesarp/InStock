@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import axios from 'axios';
 import InventoryModel from '../models/InventoryModel';
 import SubHeader from './SubHeader';
+import NavBar from './NavBar';
 import '../styles/main.css';
 
 export default class NewInventory extends React.Component {
@@ -103,8 +104,11 @@ async componentDidMount() {
 
     render() {
         return (
+          <div>
+            <NavBar />
             <Fragment>
-                <SubHeader title={ this.state.pageTitle } />
+              <div className="section-wrapper">
+              <SubHeader title={ this.state.pageTitle } />
                 <div className="inventory__form-wrapper">
 
                     <form
@@ -201,7 +205,9 @@ async componentDidMount() {
                     
                     </form>
                 </div>
+              </div>
             </Fragment>
+          </div>
         );
     }
 }

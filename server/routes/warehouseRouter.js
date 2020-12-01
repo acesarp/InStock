@@ -4,7 +4,14 @@ const warehouses = require(WAREHOUSES_FILE_PATH);
 const RESOLVED_FILE_PATH = path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH));
 let router = require('express').Router();
 const uuid = require('uuid').v4;
+const fs = require('fs');
 const tools = require('../HelperFunctions.js');
+
+const INVENTORY_FILE_PATH = path.join(__dirname, "./data/inventory.json");
+const loadInventories = () => {
+  const inventories = fs.readFileSync(INVENTORY_FILE_PATH);
+  return JSON.parse(inventories);
+}
 
 /* 
 * GET warehouses list
@@ -19,7 +26,6 @@ router.get('/', (req, res) => {
 */
 router.get('/names', (req, res) => {
     //console.info('get \'/names\'');
-    //console.log(warehouses)
     const result = warehouses.map(item => item.name); 
     //console.debug(result);
     res.send(result);
@@ -33,6 +39,20 @@ router.get('/:id', (req, res) => {
     //console.info('get \'/:id\'');
     
     res.send(warehouses.filter(item => item.id === req.params.id));
+});
+
+/*
+* GET inventory by warehouse id
+*/
+router.get('/:id/inventory', (req, res) => {
+  let item = warehouses.filter((item) => (item.id === req.params.id));
+  if (!item[0]) {
+      res.status(404).send({ error: `Warehouse with id: ${req.body.id} not found` });
+      return;
+  } else {
+      const inventory = loadInventories();
+      res.send(inventory.filter((item) => (item.warehouseID === req.params.id)));
+  }
 });
 
 /**

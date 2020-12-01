@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import NavBar from './NavBar';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
 
@@ -10,7 +11,6 @@ export default class WarehouseList extends React.Component {
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
-
     constructor() {
         super();
         this.state = {
@@ -80,7 +80,6 @@ export default class WarehouseList extends React.Component {
             stateClone.name = "";
             stateClone.message = "";
             stateClone.showCloseButton = false;
-
             this.setState(stateClone);
         }
     }
@@ -140,7 +139,7 @@ export default class WarehouseList extends React.Component {
            console.log(regex)
             result = result.replace(regex, ' ');
             console.log(result)
-            if (result.toLowerCase().includes(event.target.value, 0)) {
+            if (result.toLowerCase().includes(event.target.value.toLowerCase(), 0)) {
                 console.log(element);
                 filteredList.push(element);
             }
@@ -152,33 +151,36 @@ export default class WarehouseList extends React.Component {
     render() {
         return (
             <> { /* <=== don't delete this tag!!! */ }
-            <div className="warehouseList">
+            <div>
+            
+            <NavBar />
+            <div className="section-wrapper warehouseList">
                     <SubHeader
                         title={"Warehouses"}
                         warehouseData={"no data"}  
                         searchHandler={this.searchHandler}
                         route={ "/AddEditWarehouse"}
                         buttonLabel={"+ Add New Warehouse"} />
-                <table className="warehouseList__wrapper">
+                <table className="details">
                     <thead>
-                        <tr>
-                            <th >
+                        <tr className="details__header">
+                            <th className="table-title table-title--tablet">
                                 WAREHOUSE
                                 <div onClick={(event) => this.sortHandler(event, "name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 ADDRESS
                                 <div onClick={(event) => this.sortHandler(event, "address") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 CONTACT NAME
                                 <div onClick={(event) => this.sortHandler(event, "contact.name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 CONTACT INFORMATION
                                 <div onClick={(event) => this.sortHandler(event, "contact.phone") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 ACTIONS
                             </th>
                         </tr>
@@ -186,13 +188,26 @@ export default class WarehouseList extends React.Component {
                     <tbody>
                         { this.state.list && this.state.list.map(item => {
                             return (
-                            <tr key={uuid()} id={item.id}>
-                                    <td><Link to={`/warehouseDetails/${item.id}`}>{item.name}</Link></td>
+                            <tr className="details__card" key={uuid()} id={item.id}>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">WAREHOUSE</th>
+                                    <td><Link to={`/warehouseDetails/${ item.id }`}>{item.name}</Link></td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">ADDRESS</th>
                                     <td>{item.address}</td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">CONTACT NAME</th>
                                     <td>{item.contact.name}</td>
+                                </tr>
+                                <tr className="details__box">
+                                <th className="table-title table-title--mobile">CONTACT INFORMATION</th>
                                     <td><div>{item.contact.phone}</div>
                                         <div>{item.contact.email}</div>
                                     </td>
+                                </tr>
+                                    {/* <td>{item.warhouseName}</td> */}
                                     <td>
                                         <button
                                             className="warehouseList__delete-btn"
@@ -206,7 +221,7 @@ export default class WarehouseList extends React.Component {
                                         <Link
                                             className="warehouseList__edit-btn"
                                             to={{
-                                                pathname: `/AddEditWarehouse`,
+                                                pathname: `/addeditwarehouse`,
                                                 state: {
                                                     id: item.id,
                                                     title: "EDIT WAREHOUSE"
@@ -221,6 +236,7 @@ export default class WarehouseList extends React.Component {
                         })}
                     </tbody>
                 </table>
+            </div>
             </div>
                 { this.state.modalOpen &&
                     <DeleteModal

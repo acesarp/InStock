@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import InventoryList from './InventoryList';
 import axios from 'axios';
-import '../styles/main.css';
 
 export default class WarehouseDetails extends React.Component {
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
@@ -31,13 +30,13 @@ export default class WarehouseDetails extends React.Component {
         axios.get(`${this.url}/warehouses/${this.props.match.params.warehouseId}`)
             .then(response => {
                 this.setState({ warehouse: response.data[0]});
-                //console.debug(this.state.wareHouse, response.data[0]);
+                console.debug(this.state.wareHouse, response.data[0]);
             })
             .catch(err => console.error(err));
     }
 
     render() {
-        //console.log(this.state.warehouse);
+        console.log(this.state.warehouse);
         return (
 
             <div className="warehouse-details__wrapper">

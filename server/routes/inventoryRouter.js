@@ -65,6 +65,8 @@ router.delete('/:id', (req, res) => {
     let index = 0;
     for (; index < inventory.length; ++index) {
         if (inventory[index].id === req.params.id) { 
+          console.log(inventory[index].id);
+          console.log(req.params.id);
             found = true;
             deletedItem = inventory[index]; 
             inventory.splice([index], 1);
@@ -78,7 +80,6 @@ router.delete('/:id', (req, res) => {
 
     try {
         fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(inventory, null, 4), (error) => {
-            console.log(error);
             if (!error) {
                 console.log(deletedItem);
                 res.status(200).send({ deleted: deletedItem });
@@ -103,7 +104,7 @@ function saveTofile(content_) {
         fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(content_, null, 4), (error) => {
             console.log("fs.writeFile message [null is good]: ", error);
             if (!error) {
-                //console.log(true);
+                // console.log(true);
                 return true;
             }
             else {
