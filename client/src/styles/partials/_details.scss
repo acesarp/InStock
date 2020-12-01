@@ -1,7 +1,6 @@
 .bigbox {
   font-family: "Titillium";
 }
-
 .details {
   border-top: 1.2px solid $Secondarycloud;
   border-bottom: 1.2px solid $Secondarycloud;
@@ -12,7 +11,6 @@
   flex-direction: column;
   width: 18.5rem;
   color: $Secondaryslate;
-
   &__name {
     padding: 2rem 1rem;
     display: flex;
@@ -24,7 +22,6 @@
         padding-left: 5rem;
       }
     }
-
     &--edit {
       margin-left: 6rem;
       display: flex;
@@ -40,7 +37,6 @@
     flex-direction: row;
   }
 }
-
 @include tablet {
   .details {
     margin: 0 1.5rem 0 1rem;
@@ -51,7 +47,6 @@
       padding: 2rem 1rem;
       display: flex;
       flex-direction: row;
-
       &--edit {
         margin-left: 30rem;
         display: flex;
@@ -83,7 +78,6 @@
       padding: 2rem 6vw;
       display: flex;
       flex-direction: row;
-
       &--edit {
         margin-left: 50rem;
         display: flex;
