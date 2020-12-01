@@ -1,24 +1,102 @@
+.bigbox {
+  font-family: "Titillium";
+}
 .details {
-  width: 100%;
-
-  &__header {
+  border-top: 1.2px solid $Secondarycloud;
+  border-bottom: 1.2px solid $Secondarycloud;
+  height: 22.85rem;
+  border: 1px solid $Secondarycloud;
+  margin: 1rem auto auto auto;
+  display: flex;
+  flex-direction: column;
+  width: 18.5rem;
+  color: $Secondaryslate;
+  &__name {
+    padding: 2rem 1rem;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    &--line {
+      padding-bottom: 1rem;
+      padding-left: auto;
+      &-2 {
+        padding-left: 5rem;
+      }
+    }
+    &--edit {
+      margin-left: 6rem;
+      display: flex;
+      flex-direction: row;
+      fill: $Primarywhite;
+      &-text {
+        visibility: hidden;
+      }
+    }
   }
-
-  &__card {
+  &__row {
     display: flex;
-    flex-wrap: wrap;
-    border-top: 1px solid $Secondarycloud;
+    flex-direction: row;
   }
-
-  &__box {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-
-    @include tablet {
-      width: 20%;
+}
+@include tablet {
+  .details {
+    margin: 0 1.5rem 0 1rem;
+    flex-direction: row;
+    width: 45rem;
+    height: 22.85rem;
+    &__name {
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: row;
+      &--edit {
+        margin-left: 30rem;
+        display: flex;
+        flex-direction: row;
+        &-text {
+          visibility: visible;
+        }
+      }
+    }
+    &__row {
+      display: flex;
+      flex-direction: row;
+      margin: 2rem 0;
+    }
+    &__column {
+      border-right: 1px solid $Secondarycloud;
+      width: 45vw;
+      margin: 2rem 1rem;
+    }
+  }
+}
+@include desktop {
+  .details {
+    margin: 0 5vw 0 5vw;
+    flex-direction: row;
+    width: 90vw;
+    height: 17rem;
+    &__name {
+      padding: 2rem 6vw;
+      display: flex;
+      flex-direction: row;
+      &--edit {
+        margin-left: 50rem;
+        display: flex;
+        flex-direction: row;
+        &-text {
+          visibility: visible;
+        }
+      }
+    }
+    &__row {
+      display: flex;
+      flex-direction: row;
+      margin: 2rem 0;
+      width: 43vw;
+    }
+    &__column {
+      border-right: 1px solid $Secondarycloud;
+      width: 52vw;
+      margin: 2rem 1rem;
     }
   }
 }
