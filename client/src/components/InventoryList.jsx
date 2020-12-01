@@ -159,6 +159,26 @@ export default class InventoryList extends React.Component {
             });
     }
 
+    createItemObjectHandler = (async event => {
+        const itemId = event.target.dataset.itemtargeid;
+        try {
+            const response = await axios.get(`${this.url}/inventory/${itemId}`);
+            console.log(response.data);
+            return {
+                id: itemId,
+                itemName: response.data.itemName,
+                category: response.data.category,
+                status: response.data.status,
+                quantity: response.data.quantity,
+                warehouseName: response.data.warehouseName,
+                stockStatus: response.data
+            };
+        } 
+        catch (error) {
+            console.error(error);
+        }
+    });
+
 
 
     render() {
@@ -207,7 +227,7 @@ export default class InventoryList extends React.Component {
                                 let key_ = uuid();
                                 return (
                                     <tr className="inventoryList__row" key={key_} id={item.id}>
-                                            <td className="inventoryList__cell" >{item.itemName}</td>
+                                            <td className="inventoryList__cell" ><Link to={"/inventory/"+item.id}>{item.itemName}</Link></td>
                                             <td className="inventoryList__cell" >{item.category}</td>
                                             <td className="inventoryList__cell" >{item.status}</td>
                                             <td className="inventoryList__cell" >{item.quantity}</td>

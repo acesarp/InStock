@@ -10,7 +10,7 @@ function SubHeader(props) {
 
     const [state] = useState(props);
 
-    if (history.location.pathname !== '/warehouselist' && history.location.pathname !== '/inventorylist') {
+    if (history.location.pathname !== '/warehouselist' && history.location.pathname !== '/inventorylist' && history.location.pathname !== '/') {
       return (
           <section className="sub-header">
 
@@ -34,7 +34,7 @@ function SubHeader(props) {
                       pathname: state.route,
                       state: {
                           warehouseData: props.warehouseData,
-                          title: "ADD NEW INVENTORY ITEM"
+                          title: "ADD NEW WAREHOUSE ITEM"
                       }
                   }} >
                       <div className="sub-header__btn">

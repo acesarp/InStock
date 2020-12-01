@@ -144,26 +144,26 @@ export default class WarehouseList extends React.Component {
                         searchHandler={this.searchHandler}
                         route={ "/AddEditWarehouse"}
                         buttonLabel={"+ Add New Warehouse"} />
-                <table className="warehouseList__wrapper">
+                <table className="details">
                     <thead>
-                        <tr>
-                            <th >
+                        <tr className="details__header">
+                            <th className="table-title table-title--tablet">
                                 WAREHOUSE
                                 <div onClick={(event) => this.sortHandler(event, "name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 ADDRESS
                                 <div onClick={(event) => this.sortHandler(event, "address") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                             </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 CONTACT NAME
                                 <div onClick={(event) => this.sortHandler(event, "contactName") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 CONTACT INFORMATION
                                 <div onClick={(event) => this.sortHandler(event, "information") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
-                            <th>
+                            <th className="table-title table-title--tablet">
                                 ACTIONS
                             </th>
                         </tr>
@@ -171,13 +171,25 @@ export default class WarehouseList extends React.Component {
                     <tbody>
                         { this.state.list && this.state.list.map(item => {
                             return (
-                            <tr key={uuid()} id={item.id}>
+                            <tr className="details__card" key={uuid()} id={item.id}>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">WAREHOUSE</th>
                                     <td><Link to={`/warehouseDetails/${ item.id }`}>{item.name}</Link></td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">ADDRESS</th>
                                     <td>{item.address}</td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">CONTACT NAME</th>
                                     <td>{item.contact.name}</td>
+                                </tr>
+                                <tr className="details__box">
+                                <th className="table-title table-title--mobile">CONTACT INFORMATION</th>
                                     <td><div>{item.contact.phone}</div>
                                         <div>{item.contact.email}</div>
                                     </td>
+                                </tr>
                                     <td>{item.warhouseName}</td>
                                     <td>
                                         <button

@@ -8,6 +8,7 @@ import WarehouseList from "./components/WarehouseList";
 import AddEditInventory from "./components/AddEditInventory";
 import WarehouseDetails from "./components/WarehouseDetails";
 import AddEditWarehouse from "./components/AddEditWarehouse";
+import InventoryDetails from "./components/InventoryDetails";
 
 // import reportWebVitals from './reportWebVitals';
 
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/warehouselist" component={WarehouseList} />
         <Route path="/addeditinventory" component={AddEditInventory} />
         <Route path="/addeditwarehouse" component={AddEditWarehouse} />
+        <Route path="/inventory/:id" component={InventoryDetails} />
       </Switch>
     </Router>
   </React.StrictMode>,

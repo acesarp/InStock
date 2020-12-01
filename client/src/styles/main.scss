@@ -5,6 +5,8 @@
 @import "./partials/CTA";
 @import "./partials/navbar";
 @import "./partials/editWarehouse";
+@import "./partials/details";
+
 * {
   margin: 0;
   padding: 0;
@@ -80,9 +82,25 @@ button {
 
 .table-title {
   @include set-font(0.6875rem, 1rem);
+  color: $Secondaryslate;
+  font-weight: normal;
 
   @include tablet {
     @include set-font(0.75rem, 1.125rem);
+  }
+
+  &--mobile {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &--tablet {
+    display: none;
+
+    @include tablet {
+      display: initial;
+    }
   }
 }
 
