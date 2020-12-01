@@ -36,7 +36,7 @@ export default class WarehouseDetails extends React.Component {
     }
 
     render() {
-        //console.log(this.state.warehouse);
+        console.log(this.state.warehouse);
         return (
 
             <div className="warehouse-details__wrapper">

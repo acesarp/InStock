@@ -81,7 +81,6 @@ router.delete('/:id', (req, res) => {
     try {
         fs.writeFile(RESOLVED_FILE_PATH, JSON.stringify(inventory, null, 4), (error) => {
             if (!error) {
-                
                 console.log(deletedItem);
                 res.status(200).send({ deleted: deletedItem });
             }
