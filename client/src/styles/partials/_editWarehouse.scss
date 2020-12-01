@@ -172,4 +172,13 @@
       margin-bottom: 0;
     }
   }
+  &__cards-container {
+    @include tablet {
+      display: flex;
+    }
+  }
+  &__subgroup {
+    display: flex;
+    flex-direction: column;
+  }
 }

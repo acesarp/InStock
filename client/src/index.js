@@ -20,9 +20,8 @@ ReactDOM.render(
         <Route path="/inventorylist" component={InventoryList} />
         <Route path="/warehousedetails" component={WarehouseDetails} />
         <Route path="/warehouselist" component={WarehouseList} />
-        <Route path="/newinventoryitem" component={AddEditInventory} />
+        <Route path="/addeditinventory" component={AddEditInventory} />
         <Route path="/addeditwarehouse" component={AddEditWarehouse} />
-        {/* <Route path="/addwarehouse" component={AddWarehouse} /> */}
       </Switch>
     </Router>
   </React.StrictMode>,

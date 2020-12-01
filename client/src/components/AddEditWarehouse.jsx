@@ -21,8 +21,8 @@ export default class AddEditWarehouse extends React.Component {
         phone: "",
         email: "",
       },
-      editwarehouseId: props.location.state.id,
-      pageTitle: props.location.state.title,
+      editwarehouseId: props.location.state && props.location.state.id,
+      pageTitle: props.location.state && props.location.state.title,
     };
     //console.log("props.location.state ", this.state);
   }
@@ -102,104 +102,107 @@ export default class AddEditWarehouse extends React.Component {
                 name="warehouseItemForm"
                 onSubmit={this.submitHandler}
               >
-                <div className="warehouse__form--col-1">
-                  <div className="warehouse__form-group">
-                    <label htmlFor="name">Warehouse Name</label>
-                    <input
-                      className="edit-warehouse__input"
-                      type="text"
-                      name="name"
-                      placeholder="Warehouse Name"
-                      value={this.state.formData.name}
-                      required
-                      onChange={this.changeHandler}
-                    />
+                <div className="edit-warehouse__cards-container">
+                  <div className="warehouse__form--col-1">
+                    <h2>Warehouse Details</h2>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="name">Warehouse Name</label>
+                      <input
+                        className="edit-warehouse__input"
+                        type="text"
+                        name="name"
+                        placeholder="Warehouse Name"
+                        value={this.state.formData.name}
+                        required
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="address">Street Address</label>
+                      <input
+                        className="edit-warehouse__input"
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                        required
+                        value={this.state.formData.address}
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="city">City</label>
+                      <input
+                        className="edit-warehouse__input"
+                        type="text"
+                        name="city"
+                        placeholder="City"
+                        value={this.state.formData.city}
+                        onChange={this.changeHandler}
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="country">Country</label>
+                      <input
+                        className="edit-warehouse__input"
+                        type="text"
+                        name="country"
+                        placeholder="Country"
+                        value={this.state.formData.country}
+                        required
+                        onChange={this.changeHandler}
+                      />
+                    </div>
                   </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="address">Street Address</label>
-                    <input
-                      className="edit-warehouse__input"
-                      type="text"
-                      name="address"
-                      placeholder="Address"
-                      required
-                      value={this.state.formData.address}
-                      onChange={this.changeHandler}
-                    />
-                  </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="city">City</label>
-                    <input
-                      className="edit-warehouse__input"
-                      type="text"
-                      name="city"
-                      placeholder="City"
-                      value={this.state.formData.city}
-                      onChange={this.changeHandler}
-                    />
-                  </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="country">Country</label>
-                    <input
-                      className="edit-warehouse__input"
-                      type="text"
-                      name="country"
-                      placeholder="Country"
-                      value={this.state.formData.country}
-                      required
-                      onChange={this.changeHandler}
-                    />
-                  </div>
-                </div>
 
-                <h1>Contact Details</h1>
-                <div className="warehouse__form--col-2">
-                  <div className="warehouse__form-group">
-                    <label htmlFor="name">Contact Name</label>
-                    <input
-                      className="edit-warehouse__input"
-                      placeholder="Contact Name"
-                      name="contactName"
-                      type="text"
-                      value={this.state.formData.contactName}
-                      onChange={this.changeHandler}
-                      required
-                    />
-                  </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="position">Position</label>
-                    <input
-                      className="edit-warehouse__input"
-                      placeholder="Position"
-                      name="position"
-                      value={this.state.formData.position}
-                      onChange={this.changeHandler}
-                      required
-                    />
-                  </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="phone">Phone Number</label>
-                    <input
-                      className="edit-warehouse__input"
-                      placeholder="Phone Number"
-                      type="tel"
-                      name="phone"
-                      value={this.state.formData.phone}
-                      onChange={this.changeHandler}
-                      required
-                    />
-                  </div>
-                  <div className="warehouse__form-group">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      className="edit-warehouse__input"
-                      placeholder="Email"
-                      type="email"
-                      name="email"
-                      value={this.state.formData.email}
-                      onChange={this.changeHandler}
-                      required
-                    />
+                  <div className="warehouse__form--col-2">
+                    <h2>Contact Details</h2>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="name">Contact Name</label>
+                      <input
+                        className="edit-warehouse__input"
+                        placeholder="Contact Name"
+                        name="contactName"
+                        type="text"
+                        value={this.state.formData.contactName}
+                        onChange={this.changeHandler}
+                        required
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="position">Position</label>
+                      <input
+                        className="edit-warehouse__input"
+                        placeholder="Position"
+                        name="position"
+                        value={this.state.formData.position}
+                        onChange={this.changeHandler}
+                        required
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="phone">Phone Number</label>
+                      <input
+                        className="edit-warehouse__input"
+                        placeholder="Phone Number"
+                        type="tel"
+                        name="phone"
+                        value={this.state.formData.phone}
+                        onChange={this.changeHandler}
+                        required
+                      />
+                    </div>
+                    <div className="warehouse__form-group">
+                      <label htmlFor="email">Email</label>
+                      <input
+                        className="edit-warehouse__input"
+                        placeholder="Email"
+                        type="email"
+                        name="email"
+                        value={this.state.formData.email}
+                        onChange={this.changeHandler}
+                        required
+                      />
+                    </div>
                   </div>
                 </div>
               </form>
@@ -216,6 +219,11 @@ export default class AddEditWarehouse extends React.Component {
               type="reset"
               value="Save"
             />
+          </div>
+          <div className="edit-warehouse__copyright-section">
+            <p className="edit-warehouse__copyright">
+              © InStock Inc. All Rights Reserved
+            </p>
           </div>
         </Fragment>
       </div>
