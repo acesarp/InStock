@@ -26,8 +26,11 @@ export default class WarehouseList extends React.Component {
     
     componentDidMount() {
         axios.get(`${this.url}/warehouses`)
-            .then(response => {           
-                this.setState({ list: response.data });
+            .then(response => {
+                let stateClone = this.state;
+                stateClone.list = response.data;
+                this.fullList = response.data;
+                this.setState(stateClone);
             })
             .catch(error => console.error(error));
     }
@@ -85,12 +88,13 @@ export default class WarehouseList extends React.Component {
     /**
      * 
      * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event 
-     * @param {string} key
+     * @param {string} key_
      *  
      */
-    sortHandler = (event, key) => {        
+    sortHandler = (event, key_) => {
         let currentList = this.state.list;
-        let sortedList = currentList.sort((valueA, valueB) => this.compare(valueA, valueB, key));
+
+        let sortedList = currentList.sort((valueA, valueB) => this.compare(valueA, valueB, key_));
         const flipSort = this.state.sortToggle ? false : true;
         
         this.setState({ list: sortedList, sortToggle: flipSort });
@@ -98,18 +102,28 @@ export default class WarehouseList extends React.Component {
 
     /**
      * 
-     * @param {string} valueA
-     * @param {string} valueB 
-     * @param {string} key 
+     * @param {string | Object} valueA
+     * @param {string | Object} valueB 
+     * @param {string} key_ 
      */
-    compare = (valueA, valueB, key) => {
-        if (valueA[key] < valueB[key])
+    compare = (valueA, valueB, key_) => {
+        //console.log(valueA[key_], valueA);
+        
+        let keys = key_.split(".");
+
+        for (let i = 0; i < keys.length; i++) {
+            valueA = valueA[keys[i]];
+            valueB = valueB[keys[i]];
+        }
+
+        if (valueA < valueB)
             return this.state.sortToggle ? -1 : 1;
-        else if (valueA[key] > valueB[key])
+        else if (valueA > valueB)
             return this.state.sortToggle ? 1 : -1;
         else
             return 0;
     }
+
 
     /**
      * 
@@ -117,20 +131,23 @@ export default class WarehouseList extends React.Component {
      */
     searchHandler = (event) => {
         console.debug("Searching warehouse... => ", event.target.value);
-        let currentState = this.fullList;
         let filteredList = [];
+        let currentState = this.fullList;
         currentState.forEach((element) => {
-            const keys = Object.keys(element);
-            for(const key of keys) {
-                if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
-                    filteredList.push(element);
-                    break;
-                }
+            let result = (typeof element === 'object') ? JSON.stringify(element) : element.toString();
+            let excludeWords = Object.keys(element).join('|');
+            const regex = new RegExp(`,|{|}|:|${excludeWords}|"`, "g" );
+           console.log(regex)
+            result = result.replace(regex, ' ');
+            console.log(result)
+            if (result.toLowerCase().includes(event.target.value, 0)) {
+                console.log(element);
+                filteredList.push(element);
             }
         });
+ 
         this.setState({ list: filteredList });
     }
-
 
     render() {
         return (
@@ -155,11 +172,11 @@ export default class WarehouseList extends React.Component {
                             </th>
                             <th>
                                 CONTACT NAME
-                                <div onClick={(event) => this.sortHandler(event, "contactName") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                                <div onClick={(event) => this.sortHandler(event, "contact.name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
                             <th>
                                 CONTACT INFORMATION
-                                <div onClick={(event) => this.sortHandler(event, "information") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                                <div onClick={(event) => this.sortHandler(event, "contact.phone") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
                                 </th>
                             <th>
                                 ACTIONS
@@ -170,13 +187,12 @@ export default class WarehouseList extends React.Component {
                         { this.state.list && this.state.list.map(item => {
                             return (
                             <tr key={uuid()} id={item.id}>
-                                    <td><Link to={`/warehouseDetails/${ item.id }`}>{item.name}</Link></td>
+                                    <td><Link to={`/warehouseDetails/${item.id}`}>{item.name}</Link></td>
                                     <td>{item.address}</td>
                                     <td>{item.contact.name}</td>
                                     <td><div>{item.contact.phone}</div>
                                         <div>{item.contact.email}</div>
                                     </td>
-                                    <td>{item.warhouseName}</td>
                                     <td>
                                         <button
                                             className="warehouseList__delete-btn"
