@@ -2,42 +2,112 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
+import NavBar from './NavBar';
 import SubHeader from './SubHeader';
+import DeleteModal from './DeleteModal';
+
 export default class WarehouseList extends React.Component {
+
     url = 'http://localhost:5000';
     iconFolder = `${process.env.PUBLIC_URL}/assets/Icons`;
     fullList = [];
     constructor() {
         super();
         this.state = {
-            list: []
+            list: [],
+            sortToggle: false,
+            modalOpen: false,
+            showCloseButton: false,
+            warehouseName: "",
+            warehouseId: "",
+            message: ""
         };
     }
     
     componentDidMount() {
         axios.get(`${this.url}/warehouses`)
-            .then(response => {
-                
+            .then(response => {           
                 this.setState({ list: response.data });
             })
             .catch(error => console.error(error));
     }
 
-    editHandler = (event) => {
-        let data = event.target.value;
-        axios.put(`${this.url}/warehouses`, {
-                })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
+    /**
+     * 
+    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+    */
+    deleteModalHandler = (event) => {
+        let stateClone = this.state;
+        stateClone.id = event.target.dataset.targetid;
+        stateClone.name = event.target.dataset.targetname;
+
+        stateClone.modalOpen = true;
+
+        this.setState(stateClone);
     }
-    deleteHandler = () => {
-        axios.delete(`${this.url}/warehouses/:id`)
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
+    
+    /**
+     * 
+    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+    */
+    confirmationHandler = (event) => {
+        event.preventDefault();
+        let stateClone = this.state;
+
+        if (event.target.value === "delete") {      
+
+            axios.delete(`${this.url}/warehouses/${this.state.id}`)
+                .then(response => {
+                    console.log(response.data);
+                    stateClone.list = stateClone.list.filter(item => item.id !== response.data.deleted.id );
+                    stateClone.name = response.data.deleted.name;
+                    stateClone.message = `${response.data.deleted.name} deleted successfully!`;
+                    stateClone.showCloseButton = true;
+                    this.setState(stateClone);
+                })
+                .catch(error => {
+                    stateClone.message = `Error: ${stateClone.name} could not be deleted.`;
+                    this.setState(stateClone);
+                    console.error(error);
+                });
+        }
+        else {
+            stateClone.modalOpen = false;
+            stateClone.id = "";
+            stateClone.name = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
+            this.setState(stateClone);
+        }
+    }
+
+    /**
+     * 
+     * @param {React.MouseEvent<HTMLDivElement, MouseEvent>} event 
+     * @param {string} key
+     *  
+     */
+    sortHandler = (event, key) => {        
+        let currentList = this.state.list;
+        let sortedList = currentList.sort((valueA, valueB) => this.compare(valueA, valueB, key));
+        const flipSort = this.state.sortToggle ? false : true;
+        
+        this.setState({ list: sortedList, sortToggle: flipSort });
+    }
+
+    /**
+     * 
+     * @param {string} valueA
+     * @param {string} valueB 
+     * @param {string} key 
+     */
+    compare = (valueA, valueB, key) => {
+        if (valueA[key] < valueB[key])
+            return this.state.sortToggle ? -1 : 1;
+        else if (valueA[key] > valueB[key])
+            return this.state.sortToggle ? 1 : -1;
+        else
+            return 0;
     }
 
     /**
@@ -45,66 +115,122 @@ export default class WarehouseList extends React.Component {
      * @param {React.ChangeEvent<HTMLInputElement>} event 
      */
     searchHandler = (event) => {
-        console.debug("Searching... => ", event.target.value);
+        console.debug("Searching warehouse... => ", event.target.value);
         let currentState = this.fullList;
         let filteredList = [];
         currentState.forEach((element) => {
             const keys = Object.keys(element);
-            for (const key of keys) {
+            for(const key of keys) {
                 if (element[key].toString().toLowerCase().includes(event.target.value, 0)) {
                     filteredList.push(element);
                     break;
                 }
             }
         });
+        this.setState({ list: filteredList });
     }
+
 
     render() {
         return (
+            <> { /* <=== don't delete this tag!!! */ }
             <div>
-                <SubHeader title={"Warehouses"} searchHandler={this.searchHandler} buttonLabel={ <img src={`${this.iconFolder}/edit.svg`} alt="" /> }/>
-                <h1>Warehouses</h1>
-                <table>
+            
+            <NavBar />
+            <div className="section-wrapper warehouseList">
+                    <SubHeader
+                        title={"Warehouses"}
+                        warehouseData={"no data"}  
+                        searchHandler={this.searchHandler}
+                        route={ "/AddEditWarehouse"}
+                        buttonLabel={"+ Add New Warehouse"} />
+                <table className="details">
                     <thead>
-                        <tr>
-                            <th>WAREHOUSE</th>
-                            <th>ADDRESS</th>
-                            <th>CONTACT NAME</th>
-                            <th>CONTACT INFORMATION</th>
-                            <th>ACTIONS </th>
+                        <tr className="details__header">
+                            <th className="table-title table-title--tablet">
+                                WAREHOUSE
+                                <div onClick={(event) => this.sortHandler(event, "name") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                            </th>
+                            <th className="table-title table-title--tablet">
+                                ADDRESS
+                                <div onClick={(event) => this.sortHandler(event, "address") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                            </th>
+                            <th className="table-title table-title--tablet">
+                                CONTACT NAME
+                                <div onClick={(event) => this.sortHandler(event, "contactName") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                                </th>
+                            <th className="table-title table-title--tablet">
+                                CONTACT INFORMATION
+                                <div onClick={(event) => this.sortHandler(event, "information") } ><img src={ `${this.iconFolder}/sort.svg` } alt="" /></div>
+                                </th>
+                            <th className="table-title table-title--tablet">
+                                ACTIONS
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.list && this.state.list.map(item => {
+                        { this.state.list && this.state.list.map(item => {
                             return (
-                            <tr key={uuid()} id={item.id}>
-                                    <td><Link to={`/wareHouseDetails/${ item.id }`}>{item.name}</Link></td>
+                            <tr className="details__card" key={uuid()} id={item.id}>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">WAREHOUSE</th>
+                                    <td><Link to={`/warehouseDetails/${ item.id }`}>{item.name}</Link></td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">ADDRESS</th>
                                     <td>{item.address}</td>
+                                </tr>
+                                <tr className="details__box">
+                                    <th className="table-title table-title--mobile">CONTACT NAME</th>
                                     <td>{item.contact.name}</td>
+                                </tr>
+                                <tr className="details__box">
+                                <th className="table-title table-title--mobile">CONTACT INFORMATION</th>
                                     <td><div>{item.contact.phone}</div>
                                         <div>{item.contact.email}</div>
                                     </td>
+                                </tr>
                                     <td>{item.warhouseName}</td>
-                                <td>
+                                    <td>
+                                        <button
+                                            className="warehouseList__delete-btn"
+                                            onClick={this.deleteModalHandler}>
+                                            <img src={`${this.iconFolder}/delete.svg`}
+                                               data-targetid={ item.id }
+                                                data-targetname={ item.name }
+                                                alt="Delete icon" />
+                                        </button>
+
                                         <Link
-                                            className=""
+                                            className="warehouseList__edit-btn"
                                             to={{
-                                                pathname: `/newwarehouse/${item.id}`,
+                                                pathname: `/addeditwarehouse`,
                                                 state: {
-                                                    editHandler: this.editHandler
+                                                    id: item.id,
+                                                    title: "EDIT WAREHOUSE"
                                                 }
                                             }}>
                                             <img src={`${this.iconFolder}/edit.svg`}
                                                 alt="Edit icon" />
                                         </Link>
-                                    <button className="" onClick={this.deleteHandler}><img src={ `${this.iconFolder}/delete.svg` } alt="Delete icon" /></button>
                                 </td>
                                 </tr>
                             )
                         })}
                     </tbody>
-                    </table>
+                </table>
             </div>
+            </div>
+                { this.state.modalOpen &&
+                    <DeleteModal
+                        name={this.state.warehouseName}
+                        listType={ "Warehouse" }
+                        clickModalHandler={ this.confirmationHandler }
+                        message={ this.state.message }
+                        showCloseButton={this.state.showCloseButton}
+                    />
+                    }
+                </> /* <=== don't delete this tag!!! */ 
         );
     }
 }

@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
-import '../styles/main.css';
+import NavBar from './NavBar';
 
 export default class InventoryList extends React.Component {
     url = 'http://localhost:5000';
@@ -38,34 +38,34 @@ export default class InventoryList extends React.Component {
             .catch(error => console.error(error));
     }
 
-    editHandler = () => {
-        axios.put(`${this.url}/inventory`, {
-                //STUB To Do
-                })
-            .then(response => {
-                this.setState(response.data);
-            })
-            .catch(error => console.error(error));
+    // editHandler = () => {
+    //     axios.put(`${this.url}/inventory`, {
+    //             //STUB To Do
+    //             })
+    //         .then(response => {
+    //             this.setState(response.data);
+    //         })
+    //         .catch(error => console.error(error));
+    // }
+
+    /**
+     * 
+    * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+    */
+    deleteModalHandler = (event) => {
+        let stateClone = this.state;
+        stateClone.itemId = event.target.dataset.itemtargetid;
+        stateClone.itemName = event.target.dataset.itemtargetname;
+
+        stateClone.modalOpen = true;
+
+        this.setState(stateClone);
     }
 
- /**
- * 
-* @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
-*/
-deleteModalHandler = (event) => {
-    let stateClone = this.state;
-    stateClone.itemId = event.target.dataset.itemtargetid;
-    stateClone.itemName = event.target.dataset.itemtargetname;
-
-    stateClone.modalOpen = true;
-
-    this.setState(stateClone);
-}
-
-/**
- * 
- * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
- */
+    /**
+     * 
+     * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} event 
+     */
     confirmationHandler = (event) => {
         event.preventDefault();
         let stateClone = this.state;
@@ -88,6 +88,10 @@ deleteModalHandler = (event) => {
         }
         else {
             stateClone.modalOpen = false;
+            stateClone.itemId = "";
+            stateClone.itemName = "";
+            stateClone.message = "";
+            stateClone.showCloseButton = false;
             this.setState(stateClone);
         }
     }
@@ -150,7 +154,7 @@ deleteModalHandler = (event) => {
         
         return uniqueList.map(item => {
                 let obj = { warehouseID: item.warehouseID, warehouseName: item.warehouseName };
-                console.log("obj ", obj);
+                //console.log("obj ", obj);
                 return obj;
             });
     }
@@ -176,16 +180,19 @@ deleteModalHandler = (event) => {
     });
 
 
+
     render() {
-        console.log("message ", this.state.message);
         return (
-            <> { /* <=== don't delete this tag!!! */ }
-            <div className="inventoryList">
-                <SubHeader title={"Inventory"}
-                    searchHandler={ this.searchHandler }
-                    warehouseData={this.warehouseList}  
-                    route="/newinventoryitem"
-                    buttonLabel={"+ Add New Item"} />
+          <> { /* <=== don't delete this tag!!! */ }
+          <div>
+            <NavBar page='inventory'/>
+            <div className="section-wrapper inventoryList">
+                    <SubHeader
+                        title={"Inventory"}
+                        searchHandler={ this.searchHandler }
+                        warehouseData={this.warehouseList}  
+                        route="/AddEditInventory"
+                        buttonLabel={"+ Add New Item"} />
                 <table className="inventoryList__wrapper" >
 
                     <thead className="inventoryList__header">
@@ -220,27 +227,27 @@ deleteModalHandler = (event) => {
                                 let key_ = uuid();
                                 return (
                                     <tr className="inventoryList__row" key={key_} id={item.id}>
-                                            <td className="inventoryList__cell" >{item.itemName}</td>
+                                            <td className="inventoryList__cell" ><Link to={"/inventory/"+item.id}>{item.itemName}</Link></td>
                                             <td className="inventoryList__cell" >{item.category}</td>
                                             <td className="inventoryList__cell" >{item.status}</td>
                                             <td className="inventoryList__cell" >{item.quantity}</td>
                                             <td className="inventoryList__cell" >{item.warehouseName}</td>
                                             <td className="inventoryList__cell">
 
-                                                <button onClick={ this.deleteModalHandler }>
+                                            <button
+                                                className="inventoryList__delete-btn"
+                                                onClick={this.deleteModalHandler}>
                                                     <img src={ `${this.iconFolder }/delete.svg` }
                                                         data-itemtargetid={ item.id }
                                                         data-itemtargetname={ item.itemName }
                                                         alt="Delete icon" />
                                                 </button>
                                                 <Link
-                                                    className="link-btn"
-                                                    onClick={ this.createItemObjectHandler }
-                                                    data-itemtargetkey={ key_ }
+                                                    className="inventoryList__edit-btn"
                                                     to={{
-                                                        pathname: `/newinventoryItem`,
+                                                        pathname: `/AddEditInventory`,
                                                         state: {
-                                                            itemId: item.id,
+                                                            id: item.id,
                                                             warehouseData: this.warehouseList,
                                                             title: "EDIT INVENTORY ITEM"
                                                         }
@@ -250,21 +257,23 @@ deleteModalHandler = (event) => {
                                                 </Link>
                                                 
                                         </td>
-                                        </tr>
+                                    </tr>
                                 )
                         })}
                     </tbody>
                 </table>
 
-                </div>
+            </div>
                 { this.state.modalOpen &&
                     <DeleteModal
-                        itemName={ this.state.itemName }
+                        name={this.state.itemName}
+                        listType={ "Inventory" }
                         clickModalHandler={ this.confirmationHandler }
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
                     }
-                </> /* <=== don't delete this tag!!! */ 
+          </div>
+          </> /* <=== don't delete this tag!!! */ 
         );
     }
 }

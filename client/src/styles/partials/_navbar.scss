@@ -1,107 +1,57 @@
 .nav {
+  background-color: $Backgroundgraphite;
+  height: 12.5rem;
   position: relative;
-  background-color: $Primaryblack;
-  height: 10rem;
-  width: 100vw;
+  z-index: 1;
 
-  &__logo {
-    margin: 1rem 0 0 30vw;
+  @include tablet {
+    height: 11.625rem;
+  }
+
+  &__wrapper {
+    @include set-width;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+
+    @include tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.75rem;
+    }
   }
 
   &__menu {
-    margin: unset;
-    list-style: none;
+    width: 100%;
+    padding-top: 1.5rem;
     display: flex;
-    align-items: center;
     justify-content: center;
+
+    @include tablet {
+      width: auto;
+      padding-top: 0;
+      justify-content: flex-end;
+    }
   }
 
-  &__list-link {
+  &__list-item {
+    padding: 0.5rem;
+    width: 10rem;
+    text-align: center;
+    border-radius: 1.25rem;
+
     &--active {
-      background-color: black;
-      height: 2.25rem;
-      padding: 0 1.5rem;
-      border-radius: 20px;
-      color: $Primarywhite;
-      text-decoration: none;
-    }
-    &--inactive {
       background-color: $Primaryblack;
-      height: 2.25rem;
-      padding: 0 1.5rem;
-      border-radius: 20px;
-      text-decoration: none;
-      color: $Secondaryslate;
-      &:hover {
-        text-decoration: underline;
-        text-decoration: $Primarywhite;
-        color: $Primarywhite;
-      }
     }
   }
-}
 
-@include tablet {
-  .nav {
-    height: 10rem;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    &__wrapper {
-      margin-top: 1rem;
-      display: flex;
-      margin-left: 38vw;
-    }
+  &__link {
+    color: $Primarywhite;
 
-    &__logo {
-      margin-top: 1rem;
-      margin-left: 3.125vw;
-      margin-right: 56px;
-    }
-
-    &__menu {
-      display: flex;
-      align-items: center;
-      &__list-link {
-        &--active {
-          background-color: black;
-          height: 2.25rem;
-          padding: 0 1.5rem;
-          border-radius: 20px;
-          color: $Primarywhite;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-            text-decoration: $Primarywhite;
-            color: $Primarywhite;
-          }
-        }
-        &--inactive {
-          background-color: $Primaryblack;
-          height: 2.25rem;
-          padding: 0 1.5rem;
-          border-radius: 20px;
-          text-decoration: none;
-          color: $Secondaryslate;
-          &:hover {
-            text-decoration: underline;
-            text-decoration: $Primarywhite;
-            color: $Primarywhite;
-          }
-        }
-      }
-    }
-  }
-}
-
-@include desktop {
-  .nav {
-    &__wrapper {
-      // margin-right: 5rem;
-      margin-left: 40vw;
-    }
-    &__logo {
-      margin-left: 5rem;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

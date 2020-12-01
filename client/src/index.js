@@ -5,9 +5,10 @@ import App from "./App";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import InventoryList from "./components/InventoryList";
 import WarehouseList from "./components/WarehouseList";
-import NewInventory from "./components/NewInventory";
+import AddEditInventory from "./components/AddEditInventory";
 import WarehouseDetails from "./components/WarehouseDetails";
-import EditWarehouse from "./components/EditWarehouse";
+import AddEditWarehouse from "./components/AddEditWarehouse";
+import InventoryDetails from "./components/InventoryDetails";
 
 // import reportWebVitals from './reportWebVitals';
 
@@ -19,8 +20,9 @@ ReactDOM.render(
         <Route path="/inventorylist" component={InventoryList} />
         <Route path="/warehousedetails" component={WarehouseDetails} />
         <Route path="/warehouselist" component={WarehouseList} />
-        <Route path="/newinventoryitem" component={NewInventory} />
-        <Route path="/editwarehouse" component={EditWarehouse} />
+        <Route path="/addeditinventory" component={AddEditInventory} />
+        <Route path="/addeditwarehouse" component={AddEditWarehouse} />
+        <Route path="/inventory/:id" component={InventoryDetails} />
       </Switch>
     </Router>
   </React.StrictMode>,

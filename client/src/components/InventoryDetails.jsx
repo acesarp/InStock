@@ -40,7 +40,7 @@ export default class InventoryDetails extends Component {
         return(
             <div className="bigbox">
                 <NavBar />
-    
+              <div className="section-wrapper">
                 <div className ="details__name" >
                
                 
@@ -95,7 +95,7 @@ export default class InventoryDetails extends Component {
               
                 
 
-           
+            </div>
 
             </div>
 

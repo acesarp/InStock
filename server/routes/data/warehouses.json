@@ -1,0 +1,132 @@
+[
+    {
+        "id": "ade0a47b-cee6-4693-b4cd-a7e6cb25f4b7",
+        "name": "Seattle",
+        "address": "1201 Third Avenue",
+        "city": "Seattle",
+        "country": "USA",
+        "contact": {
+            "name": "Daniel Bachune",
+            "position": "Warehouse Manager",
+            "phone": "+1(646)123-1234",
+            "email": "dbachu@inslltock.com"
+        }
+    },
+    {
+        "id": "bb1491eb-30e6-4728-a5fa-72f89feaf622",
+        "name": "Montreal",
+        "address": "1125 Stanley Street",
+        "city": "Montreallll",
+        "country": "CAN",
+        "contact": {
+            "name": "Alana Thomas",
+            "position": "Warehouse Manager",
+            "phone": "+1(646)123-1234",
+            "email": "athomas@instock.com"
+        }
+    },
+    {
+        "id": "150a36cf-f38e-4f59-8e31-39974207372d",
+        "name": "Boston",
+        "address": "215 Essex Street",
+        "city": "Boston",
+        "country": "USA",
+        "contact": {
+            "name": "Vanessa Mendoza",
+            "position": "Warehouse Manager",
+            "phone": "+1 (646) 123-1234",
+            "email": "vmendoza@instock.com"
+        }
+    },
+    {
+        "id": "e03e59af-d435-456d-81a5-5fe0c9cdb5ed",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "7783164444",
+            "email": "fffarp@ouftlook.com"
+        }
+    },
+    {
+        "id": "45f095af-4337-46c9-89aa-6f5b72dc346b",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "(778)316-4444",
+            "email": "fffarp@ouftlook.com"
+        }
+    },
+    {
+        "id": "ca0ed36e-7cb3-447c-af67-b184bcbd644b",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "(778)316-4444",
+            "email": "fffarp@ouftlook.co"
+        }
+    },
+    {
+        "id": "8119a6dd-d81d-4988-a67b-8a73817de457",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "(778)316-4444",
+            "email": "fffarp@ouftlook.co"
+        }
+    },
+    {
+        "id": "285bbd06-4a04-4392-897c-89e48a9776a6",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "(778)316-4444",
+            "email": "fffarp@ouftlook.co"
+        }
+    },
+    {
+        "id": "8fb79a0a-1be2-426d-a450-b2033cbf4d53",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "+1(778)316-4444",
+            "email": "fffarp@ouftlook.ca"
+        }
+    },
+    {
+        "id": "fee064cb-d09f-41a0-b5df-c3a919fd166c",
+        "name": "df",
+        "address": "kjh",
+        "city": "lkjh",
+        "country": "kljkjh",
+        "contact": {
+            "name": "kljh",
+            "position": "kljh",
+            "phone": "+1(778)316-4444",
+            "email": "fffarp@ouftlook.ca"
+        }
+    }
+]
