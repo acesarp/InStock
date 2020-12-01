@@ -39,6 +39,7 @@ node_modules/
 /build
 # misc
 
+*.map.css
 .env.local
 .env.development.local
 .env.test.local
