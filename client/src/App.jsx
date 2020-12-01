@@ -1,7 +1,7 @@
 import WarehouseList from "./components/WarehouseList";
-import NavBar from './components/NavBar';
 import axios from "axios";
 import React from "react";
+// import InventoryDetails from "./components/InventoryDetails";
 
 export default class App extends React.Component {
   state = { names: [] };
@@ -21,7 +21,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <NavBar />
         <WarehouseList />
       </div>
     );

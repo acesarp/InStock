@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Link } from 'react-router-dom';
 import SubHeader from './SubHeader';
 import DeleteModal from './DeleteModal';
+import NavBar from './NavBar';
 import '../styles/main.css';
 
 export default class InventoryList extends React.Component {
@@ -155,30 +156,14 @@ deleteModalHandler = (event) => {
             });
     }
 
-    createItemObjectHandler = (async event => {
-        const itemId = event.target.dataset.itemtargeid;
-        try {
-            const response = await axios.get(`${this.url}/inventory/${itemId}`);
-            console.log(response.data);
-            return {
-                id: itemId,
-                itemName: response.data.itemName,
-                category: response.data.category,
-                status: response.data.status,
-                quantity: response.data.quantity,
-                warehouseName: response.data.warehouseName,
-                stockStatus: response.data
-            };
-        } 
-        catch (error) {
-            console.error(error);
-        }
-    });
+
 
 
     render() {
         console.log("message ", this.state.message);
         return (
+          <div>
+            <NavBar page='inventory'/>
             <> { /* <=== don't delete this tag!!! */ }
             <div className="inventoryList">
                 <SubHeader title={"Inventory"}
@@ -220,23 +205,23 @@ deleteModalHandler = (event) => {
                                 let key_ = uuid();
                                 return (
                                     <tr className="inventoryList__row" key={key_} id={item.id}>
-                                            <td className="inventoryList__cell" >{item.itemName}</td>
+                                            <td className="inventoryList__cell" ><Link to={"/inventory/"+item.id}>{item.itemName}</Link></td>
                                             <td className="inventoryList__cell" >{item.category}</td>
                                             <td className="inventoryList__cell" >{item.status}</td>
                                             <td className="inventoryList__cell" >{item.quantity}</td>
                                             <td className="inventoryList__cell" >{item.warehouseName}</td>
                                             <td className="inventoryList__cell">
 
-                                                <button onClick={ this.deleteModalHandler }>
+                                            <button
+                                                className="inventoryList__delete-btn"
+                                                onClick={this.deleteModalHandler}>
                                                     <img src={ `${this.iconFolder }/delete.svg` }
                                                         data-itemtargetid={ item.id }
                                                         data-itemtargetname={ item.itemName }
                                                         alt="Delete icon" />
                                                 </button>
                                                 <Link
-                                                    className="link-btn"
-                                                    onClick={ this.createItemObjectHandler }
-                                                    data-itemtargetkey={ key_ }
+                                                    className="inventoryList__edit-btn"
                                                     to={{
                                                         pathname: `/newinventoryItem`,
                                                         state: {
@@ -264,7 +249,8 @@ deleteModalHandler = (event) => {
                         message={ this.state.message }
                         showCloseButton={ this.state.showCloseButton } />
                     }
-                </> /* <=== don't delete this tag!!! */ 
+                </> {/* <=== don't delete this tag!!! */ }
+          </div>
         );
     }
 }

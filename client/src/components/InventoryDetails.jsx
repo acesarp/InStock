@@ -3,7 +3,7 @@ import axios from 'axios';
 import "../styles/main.css";
 import NavBar from './NavBar';
 import SubHeader from './SubHeader';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default class InventoryDetails extends Component {
@@ -47,40 +47,38 @@ export default class InventoryDetails extends Component {
                     <SubHeader
                         title={this.state.inventory.itemName}/>
                     {/* <h2>{this.state.inventory.itemName}</h2> */}
-                <p className="details__name--edit"> edit                 <p className="details__name--edit-text"> Edit</p></p>
                 
                 
-                <img src={`${this.iconFolder}/edit.svg`}                                                        />
-
+                <Link to={"/AddEditInventory"}> <img className="details__name--edit" src={`${this.iconFolder}/edit.svg` } ></img></Link>                                                 
+                <p className="details__name--edit"><p className="details__name--edit-text"> Edit</p></p>
                 </div>               
                 <div className="details">
                     <div className="details__column">
-                        <div>
+                        <div className="details__name--line" >
                             <p>ITEM DESCRIPTION:</p>
                             <p>{this.state.inventory.description}</p>
                         </div>
-                        <div>
+                        <div className="details__name--line" >
                             <p>CATEGORY:</p>
                             <p>{this.state.inventory.category}</p>
                         </div>
                     </div>
                     <div>
                         <div className="details__row">
-                            <div >
+                        <div className="details__name--line" >
                                 <p>STATUS:</p>
                                 <p>
                                     {this.state.inventory.status}
                                 </p>
                             </div>
-                            <div>
-                              
+                            <div className="details__name--line-2" >
                                 <p>QUANTITY:</p>
                                 <p>
                                 {this.state.inventory.quantity}
                                 </p>
                             </div>
                         </div>
-                        <div>
+                        <div className="details__name--line" >
                             <div>
                             <p>WAREHOUSE:</p>
                                 <p>
