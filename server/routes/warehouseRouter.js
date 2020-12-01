@@ -4,7 +4,14 @@ const warehouses = require(WAREHOUSES_FILE_PATH);
 const RESOLVED_FILE_PATH = path.join(path.resolve(__dirname, WAREHOUSES_FILE_PATH));
 let router = require('express').Router();
 const uuid = require('uuid').v4;
+const fs = require('fs');
 const tools = require('../HelperFunctions.js');
+
+const INVENTORY_FILE_PATH = path.join(__dirname, "./data/inventory.json");
+const loadInventories = () => {
+  const inventories = fs.readFileSync(INVENTORY_FILE_PATH);
+  return JSON.parse(inventories);
+}
 
 /* 
 * GET warehouses list
@@ -32,6 +39,20 @@ router.get('/:id', (req, res) => {
     //console.info('get \'/:id\'');
     
     res.send(warehouses.filter(item => item.id === req.params.id));
+});
+
+/*
+* GET inventory by warehouse id
+*/
+router.get('/:id/inventory', (req, res) => {
+  let item = warehouses.filter((item) => (item.id === req.params.id));
+  if (!item[0]) {
+      res.status(404).send({ error: `Warehouse with id: ${req.body.id} not found` });
+      return;
+  } else {
+      const inventory = loadInventories();
+      res.send(inventory.filter((item) => (item.warehouseID === req.params.id)));
+  }
 });
 
 /**
@@ -112,9 +133,9 @@ router.delete('/:id', async (req, res) => {
             console.debug(warehouses[index].id, req.params.id);
             found = true;
             deletedItem = warehouses[index];
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
             warehouses.splice(index, 1);
-            console.log(warehouses.length);
+            //console.log(warehouses.length);
             break;
         }
     }

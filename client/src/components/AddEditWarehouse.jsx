@@ -1,232 +1,212 @@
-import React, { Fragment } from "react";
-import SubHeader from "./SubHeader";
-import NavBar from "./NavBar";
-import axios from "axios";
-import WarehouseModel from "../models/WarehouseModel";
-import "../styles/main.css";
-export default class AddEditWarehouse extends React.Component {
-  url = "http://localhost:5000";
+import React, { Fragment } from 'react';
+import axios from 'axios';
+import InventoryModel from '../models/InventoryModel';
+import SubHeader from './SubHeader';
+import NavBar from './NavBar';
+import '../styles/main.css';
 
-  constructor(props) {
-    super(props);
-    //console.log("state ", this.state);
-    this.state = {
-      formData: {
-        name: "",
-        address: "",
-        city: "",
-        country: "",
-        contactName: "",
-        position: "",
-        phone: "",
-        email: "",
-      },
-      editwarehouseId: props.location.state && props.location.state.id,
-      pageTitle: props.location.state && props.location.state.title,
-    };
-    //console.log("props.location.state ", this.state);
-  }
-  async componentDidMount() {
-    try {
-      const response = await axios.get(
-        `${this.url}/warehouses/${this.state.editwarehouseId}`
-      );
-      const resObj = response.data[0];
-      const clone = this.state;
-      clone.formData = {
-        itemId: resObj.id,
-        name: resObj.name,
-        address: resObj.address,
-        city: resObj.city,
-        country: resObj.country,
-        contactName: resObj.contact.name,
-        position: resObj.contact.position,
-        phone: resObj.contact.phone,
-        email: resObj.contact.email,
-      };
-      this.setState(clone);
-      console.log(clone.formData);
-    } catch (error) {
-      console.error(error);
+export default class NewInventory extends React.Component {
+    url = 'http://localhost:5000';
+    category = ["Apparel", "Gear", "Health", "Electronics"];
+            
+    constructor(props) {
+        super(props);
+        //console.log("state ", this.state);
+        this.state = {
+            formData: {
+                itemName: "",
+                description: "",
+                category: "",
+                status: "",
+                warehouseName: "",
+                quantity: 0,  
+            },
+            warehouseData: props.location.state.warehouseData,
+            editItemId: props.location.state.id,
+            pageTitle: props.location.state.title,
+        };
+
+        //console.log("props.location.state ", this.state);
     }
-  }
-  submitHandler = (event) => {
-    event.preventDefault();
-    let data = new FormData(event.target);
-    const model = new WarehouseModel(
-      this.state.editwarehouseId ?? "", //id is to be created by the server
-      data.get("name").toString(),
-      data.get("address").toString(),
-      data.get("city").toString(),
-      data.get("country").toString(),
-      {
-        name: data.get("contactName").toString(),
-        position: data.get("position").toString(),
-        phone: data.get("phone").toString(),
-        email: data.get("email").toString(),
-      }
-    );
-    console.log(model.toJSON());
-    const method = this.props.location.state.id ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
-    axios({
-      method: method,
-      url: `${this.url}/warehouses`,
-      headers: { "Content-Type": "application/json" },
-      data: model.toJSON(),
-    })
-      .then((response) => {
-        console.info(response);
-        event.target.reset();
-      })
-      .catch((error) => console.error(error));
-  };
-  changeHandler = (event) => {
-    console.log([event.target.name], event.target.value);
-    const currentState = this.state;
-    currentState.formData[event.target.name] = event.target.value;
-    this.setState(currentState);
-  };
-  render() {
-    return (
-      <div>
-        <NavBar />
-        <Fragment>
-          <div className="section-wrapper">
-            <SubHeader
-              title={this.state.pageTitle}
-              className="edit-warehouse__subheader"
-            />
-            <div className="warehouse__form--wrapper">
-              <form
-                className="warehouse__form"
-                name="warehouseItemForm"
-                onSubmit={this.submitHandler}
-              >
-                <div className="edit-warehouse__cards-container">
-                  <div className="warehouse__form--col-1">
-                    <h2>Warehouse Details</h2>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="name">Warehouse Name</label>
-                      <input
-                        className="edit-warehouse__input"
-                        type="text"
-                        name="name"
-                        placeholder="Warehouse Name"
-                        value={this.state.formData.name}
-                        required
-                        onChange={this.changeHandler}
-                      />
-                    </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="address">Street Address</label>
-                      <input
-                        className="edit-warehouse__input"
-                        type="text"
-                        name="address"
-                        placeholder="Address"
-                        required
-                        value={this.state.formData.address}
-                        onChange={this.changeHandler}
-                      />
-                    </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="city">City</label>
-                      <input
-                        className="edit-warehouse__input"
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={this.state.formData.city}
-                        onChange={this.changeHandler}
-                      />
-                    </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="country">Country</label>
-                      <input
-                        className="edit-warehouse__input"
-                        type="text"
-                        name="country"
-                        placeholder="Country"
-                        value={this.state.formData.country}
-                        required
-                        onChange={this.changeHandler}
-                      />
-                    </div>
-                  </div>
 
-                  <div className="warehouse__form--col-2">
-                    <h2>Contact Details</h2>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="name">Contact Name</label>
-                      <input
-                        className="edit-warehouse__input"
-                        placeholder="Contact Name"
-                        name="contactName"
-                        type="text"
-                        value={this.state.formData.contactName}
-                        onChange={this.changeHandler}
-                        required
-                      />
+async componentDidMount() {
+        try {
+            const response = await axios.get(`${this.url}/inventory/${this.state.editItemId}`);
+            const resObj = response.data[0];
+            const clone = this.state;
+            clone.formData = {
+                itemId: resObj.id,
+                warehouseName: resObj.warehouseName,
+                itemName: resObj.itemName,
+                description: resObj.description,
+                category: resObj.category,
+                status: resObj.status,
+                quantity: resObj.quantity
+            };
+            this.setState(clone)
+            console.log(clone.formData);
+
+        } 
+        catch (error) {
+            console.error(error);
+        }
+}
+
+    submitHandler = (event) => {
+        event.preventDefault();
+        let data = new FormData(event.target);
+        const warehouseName = data.get("warehouseName").toString();
+        const warehouseID = this.props.location.state.warehouseData
+            .filter(item => item.warehouseName === warehouseName)[0].warehouseID;
+
+        const model = new InventoryModel(
+            this.state.editItemId ?? "", //id is to be created by the server
+            warehouseID,
+            warehouseName,
+            data.get("itemName").toString(),
+            data.get("description").toString(),
+            data.get("category").toString(),
+            data.get("status").toString(),
+            Number.parseInt(data.get("quantity").toString())
+        );
+
+        const method = this.props.location.state.id ? "PUT" : "POST"; // if no id is passed, POST will be used to create new record
+        axios({
+                method: method,
+                url: `${this.url}/inventory`,
+                headers: { 'Content-Type': 'application/json' },
+                data: model.toJSON()
+            })
+            .then(response => {
+                console.info(response);
+                event.target.reset();
+            })
+            .catch(error => console.error(error));
+
+        // axios.post(`${this.url}/inventory`, model.toJSON(), {
+        //     headers: { 'Content-Type': 'application/json' }
+        //     })
+        //     .then(response => {
+        //         //console.info(response);
+        //         event.target.reset();
+        //     })
+        //     .catch(error => console.error(error));
+    }
+
+    changeHandler = (event) => {
+        console.log([event.target.name], event.target.value);
+        const currentState = this.state;
+        currentState.formData[event.target.name] = event.target.value;
+        this.setState(currentState);
+    }
+
+
+
+    render() {
+        return (
+          <div>
+            <NavBar />
+            <Fragment>
+              <div className="section-wrapper">
+              <SubHeader title={ this.state.pageTitle } />
+                <div className="inventory__form-wrapper">
+
+                    <form
+                        className="inventory__form"
+                        name="inventoryItemForm"
+                        onSubmit={this.submitHandler} >
+                        
+                        <div className="inventory__form--col-2">
+                            <div className="inventory__form-group">
+                                <label htmlFor="itemName">Item Name</label>
+                                <input
+                                    type="text"
+                                    name="itemName"
+                                    value={this.state.formData.itemName}
+                                    required
+                                    onChange={this.changeHandler} />
+                            </div>
+
+                            <div className="inventory__form-group">
+                            <label htmlFor="description">Description</label>
+                                <textarea
+                                    name="description"
+                                    placeholder="Please enter a brief description..."
+                                    required
+                                    value={this.state.formData.description}
+                                    onChange={this.changeHandler} >
+                                </textarea>            
+                            </div>
+
+                            <div className="inventory__form-group">
+                            <label htmlFor="category">Category</label>
+                                <select name="category"
+                                    value={ this.state.formData.category }
+                                    onChange={this.changeHandler} >
+                                    { this.category
+                                        .map(item => <option key={ item } value={item}>{item}</option>)
+                                    }
+                            </select>
+                            </div>
+                        </div>
+                        <div className="inventory__form--col-2">
+                            <div className="inventory__form-group">
+                            <input
+                                type="radio"
+                                name="status"
+                                id="in-stock"
+                                value="In Stock"
+                                checked={ this.state.formData.status === "In Stock" }
+                                onChange={this.changeHandler} />
+                        <label htmlFor="in-stock">In stock</label>
                     </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="position">Position</label>
-                      <input
-                        className="edit-warehouse__input"
-                        placeholder="Position"
-                        name="position"
-                        value={this.state.formData.position}
-                        onChange={this.changeHandler}
-                        required
-                      />
+                    <div className="inventory__form-group">               
+                            <input
+                                type="radio"
+                                name="status"
+                                id="out-of-stock"
+                                value="Out of Stock"
+                                checked={ this.state.formData.status === "Out of Stock" }
+                                onChange={this.changeHandler}
+                                required />
+                        <label htmlFor="out-of-stock">Out of stock</label>
+                            </div>
+                            
+                    <div className="inventory__form-group">
+                        <label htmlFor="quantity">Quantity</label>
+                            <input
+                                name="quantity"
+                                type="number"
+                                value={this.state.formData.quantity}
+                                onChange={this.changeHandler}
+                                required />
                     </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="phone">Phone Number</label>
-                      <input
-                        className="edit-warehouse__input"
-                        placeholder="Phone Number"
-                        type="tel"
-                        name="phone"
-                        value={this.state.formData.phone}
-                        onChange={this.changeHandler}
-                        required
-                      />
+                    
+                    <div className="inventory__form-group">
+                    <label htmlFor="warehouseName">Warehouse Name</label>
+                            <select
+                                id="warehouseName-id"
+                                name="warehouseName"
+                                value={this.state.formData.warehouseName}
+                                onChange={this.changeHandler}
+                                required >
+                                {this.state.warehouseData && this.state.warehouseData.map(obj => {
+                                    return <option id={ obj.warehouseID} key={obj.warehouseName} value={obj.warehouseName} > {obj.warehouseName}</option>;
+                                    }           
+                                )}
+                        </select>
                     </div>
-                    <div className="warehouse__form-group">
-                      <label htmlFor="email">Email</label>
-                      <input
-                        className="edit-warehouse__input"
-                        placeholder="Email"
-                        type="email"
-                        name="email"
-                        value={this.state.formData.email}
-                        onChange={this.changeHandler}
-                        required
-                      />
-                    </div>
-                  </div>
+                        </div>
+                        <div>
+                            <input className="btn" type="submit" value="Save" />
+                            <input className="btn" type="reset" value="Cancel" />
+                        </div>
+                    
+                    </form>
                 </div>
-              </form>
-            </div>
+              </div>
+            </Fragment>
           </div>
-          <div className="edit-warehouse__btn-container">
-            <input
-              className="edit-warehouse__btn edit-warehouse__btn--cancel"
-              type="submit"
-              value="Cancel"
-            />
-            <input
-              className=" edit-warehouse__btn edit-warehouse__btn--save"
-              type="reset"
-              value="Save"
-            />
-          </div>
-          <div className="edit-warehouse__copyright-section">
-            <p className="edit-warehouse__copyright">
-              © InStock Inc. All Rights Reserved
-            </p>
-          </div>
-        </Fragment>
-      </div>
-    );
-  }
+        );
+    }
 }
