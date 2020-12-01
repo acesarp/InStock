@@ -1,6 +1,5 @@
 const path = require("path");
-<<<<<<< HEAD
-const WAREHOUSES_FILE_PATH = path.join(__dirname, "../Data/warehouses.json");
+const WAREHOUSES_FILE_PATH = path.join(__dirname, "./data/warehouses.json");
 const warehouses = require(WAREHOUSES_FILE_PATH);
 let router = require("express").Router();
 const uuid = require("uuid").v4;
@@ -9,15 +8,7 @@ const {
   checkEmail,
   checkValue,
   checkPhoneNumber,
-} = require("../fieldChecker.js");
-=======
-const WAREHOUSES_FILE_PATH = path.join(__dirname, './data/warehouses.json');
-const warehouses = require(WAREHOUSES_FILE_PATH);
-let router = require('express').Router();
-const uuid = require('uuid').v4;
-const fs = require('fs');
-const { checkEmail, checkValue, checkPhoneNumber } = require('../HelperFunctions.js');
->>>>>>> a0d963adb32dd5a1013c65e652c9d157a1da10a9
+} = require("../HelperFunctions.js");
 
 const INVENTORY_FILE_PATH = path.join(__dirname, "./data/inventory.json");
 const loadInventories = () => {
